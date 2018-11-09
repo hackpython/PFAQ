@@ -7,9 +7,9 @@
 + 问题描述：cuda9.0需要安装哪一个版本的paddle，安装包在哪，希望安装Fluid版本的Paddle，而不是旧版的Paddle
 
 + 问题解答：
-`paddlepaddle-gpu==0.14.0`使用CUDA 9.0和cuDNN 7编译的0.14.0版本
+`paddlepaddle-gpu==1.1`使用CUDA 9.0和cuDNN 7编译的0.14.0版本
 
-因此，`pip install paddlepaddle-gpu==0.14.0`即可。
+因此，`pip install paddlepaddle-gpu==1.1`即可。
 
 可以参考安装说明文档：
 http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/install/install_doc.html#linuxpaddlepaddle
@@ -19,7 +19,7 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 + 关键字：`GPU`
 
 + 问题描述：
-使用	`pip install paddlepaddle-gpu==0.14.0.post87`命令在公司内部开发GPU机器上安装PaddlePaddle，安装信息如下：
+使用  `pip install paddlepaddle-gpu==0.14.0.post87`命令在公司内部开发GPU机器上安装PaddlePaddle，安装信息如下：
 
 ![](https://user-images.githubusercontent.com/12878507/45028894-606ba980-b079-11e8-98e7-6e80f1c3f386.png)
 
@@ -36,21 +36,7 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 这通常是GPU显存不足导致的，请检查一下机器的显存，确保显存足够后再尝试import paddle.fluid
 
 
-## 3.问题：通过pip安装的PaddlePaddle在 import paddle.fluid 报找不到 libmkldnn.so 或 libmklml_intel.so 
 
-+ 关键字：`libmkldnn.so` `libmklml_intel.so`
-
-+ 问题描述：通过pip安装的PaddlePaddle在 import paddle.fluid 报找不到 libmkldnn.so 或 libmklml_intel。在 /usr/local/lib 下找不到这的两个
-.so文件
-
-+ 问题解答：
-如果pip安装在/usr/local/bin下，这几个so在/usr/local/lib下。因此，可以找一下这几个so安装在哪儿，然后export LD_LIBRARY_PATH即可。
-
-+ 解决方法：
-出现这种问题的原因是在导入 `paddle.fluid` 时需要加载 `libmkldnn.so` 和 `libmklml_intel.so`，
-但是系统没有找到该文件。一般通过pip安装PaddlePaddle时会将 `libmkldnn.so` 和 `libmklml_intel.so`
-拷贝到 `/usr/local/lib` 路径下，所以解决办法是将该路径加到 `LD_LIBRARY_PATH` 环境变量下，
-即：`export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH` 。
 
 
 ## 4.问题：CUDA driver version is insufficient
@@ -63,19 +49,9 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 通常出现 `Cuda Error: CUDA driver version is insufficient for CUDA runtime version`, 原因在于没有把机器上CUDA相关的驱动和库映射到容器内部。
 
 + 解决方法：
+使用nvidia-docker, 命令只需要将docker换为nvidia-docker即可。
+更多请参考：https://github.com/NVIDIA/nvidia-docker
 
-执行下面命令
-
-```bash
-$ export CUDA_SO="$(\ls usr/lib64/libcuda* | xargs -I{} echo '-v {}:{}') $(\ls /usr/lib64/libnvidia* | xargs -I{} echo '-v {}:{}')"
-$ export DEVICES=$(\ls /dev/nvidia* | xargs -I{} echo '--device {}:{}')
-$ docker run ${CUDA_SO} ${DEVICES} -it paddlepaddle/paddle:latest-gpu
- ```
-
-关于更多Docker安装与使用的说明可以参考
-http://www.paddlepaddle.org/docs/0.11.0/documentation/zh/getstarted/build_and_install/docker_install_cn.html
-
-主要该连接时PaddlePaddle 0.11.0 版本的
 
 ## 5.问题：安装CPU版本后训练主动abort，gdb显示Illegal instruction
 
@@ -178,11 +154,11 @@ PC: @ 0x0 (unknown)
 请先确定一下机器是否支持AVX2指令集，如果不支持，请按照相应的不支持AVX2指令集的PaddlePaddle，可以解决该问题。
 
 
-## 7.安装paddlepaddle fluid版本后import paddle.fluid error
+## 7.问题：安装paddlepaddle fluid版本后import paddle.fluid error
 
 + 关键字：`import error`
 
-+ 问题描述：使用的系统是Ubuntu 16.04，GPU相关幻觉：cuda8.0, cudnn 6.0, 安装最新版的paddlepaddle fluid 后，import paddle时问题如下：
++ 问题描述：使用的系统是Ubuntu 16.04，GPU相关环境：cuda8.0, cudnn 6.0, 安装最新版的paddlepaddle fluid 后，import paddle时问题如下：
 
 在命令行下
 
@@ -257,7 +233,7 @@ PaddlePaddle Call Stacks:
 
 
 
-## 8.在Fluid版本训练的时报以下错误，是不是显卡的问题？
+## 8.问题：在Fluid版本训练的时报以下错误，是不是显卡的问题？
 
 + 关键字：`GPU` `Fluid版本`
 
@@ -336,7 +312,7 @@ Tue Jul 24 08:24:22 2018
 ```
 
 
-## 9.问题：使用新版的pip安装了GPU版的PaddlePaddle，跑一个简单的测试程序，出现Segmentation fault
+## 9.问题：使用新版的pip安装了GPU版的PaddlePaddle0.14.0，跑一个简单的测试程序，出现Segmentation fault
 
 + 关键字：`GPU` `Segmentation fault`
 

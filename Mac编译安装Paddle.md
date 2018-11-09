@@ -57,6 +57,8 @@
 	make -j$(nproc)
 	```
 
+    更详细的内容，请参考[官方文档](http://www.paddlepaddle.org/documentation/docs/zh/1.0/beginners_guide/install/install_MacOS.html#docker)
+
 ## 2.问题：Configuring incomplete, errors occured!
 
 + 关键字：`Configuring incomplete`
@@ -148,20 +150,7 @@ brew install wget
 ![](https://user-images.githubusercontent.com/17102274/42515350-28c055ce-848e-11e8-9b90-c294b375d8a4.png)
 
 + 解决方法：
-
-	该问题有两个解决方法
-
-	+ 解决方法一：
-	修改`paddle/fluid/platform/CMakeFiles/profiler_py_proto.dir/build.make`内容的第60行~第62行内容，原内容如下，图中划线部分为需要修改的地方：
-
-	![](https://user-images.githubusercontent.com/17102274/42673761-6a70defe-869f-11e8-9377-0b7854b62ee6.png)
-
-	修改后如下,划线部分为需要修改的地方：
-
-	![](https://user-images.githubusercontent.com/17102274/42673808-a8fd128c-869f-11e8-8206-464a63211c20.png)
-
-	+ 解决方法二：
-	将CMake版本降级到3.4及以下，故而最终的CMake版本控制范围为：3.2=<CMake<=3.4。目前，官网文档上只写了CMake版本需要大于等于3.2，还应该强调不能使用CMake太新的版本，即可将CMake使用版本范围声明为：`3.2=<CMake<=3.4`。
+    使用cmake版本为3.4则可
 
 
 ## 7.问题：No such file or directory
@@ -181,7 +170,7 @@ MacOS本地编译PaddlePaddle github上develop分支的代码出现，出现上�
 
 	```bash
 	cd Paddle
-	git checkout -b 0.14.0 origin/release/0.14.0
+	git checkout -b release/1.1
 	cd build &&  rm -rf *
 	cmake .. -DWITH_FLUID_ONLY=ON -DWITH_GPU=OFF -DWITH_TESTING=OFF
 	make -j4
@@ -191,48 +180,9 @@ MacOS本地编译PaddlePaddle github上develop分支的代码出现，出现上�
 
 	![](https://user-images.githubusercontent.com/17102274/42515418-4fb71e56-848e-11e8-81c6-da2a5553a27a.png)
 
-## 8.问题：运行PaddlePaddle出错
 
-+ 关键字：`编译安装` `运行报错`
 
-+ 问题描述：使用`pip install build/python/dist/*.whl`命令安装PaddlePaddle后，import paddle.fluid报错，报错内容为`File "<stdin>", line 1, in <module>`
-
-+ 报错截图：
-![](https://user-images.githubusercontent.com/17102274/42515444-5a9e9a42-848e-11e8-8e07-6caa10a99fd9.png)
-
-+ 解决方法：
-卸载paddlepaddle，安装openblas，重新编译安装。具体操作命令如下：
-
-	```bash
-	pip uninstall paddlepaddle
-	cd Paddle/build && rm -rf *
-	brew install openblas
-	cmake .. -DWITH_FLUID_ONLY=ON -DWITH_GPU=OFF -DWITH_TESTING=OFF
-	make -j4
-	```
-
-## 9.问题：PaddlePaddle重新编译时报错
-
-+ 关键字：`重新编译`
-
-+ 问题描述：卸载了无法使用的PaddlePaddle后，安装了相关的依赖库，然后再次尝试编译安装PaddlePaddle，报出错误
-
-+ 报错截图：
-![](https://user-images.githubusercontent.com/17102274/42515461-64f36c34-848e-11e8-86df-2aa0aea8e530.png)
-
-+ 解决方法：
-执行cmake命令时加上编译选项`-DOPENBLAS_INC_DIR=/usr/local/Cellar/openblas/0.3.1/include/`，具体如下：
-
-	```bash
-	cd Paddle/build && rm -rf *
-	cmake .. -DWITH_FLUID_ONLY=ON -DWITH_GPU=OFF -DWITH_TESTING=ON -DOPENBLAS_INC_DIR=/usr/local/Cellar/openblas/0.3.1/include/
-	time make -j4
-	```
-
-	最终的编译结果：
-	![](https://user-images.githubusercontent.com/17102274/42515484-6f9bdb26-848e-11e8-9d3a-72f3179f9284.png)
-
-## 10.问题：paddle源码编译（osx）报各种module找不到的问题
+## 8.问题：paddle源码编译（osx）报各种module找不到的问题
 
 + 关键字：`源码编译` `缺失module`
 
@@ -249,7 +199,7 @@ python module google.protobuf is not found`
 
 	通过cmake显式设置python包。只要确保python libs和python解释器是相同的python可以解决所有这些问题。当这个python包有一些原生扩展时，例如numpy，显式set python包可能会失败。
 
-## 11.问题：ld terminated with signal 9 [Killed] 
+## 9.问题：ld terminated with signal 9 [Killed] 
 
 + 关键字：`编译安装`
 
@@ -260,7 +210,7 @@ python module google.protobuf is not found`
 该问题是由磁盘空间不足造成的，你的硬盘要有30G+的空余空间，请尝试清理出足够的磁盘空间，重新安装。
 
 
-## 12.问题：在Mac上无法安装numpy等Python包，权限错误
+## 10.问题：在Mac上无法安装numpy等Python包，权限错误
 
 + 关键字：`权限错误`
 

@@ -1,25 +1,6 @@
 # Linux编译安装PaddlePaddle
 
-## 1.问题：Python.h: No such file or directory
-
-+ 关键字：`Python.h`
-
-+ 问题描述：根据官方文档的操作步骤在Linux下尝试安装Docker，通过Docker编译安装PaddlePaddle，编译安装的过程中出现`Python.h: No such file or directory`
-
-+ 报错截图：
-![](https://user-images.githubusercontent.com/17102274/42516173-0d4b4036-8490-11e8-9cf8-0e74936c6bf0.png)
-
-+ 问题分析：
-官方给出的步骤为：
-
-![](https://user-images.githubusercontent.com/17102274/42516222-23706878-8490-11e8-9408-3ba95665b872.png)
-
-官网给出了两种使用Docker容器编译PaddlePaddle的方式，简单复现试验，分别通过1->3步骤编译或通过1->2->4步骤编译，发现通过1->3步骤编译会报出`Python.h: No such file or directory`，这说明Docker镜像环境存在问题。
-
-+ 解决方法：
-尝试使用PaddlePaddle提供的其他Docker镜像，因为出现问题使用的Docker可能存在问题。
-
-## 2.问题：生成Docker镜像时，无法下载需要的golang，导致`tar: Error is not recoverable: exiting now`
+## 1.问题：生成Docker镜像时，无法下载需要的golang，导致`tar: Error is not recoverable: exiting now`
 
 + 关键字：`golang` `Docker镜像`
 
@@ -66,7 +47,7 @@ pip install build/python/dist/*.whl
 python python/paddle/fluid/tests/book/test_fit_a_line.py
 ```
 
-## 3.问题：GPU版本的PaddlePaddle运行结果报错
+## 2.问题：GPU版本的PaddlePaddle运行结果报错
 
 + 关键字：`GPU` `运行报错`
 
@@ -100,7 +81,7 @@ pip install build/python/dist/*.whl
 python python/paddle/fluid/tests/book/test_fit_a_line.py
 ```
 
-## 4.问题：CMake源码编译，Paddle版本号为0.0.0
+## 3.问题：CMake源码编译，Paddle版本号为0.0.0
 
 + 关键字：`CMake` `版本号0.0.0`
 
@@ -115,12 +96,10 @@ CMake Warning at cmake/version.cmake:20 (message):
 Cannot add paddle version from git tag
 ```
 
-那么用户需要拉取所有的远程分支到本机，命令为 `git fetch upstream`，然后重新cmake即可。
-
 + 解决方法：
-拉取所有的远程分支到本机，命令为 `git fetch upstream`，拉取完成后，在重新使CMake编译则可。
+在dev分支下这个情况是正常的，在release分支下通过export PADDLE_VERSION=对应版本号 来解决
 
-## 5.问题：paddlepaddle\*.whl is not a supported wheel on this platform
+## 4.问题：paddlepaddle\*.whl is not a supported wheel on this platform
 
 + 关键字：`wheel` `platform`
 

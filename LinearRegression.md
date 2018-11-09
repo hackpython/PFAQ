@@ -22,15 +22,15 @@ PaddlePaddle文档中的内容目前依旧是PaddlePaddle-v2版本，建议使�
 
 ```python
 paddle.infer(
-	output_layer = y_predict,
-	parameters = paddle.dataset.uci_housing.model(), #报错
-	input = [item for item in paddle.dataset.uci_housing.test()()]
+    output_layer = y_predict,
+    parameters = paddle.dataset.uci_housing.model(), #报错
+    input = [item for item in paddle.dataset.uci_housing.test()()]
 )
 ```
 
 + 报错截图：
 
-	![](https://raw.githubusercontent.com/ayuLiao/images/master/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%921.png)
+    ![](https://raw.githubusercontent.com/ayuLiao/images/master/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%921.png)
 
 + 报错输出：
 
@@ -58,126 +58,10 @@ PaddlePaddle通过uci_housing模块引入了数据集合UCI Housing Data Set，�
 这类问题算是经验型问题，只要遇到过，有印象，解决起来都类似的方式，因为某对象缺失某属性是硬性问题，如果是自己编写的对象，那么就编写上相应的属性，如果是第三库，那么通常就是该库的用法发生了变动，你使用的方式不是最新的方式，通过最新的方式使用则可，或者降级自己的第三库来配合自己的代码，至于这两种方法选择使用哪一种，主要看自己的“代价”，即该代码方便还是还旧的库使用方便，建议修改代码，使用新的第三方库，让代码更加优雅点。
 
 
-## 2.问题：paddle.init(use_gpu=False, trainer_count=1)报错
-
-+ 关键字：`paddle.init` `numpy`
-
-+ 问题描述：
-
-PaddlePaddle安装成功，也可以正常import导入，但代码执行到paddle.init(use_gpu=False, trainer_count=1)就会报错，具体错误为`numpy.core.multiarray failed to import`，paddle.init()是PaddlePaddle的初始化操作，在其之前，并没有执行其他任何代码。
-
-+ 报错代码段：
-
-```python
-import paddle.v2 as paddle
-paddle.init(use_gpu=False, trainer_count=1) #报错
-```
-
-+ 报错输出：
-
-```python
-RuntimeErrorTraceback (most recent call last)
-RuntimeError: module compiled against API version 0xb but this version of numpy is 0xa
-
-ImportErrorTraceback (most recent call last)
-<ipython-input-22-c695be438938> in <module>()
-----> 1 paddle.init(use_gpu=False, trainer_count=1)
-
-/opt/conda/lib/python2.7/site-packages/paddle/v2/__init__.pyc in init(**kwargs)
-    117 
-    118 def init(**kwargs):
---> 119     import py_paddle.swig_paddle as api
-    120     args = []
-    121     args_dict = {}
-
-/opt/conda/lib/python2.7/site-packages/py_paddle/__init__.py in <module>()
-     13 # limitations under the License.
-     14 
----> 15 from util import DataProviderWrapperConverter
-     16 from dataprovider_converter import DataProviderConverter
-     17 
-
-/opt/conda/lib/python2.7/site-packages/py_paddle/util.py in <module>()
-     16 """
-     17 
----> 18 import swig_paddle
-     19 import os
-     20 import paddle.trainer.PyDataProviderWrapper
-
-/opt/conda/lib/python2.7/site-packages/py_paddle/swig_paddle.py in <module>()
-     26                 fp.close()
-     27             return _mod
----> 28     _swig_paddle = swig_import_helper()
-     29     del swig_import_helper
-     30 else:
-
-/opt/conda/lib/python2.7/site-packages/py_paddle/swig_paddle.py in swig_import_helper()
-     22         if fp is not None:
-     23             try:
----> 24                 _mod = imp.load_module('_swig_paddle', fp, pathname, description)
-     25             finally:
-     26                 fp.close()
-
-ImportError: numpy.core.multiarray failed to import
-```
-
-+ 复现方式：
-使用numpy-1.12.1，ubuntu上运行上述报错代码片段时，出现`numpy.core.multiarray failed to import`错误
-
-+ 解决方案：
-该问题很有可能是因为PaddlePaddle与当前numpy版本不匹配造成的，请尝试安装最新版本的PaddlePaddle以及升级numpy的版本，将numpy升级到1.14。为了避免环境依赖匹配的问题，建议使用PaddlePaddle最新的Docker镜像，在Docker镜像中已经预装好了PaddlePaddle以及相应的开发环境，该开发环境进行了严格的测试，发生环境依赖匹配问题的可能性较低，让你的开发更加流畅，具体命令为`docker pull hub.baidubce.com/paddlepaddle/paddle:latest`。
-
-+ 问题分析：
-当我们编写的程序使用了某个第三方库的时候，该第三方库有依赖于其他多个第三方库，这就会出现第三方库之间版本冲突的问题，比如你使用了2.0版本的A库，2.0版本的A库依赖于1.0版本的B库，此时B库的最新版是2.0版本了，但2.0版本的A库并没有对最新版的B库进行适配，如果此时你安装了最新版本的B库，那么再使用A库的过程中就容易出现莫名其妙的各种问题。第三库环境间的依赖是个比较繁杂的问题，通常推荐使用anaconda，它为我们提供了稳定的开发环境，即A库与B库直接版本是稳定依赖的，使用anaconda就不必再去关系版本之间的问题，当然如果还是遇到了版本问题，可以自己先通过pip卸载该库，再通过pip安装合适版本的库。
-
-+ 问题拓展：
-`numpy.core.multiarray failed to import`问题一般化一下，就是某第三库没有相应的对象，使用时却导入，很有可能是第三方库版本问题，在旧的版本中，该对象是存在的，这种写法没有什么问题，但在新的库中，相应的对象被移除了，导致导入失败，当这种情况发生在多个库之间就变成了麻烦的库依赖问题，就如上面问题分析中所说的，自己编写的代码使用方式是正确的，但第三方库之间存在错误的依赖关系，导致代码无法执行，通过pip将依赖错误的第三方库删除，安装正确版本的库则可。
-
-+ 问题研究：
-这类问题对新手而言是比较难解决的问题，因为你也不知道自己要安装什么版本的库才能正常使用，此时你就可以使用anaconda，它就为我们解决这类问题，通常对于某一类项目都可以通过anaconda提供的conda创建出独立的python环境，比如单独为机器学习类项目创建独立的python环境，这样可以最大程度的避免这类问题，创建命令如下：
-```python
-conda create -n py36 python=3.6 
-```
-
-## 3.问题：paddle.init(use_gpu=False, trainer_count=1)报错
-
-+ 关键字：`paddle.init` `avx指令集`
-
-+ 问题描述：PaddlePaddle安装成功且与numpy等各种环境包之间没有明显的环境依赖问题，但依旧在paddle.init(use_gpu=False, trainer_count=1)报错。
-
-+ 报错代码段：
-
-```python
-import paddle.v2 as paddle
-paddle.init(use_gpu=False, trainer_count=1) #报错
-```
-
-+ 解决方案：
-
-这很有可能是AVX指令集的原因。AVX是一种CPU指令集，可以加速PaddlePaddle的计算。如果你的电脑不支持AVX指令集，而在PaddlePaddle的时候，安装的是支持AVX指令集的版本，所以导致在初始化PaddlePaddle的时候报错。所以在安装或者编译PaddlePaddle安装包时，要根据读者电脑本身的情况，选择是否支持AVX指令集。查看电脑是否支持AVX指令集，可以在终端输入以下命令，输出Yes表示支持，输出No表示不支持
-
-```bash
-if cat /proc/cpuinfo | grep -i avx; then echo Yes; else echo No; fi
-```
-
-如果输出是No，就需要选择使用no-AVX的镜像，no-AVX镜像需要自己手动编译安装或者下载官方提供的no-AVX镜像http://www.paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/install/install_doc.html#id26， 国内Docker noavx镜像 docker.paddlepaddlehub.com/book:latest-noavx-openblas
-
-+ 问题分析：
-PaddlePaddle的`paddle.init`方法报错通常就是环境错误，`paddle.init`方法作用是初始化PaddlePaddle，此时会与系统发生交互，向系统索取所要的资源，如果你的电脑不支持这些资源，那么初始化就会报错，要解决这种错误就要判断是否是自己的电脑不支持某些必要的资源，比如AVX指令集等。
-
-    `paddle.init`方法通常都是系统资源与PaddlePaddle初始化时所需要的资源不匹配，造成初始化失败。
 
 
-+ 问题拓展：
-AVX指令集（英语：Advanced Vector Extensions，即高级向量扩展指令集）是x86架构处理器中的指令集，被英特尔和AMD的处理器所支持。它可以增加CPU运算效率。此架构支持了三运算指令（3-Operand Instructions），减少在编码上需要先复制才能运算的动作。在微码部分使用了LES LDS这两少用的指令作为延伸指令Prefix。
 
-    PaddlePaddle有支持AVX指令集的版本与不支持AVX指令集的版本，通常情况下，都是按照支持AVX指令集版本，因为这样可以加快神经网络训练速度，而有些电脑系统是本身是不支持AVX指令集的，此时又安装了PaddlePaddle支持指令集的版本，就会出现初始化时报错的问题。
-
-+ 问题研究：
-第三库框架在初始化时就报错，有几种常见可能，框架本身对该系统支持不完善，比如支持mac 10.13，却不支持 mac 10.11，但你在不支持系统上也安装上了该第三方库，那么在使用时就容易报错，还有有种可能就是在安装时出现了错误，导致你可以导入该库，却无法使用，另一种可能就是该库初始化时需要的一些资源系统无法提供，导致该第三方库初始化失败。
-
-
-## 4.问题：“非法指令”或“illegal instruction”
+## 2.问题：“非法指令”或“illegal instruction”
 
 + 关键字：`非法指令` `illegal instruction` `avx指令集`
 
@@ -209,65 +93,10 @@ PaddlePaddle使用avx SIMD指令提高cpu执行效率，因此错误的使用二
 + 问题研究：
 因为PaddlePaddle以源码安装的方式比较繁杂，要注意比较多的细节，而且要对自己使用的系统有一定的了解，不然很有可能会导致虽然安装上了，但无法使用PaddlePaddle的问题，一个原因是PaddlePaddle对系统依赖比较大，另一个原因就是安装时做错了某些步骤。这种问题其实很常见，从运维角度来看，这是非常繁杂的工程，我们需要将开放环境一个个的部署到线上服务器上，很有可能就出现类似的问题，Docker就是一个很好的解决方案，它将开放所需要的环境都封装在镜像中了，方便使用。
 
-    其余内容参考问题3
-
-## 6.问题：docker: Error response from daemon: create $PWD
-
-+ 关键字：`docker` `$PWD`
-
-+ 问题描述：我在进行到“在Docker编译生成安装包”这一步时，在Git CMD中按照您的教程输入了以下代码： docker run -it -v…… 但得到了这个错误：`docker: Error response from daemon: create $PWD: "$PWD" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path. See 'docker run --help'`。
-
-+ 报错代码段：
-```bash
-# -v命令是把本地目录挂载到docker镜像的目录上，-w设置该目录为工作目录，-p设置端口号
-docker run -it -v $PWD:/work -w /work paddlepaddle/paddle:latest-noavx-openblas /bin/bash  
-```
-
-+ 报错输出：
-```bash
-D:\paddlepaddle\Paddle>docker run -it -v $PWD:/work -w /work paddlepaddle/paddle:latest-noavx-openblas /bin/bash  
-Unable to find image 'paddlepaddle/paddle:latest-noavx-openblas' locally  
-latest-noavx-openblas: Pulling from paddlepaddle/paddle  
-297061f60c36: Pull complete  
-e9ccef17b516: Pull complete  
-dbc33716854d: Pull complete  
-8fe36b178d25: Pull complete  
-686596545a94: Pull complete  
-c39d26e7c7d4: Pull complete  
-1dbe54e0789f: Pull complete  
-4ccb9f66e0ac: Pull complete  
-e38eb409aa49: Pull complete  
-Digest: sha256:34e62d316810e0745f0922ef710e8618cf7fe902e0eb6a361e4fca623ce2777a  
-Status: Downloaded newer image for paddlepaddle/paddle:latest-noavx-openblas  
-docker: Error response from daemon: create $PWD: "$PWD" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path.  
-```
-
-+ 复现方式：
-使用Windows 10企业版，安装最新版本的Docker以及Git CMD，使用报错代码段中的docker命令其中docker，可能出现上述错误
-
-+ 解决方案：
-该问题主要是由系统环境造成，造成的可能性多种多样，核心问题就是无法使用$PWD命令或$pwd命令，$PWD命令的作用是获得当前命令行所在目录的完整路径，如果无法使用$PWD，则手动通过完整的目录路径将其代替，不必再使用$PWD。
-
-+ 问题分析：
-出现该问题的原因其实就是系统对$PWD命令支持有问题，在Linux中pwd命令通常用于查看“当前工作目录”的完整路径，Windows中不一定支持，回看该问题的报错输出，其实就是使用docker时指定了相应工作目录，但因为$PWD无法使用，导致docker无法找到该目录，这个问题的解决方法非常简单，直接将当前工作目录的路径直接写出来，不使用$PWD命令获取则可。
-
-+ 问题拓展：
-因为PaddlePaddle有相应的Docker镜像，所以在使用PaddlePaddle编写相应的深度学习模型时经常要与Docker进行交互，这就需要我们对Docker本身有一定的了解。Docker是一种新的虚拟化方式，它是比传统的虚拟化技术有很大优势的，如下：
-
-    1.更高效的利用系统资源<br>
-    2.更快速的启动虚拟化环境（几秒就可以启动，传统的需要几分钟）<br>
-    3.持续交付和部署<br>
-
-    Docker非常强调轻量级，使用Docker时，并不会给原系统带来负担，所以是一个很好的选择。
-
-    在使用命令对Docker进行交互时，需要注意自己的命令是否使用正确，如果一句Docker命令通过控制台输入后，返回错误结果，很有可能就是命令有问题，此时需要根据错误信息检查自己的报错信息。
-
-+ 问题研究：
-Docker中的基本命令需要去了解，这样在使用PaddlePaddle的Docker镜像进行开发时，才会现在游刃有余，如果你对Docker没有什么了解，推荐阅读《Docker入门实战》，该书是开源的，地址如下
-`https://yeasy.gitbooks.io/docker_practice/content/`
 
 
-## 7.问题：下载housing.data失败
+
+## 3.问题：下载housing.data失败
 
 + 关键字：`数据` `housing`
 
@@ -309,7 +138,7 @@ RuntimeError: Cannot download https://archive.ics.uci.edu/ml/machine-learning-da
 数据是任何模型的根基，所谓深度学习，其实就是通过非常多的参数构建一个函数，用该函数来描述训练数据的分布，所以在测试模型时，通常要求使用同分布的数据来进行测试，波士顿房间预测模型也这样，每当遇到数据问题时，从两个方面考虑，一方面考虑代码使用错误，即使用的数据属性是数据集中不存在的，这种情况你就需要修改你使用的方式，另一方面考虑是否数据集下载时遇到了问题，比如网络不稳定，或磁盘满了等情况，这种情况就需要清理一下环境重新下载一下数据。
 
 
-## 8.问题：No modul named Ipython
+## 4.问题：No modul named Ipython
 
 + 关键词：`modul` `Ipython`
 
@@ -334,7 +163,7 @@ PaddlePaddle安装成功，运行了PaddlePaddle官网首页的程序是正常�
 环境依赖问题，根据系统给出的报错提示，进行相应的操作则可，展开来说，这类问题的解决方法就在报错信息中，更加报错信息，增加改动当前的开发环境则可。
 
 
-## 9.问题：The kernel appears to have died. It will restart automatically
+## 5.问题：The kernel appears to have died. It will restart automatically
 
 + 关键词：`jupyter notebook` `paddle.init` `kernel崩溃`
 
@@ -381,7 +210,8 @@ Jupyter Notebook内核崩溃的原因有很多种可能，这是个很泛化的�
 + 问题研究：
 Jupyter Notebook内核崩溃很多时候是资源崩溃，几个常见原因，没有做任何处理的大量读入数据进内存、向系统索要不存在的资源，当然不排除Jupyter Notebook本身就存在问题，解决这里问题，保持清晰的思路，找到多种可能的原因，利用排除法的方式逐一将可能原因排除，找到真正的原因，知道了报错的这种原因，才好进一步修改。针对本问题而言，就是`paddle.init`报错，那很有可能就是向系统索取相应资源时，无法获得该资源，导致Jupyter Notebook内核崩溃。
 
-## 10.问题：Fatal Python error: PyThreadState_Get: no current thread
+
+## 6.问题：Fatal Python error: PyThreadState_Get: no current thread
 
 + 关键词：`brew` `anaconda` `no current thread`
 
@@ -457,9 +287,127 @@ PyThreadState_GET是python内核中的一个方法，其部分相关内核代码
 
     python通过PyThreadState_GET()可以获得当前获得线程，并将异常信息存放到了线程状态对象中。
 
-    python内核级的代码通常是不会有什么报错的，但如果遇到了这个级别的错误，第一个要考虑的依旧是开发环境问题，针对`Fatal Python error: PyThreadState_Get: no current thread`而言，它通常出现在mac系统中，常见的原因就是brew安装的python和本地安装的anaconda的python存在冲突，因为anaconda也是本地安装的，所以很有可能会使用某些资源，导致两种python冲突，一个优雅的方式就是在mac上使用pyenv，这样就可以通过pyenv来隔绝系统原本代码的brew安装的python与其他自己后面安装的python相互隔离了。
+    python内核级的代码通常是不会有什么报错的，但如果遇到了这个级别的错误，第一个要考虑的依旧是开发环境问题，针对`Fatal Python error: PyThreadState_Get: no current thread`而言，它通常出现在mac系统中，常见的原因就是mac中存在多个python环境，一个优雅的方式就是在mac上使用pyenv，这样就可以通过pyenv来隔绝系统原本代码的brew安装的python与其他自己后面安装的python相互隔离了。
 
 
+# 7.问题 报错张量类型不正确
+
+ - 报错信息：
+```
+EnforceNotMet: Tensor holds the wrong type, it holds l at [/paddle/paddle/fluid/framework/tensor_impl.h:29]
+PaddlePaddle Call Stacks: 
+0       0x7fe0624486b6p paddle::platform::EnforceNotMet::EnforceNotMet(std::__exception_ptr::exception_ptr, char const*, int) + 486
+1       0x7fe0624501c0p float const* paddle::framework::Tensor::data<float>() const + 192
+2       0x7fe06278f813p void paddle::operators::ElementwiseComputeEx<paddle::operators::SubFunctor<float>, paddle::platform::CPUDeviceContext, float, float>(paddle::framework::ExecutionContext const&, paddle::framework::Tensor const*, paddle::framework::Tensor const*, int, paddle::operators::SubFunctor<float>, paddle::framework::Tensor*) + 67
+3       0x7fe062936e53p paddle::operators::ElementwiseSubKernel<paddle::platform::CPUDeviceContext, float>::Compute(paddle::framework::ExecutionContext const&) const + 323
+4       0x7fe062936ed3p std::_Function_handler<void (paddle::framework::ExecutionContext const&), paddle::framework::OpKernelRegistrarFunctor<paddle::platform::CPUPlace, false, 0ul, paddle::operators::ElementwiseSubKernel<paddle::platform::CPUDeviceContext, float>, paddle::operators::ElementwiseSubKernel<paddle::platform::CPUDeviceContext, double>, paddle::operators::ElementwiseSubKernel<paddle::platform::CPUDeviceContext, int>, paddle::operators::ElementwiseSubKernel<paddle::platform::CPUDeviceContext, long> >::operator()(char const*, char const*) const::{lambda(paddle::framework::ExecutionContext const&)#1}>::_M_invoke(std::_Any_data const&, paddle::framework::ExecutionContext const&) + 35
+5       0x7fe062fc52ecp paddle::framework::OperatorWithKernel::RunImpl(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) const + 492
+6       0x7fe062fc171fp paddle::framework::OperatorBase::Run(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) + 255
+7       0x7fe0625094eap paddle::framework::Executor::RunPreparedContext(paddle::framework::ExecutorPrepareContext*, paddle::framework::Scope*, bool, bool, bool) + 298
+8       0x7fe062509ee0p paddle::framework::Executor::Run(paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool) + 128
+9       0x7fe06242ff5dp
+10      0x7fe06247ade4p pybind11::cpp_function::dispatcher(_object*, _object*, _object*) + 2596
+11            0x4e9ba7p PyCFunction_Call + 119
+12            0x53c6d5p PyEval_EvalFrameEx + 23029
+
+```
+
+ - 问题复现
+```
+def train_program():
+    # feature vector of length 13
+    x = fluid.layers.data(name='x', shape=[11], dtype='float32')
+    y_predict = fluid.layers.fc(input=x, size=1, act=None)
+
+    y = fluid.layers.data(name='y', shape=[1], dtype='int64')
+    loss = fluid.layers.square_error_cost(input=y_predict, label=y)
+    avg_loss = fluid.layers.mean(loss)
+
+    return avg_loss
+```
+
+ - 问题解决：
+使用交叉熵损失函数
+```
+paddle.fluid.layers.cross_entropy(input, label, soft_label=False, ignore_index=-100)
+```
+
+# 8.问题：训练时，输出的损失值为nan
+
+ - 报错信息：
+```
+Train cost, Step 0, Cost nan
+Train cost, Step 100, Cost nan
+Train cost, Step 200, Cost nan
+Train cost, Step 300, Cost nan
+Train cost, Step 400, Cost nan
+Train cost, Step 500, Cost nan
+Train cost, Step 600, Cost nan
+Train cost, Step 700, Cost nan
+```
+
+ - 问题复现
+```
+def train_program():
+    # feature vector of length 13
+    x = fluid.layers.data(name='x', shape=[11], dtype='float32')
+    y_predict = fluid.layers.fc(input=x, size=6, act=None)
+
+    y = fluid.layers.data(name='y', shape=[1], dtype='int64')
+    loss = fluid.layers.cross_entropy(input=y_predict, label=y)
+    avg_loss = fluid.layers.mean(loss)
+
+    return avg_loss
+```
+
+ - 问题解决：
+在最后一层使用Softmax激活函数
+```
+def train_program():
+    # feature vector of length 13
+    x = fluid.layers.data(name='x', shape=[11], dtype='float32')
+    y_predict = fluid.layers.fc(input=x, size=6, act='softmax')
+
+    y = fluid.layers.data(name='y', shape=[1], dtype='int64')
+    loss = fluid.layers.cross_entropy(input=y_predict, label=y)
+    avg_loss = fluid.layers.mean(loss)
+
+    return avg_loss
+```
+
+# 9.问题：
+ - 报错信息
+```
+EnforceNotMet: Enforce failed. Expected lbl < class_num, but received lbl:6 >= class_num:6.
+ at [/paddle/paddle/fluid/operators/math/cross_entropy.cc:52]
+PaddlePaddle Call Stacks: 
+0       0x7f39995286b6p paddle::platform::EnforceNotMet::EnforceNotMet(std::__exception_ptr::exception_ptr, char const*, int) + 486
+1       0x7f3999fd4d0ep paddle::operators::math::CrossEntropyFunctor<paddle::platform::CPUDeviceContext, float>::operator()(paddle::platform::CPUDeviceContext const&, paddle::framework::Tensor*, paddle::framework::Tensor const*, paddle::framework::Tensor const*, bool, int) + 6190
+2       0x7f3999eda038p paddle::operators::CrossEntropyOpKernel<paddle::platform::CPUDeviceContext, float>::Compute(paddle::framework::ExecutionContext const&) const + 472
+3       0x7f3999eda1a3p std::_Function_handler<void (paddle::framework::ExecutionContext const&), paddle::framework::OpKernelRegistrarFunctor<paddle::platform::CPUPlace, false, 0ul, paddle::operators::CrossEntropyOpKernel<paddle::platform::CPUDeviceContext, float>, paddle::operators::CrossEntropyOpKernel<paddle::platform::CPUDeviceContext, double> >::operator()(char const*, char const*) const::{lambda(paddle::framework::ExecutionContext const&)#1}>::_M_invoke(std::_Any_data const&, paddle::framework::ExecutionContext const&) + 35
+4       0x7f399a0a52ecp paddle::framework::OperatorWithKernel::RunImpl(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) const + 492
+5       0x7f399a0a171fp paddle::framework::OperatorBase::Run(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) + 255
+6       0x7f39995e94eap paddle::framework::Executor::RunPreparedContext(paddle::framework::ExecutorPrepareContext*, paddle::framework::Scope*, bool, bool, bool) + 298
+7       0x7f39995e9ee0p paddle::framework::Executor::Run(paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool) + 128
+8       0x7f399950ff5dp
+```
+
+ - 问题复现
+```
+def getdata():
+    def reader():
+        for i in range(len(data_y)):
+            yield np.array(data_X[i]).astype('float32'), np.array(data_y[i]).astype('int64')
+    return reader
+```
 
 
-
+ - 问题解决
+PaddlePaddle的label要从0开始递增。
+```
+def getdata():
+    def reader():
+        for i in range(len(data_y)):
+            yield np.array(data_X[i]).astype('float32'), np.array(data_y[i]- 3).astype('int64')
+    return reader
+```
