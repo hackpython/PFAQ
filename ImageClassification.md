@@ -1,9 +1,10 @@
-# 1.问题：
+## 1.问题：
 
- - 问题描述：
++ 问题描述：
 
 
- - 报错信息：
++ 报错信息：
+
 ```
 ImportError                               Traceback (most recent call last)
 <ipython-input-1-600eb39503dc> in <module>
@@ -15,21 +16,23 @@ ImportError                               Traceback (most recent call last)
 ImportError: No module named 'vgg'
 ```
 
- - 问题复现：
++ 问题复现：
+
 ```
 from vgg import vgg_bn_drop
 ```
 
- - 解决问题：
++ 解决问题：
 
 
 
-# 2.问题：
+## 2.问题：
 
- - 问题描述：
++ 问题描述：
 
 
- - 报错信息：
++ 报错信息：
+
 ```
 <ipython-input-5-fb9e47c67b84> in train(use_cuda, train_program, params_dirname)
      37         num_epochs=EPOCH_NUM,
@@ -69,7 +72,8 @@ Input(X) and Input(Label) shall have the same shape except the last dimension. a
 PaddlePaddle Call Stacks: 
 ```
 
- - 问题复现：
++ 问题复现：
+
 ```
 def inference_network():
     images = fluid.layers.data(name='pixel', shape=[1, 32, 32], dtype='float32')
@@ -78,7 +82,8 @@ def inference_network():
 ```
 
 
- - 解决问题：
++ 解决问题：
+
 ```
 def inference_network():
     images = fluid.layers.data(name='pixel', shape=[3, 32, 32], dtype='float32')
@@ -87,12 +92,13 @@ def inference_network():
 ```
 
 
-# 3.问题：
+## 3.问题：
 
- - 问题描述：
++ 问题描述：
 
 
- - 报错信息：
++ 报错信息：
+
 ```
 /usr/local/lib/python3.5/dist-packages/paddle/fluid/nets.py in img_conv_group(input, conv_num_filter, pool_size, conv_padding, conv_filter_size, conv_act, param_attr, conv_with_batchnorm, conv_batchnorm_drop_rate, pool_stride, pool_type, use_cudnn)
     229             param_attr=param_attr[i],
@@ -136,7 +142,8 @@ PaddlePaddle Call Stacks:
 2       0x7f8683e00f86p paddle::framework::OpDesc::InferShape(paddle::framework::BlockDesc const&) const + 902
 ```
 
- - 问题复现：
++ 问题复现：
+
 ```
 def inference_network():
     images = fluid.layers.data(name='pixel', shape=[3072], dtype='float32')
@@ -144,7 +151,8 @@ def inference_network():
     return predict
 ```
 
- - 解决问题：
++ 解决问题：
+
 ```
 def inference_network():
     images = fluid.layers.data(name='pixel', shape=[3, 32, 32], dtype='float32')
@@ -152,24 +160,27 @@ def inference_network():
     return predict
 ```
 
-# 4.问题：
+## 4.问题：
 
- - 问题描述：
++ 问题描述：
 
 
- - 报错信息：
++ 报错信息：
+
 ```
 infer results:  5
 ```
 
- - 问题复现：
++ 问题复现：
+
 ```
 img = load_image('dog.png') 
 results = inferencer.infer({'pixel': img})
 print("infer results: ", np.argmax(results[0]))
 ```
 
- - 解决问题：
++ 解决问题：
+
 ```
 img = load_image('dog.png')
 results = inferencer.infer({'pixel': img})
@@ -180,12 +191,13 @@ label_list = [
 print("infer results: ", label_list[np.argmax(results[0])])
 ```
 
-# 5.问题：
+## 5.问题：
 
- - 问题描述：
++ 问题描述：
 
 
- - 报错信息：
++ 报错信息：
+
 ```
 <ipython-input-17-246b35b3c3dc> in infer(use_cuda, inference_program, params_dirname)
      27 
@@ -215,7 +227,8 @@ PaddlePaddle Call Stacks:
 1       0x7ff6837b01c6p paddle::operators::ConvOp::InferShape(paddle::framework::InferShapeContext*) const + 5622
 ```
 
- - 问题复现：
++ 问题复现：
+
 ```
 def load_image(file):
     im = Image.open(file)
@@ -226,8 +239,9 @@ def load_image(file):
     return im
 ```
 
- - 解决问题：
++ 解决问题：
 需要的是`(3, 32, 32)`，但PIL打开方式是`(32, 32, 3)`
+
 ```
 def load_image(file):
     im = Image.open(file)
@@ -239,12 +253,13 @@ def load_image(file):
     return im
 ```
 
-# 6.问题：
+## 6.问题：
 
- - 问题描述：
++ 问题描述：
 
 
- - 报错信息：
++ 报错信息：
+
 ```
 /usr/local/lib/python3.5/dist-packages/paddle/fluid/contrib/inferencer.py in infer(self, inputs, return_numpy)
     102             results = self.exe.run(feed=inputs,
@@ -267,7 +282,8 @@ PaddlePaddle Call Stacks:
 2       0x7ff683ab514dp paddle::framework::OperatorWithKernel::RunImpl(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) const + 77
 ```
 
- - 问题复现：
++ 问题复现：
+
 ```
 def load_image(file):
     im = Image.open(file)
@@ -278,8 +294,9 @@ def load_image(file):
     return im
 ```
 
- - 解决问题：
++ 解决问题：
 `(3, 32, 32)`，应该是`(1, 3, 32, 32)`
+
 ```
 def load_image(file):
     im = Image.open(file)

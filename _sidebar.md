@@ -4,27 +4,21 @@
   * [容器安装](zh-cn/more-pages.md)
   * [源码安装](zh-cn/custom-navbar.md)
   * [python版本](zh-cn/cover.md) -->
-  * [*Mac编译安装Paddle](Mac编译安装Paddle.md)
-  * [*Linux编译安装Paddle](Linux编译安装Paddle.md)
-  * [*PaddlePaddle安装](PaddlePaddle安装.md)
+  * [✔️Mac编译安装Paddle](Mac编译安装Paddle.md)
+  * [✔️Linux编译安装Paddle](Linux编译安装Paddle.md)
+  * [✔️PaddlePaddle安装](PaddlePaddle安装.md)
 
 
 * 入门案例
 
-  * [*线性回归](LinearRegression.md)
-  * [*识别数字](DigitRecognition.md)
-  * [*图像分类](ImageClassification.md)
-  * [*词向量](WordVector.md)
-  * [*个性化推荐](RecommendationSystem.md)
-  * [*情感分析](SentimentAnalysis.md)
+  * [❓线性回归](LinearRegression.md)
+  * [❌识别数字](DigitRecognition.md)
+  * [❌图像分类](ImageClassification.md)
+  * [词向量](WordVector.md)
+  * [个性化推荐](RecommendationSystem.md)
+  * [情感分析](SentimentAnalysis.md)
   * [语义角色标注](SemanticRoleLabelling.md)
-  * [*机器翻译](MachineTranslation.md)
-
-* Paddle高级内容
-
-  * [*Paddle集群模式](PaddlePaddle集群模式.md)
-  * [*PaddleGPU模式](PaddlePaddle_GPU环境.md)
-  * [*Paddle深度讨论](Paddle深度讨论.md)
+  * [机器翻译](MachineTranslation.md)
 
 * 模型库
 

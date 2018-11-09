@@ -290,10 +290,11 @@ PyThreadState_GET是python内核中的一个方法，其部分相关内核代码
     python内核级的代码通常是不会有什么报错的，但如果遇到了这个级别的错误，第一个要考虑的依旧是开发环境问题，针对`Fatal Python error: PyThreadState_Get: no current thread`而言，它通常出现在mac系统中，常见的原因就是mac中存在多个python环境，一个优雅的方式就是在mac上使用pyenv，这样就可以通过pyenv来隔绝系统原本代码的brew安装的python与其他自己后面安装的python相互隔离了。
 
 
-# 7.问题 报错张量类型不正确
+## 7.问题：报错张量类型不正确
 
- - 报错信息：
-```
++ 报错信息：
+
+```bash
 EnforceNotMet: Tensor holds the wrong type, it holds l at [/paddle/paddle/fluid/framework/tensor_impl.h:29]
 PaddlePaddle Call Stacks: 
 0       0x7fe0624486b6p paddle::platform::EnforceNotMet::EnforceNotMet(std::__exception_ptr::exception_ptr, char const*, int) + 486
@@ -312,7 +313,8 @@ PaddlePaddle Call Stacks:
 
 ```
 
- - 问题复现
++ 问题复现
+
 ```
 def train_program():
     # feature vector of length 13
@@ -326,15 +328,17 @@ def train_program():
     return avg_loss
 ```
 
- - 问题解决：
++ 问题解决：
 使用交叉熵损失函数
+
 ```
 paddle.fluid.layers.cross_entropy(input, label, soft_label=False, ignore_index=-100)
 ```
 
-# 8.问题：训练时，输出的损失值为nan
+## 8.问题：训练时，输出的损失值为nan
 
- - 报错信息：
++ 报错信息：
+
 ```
 Train cost, Step 0, Cost nan
 Train cost, Step 100, Cost nan
@@ -346,7 +350,8 @@ Train cost, Step 600, Cost nan
 Train cost, Step 700, Cost nan
 ```
 
- - 问题复现
++ 问题复现
+
 ```
 def train_program():
     # feature vector of length 13
@@ -360,8 +365,9 @@ def train_program():
     return avg_loss
 ```
 
- - 问题解决：
++ 问题解决：
 在最后一层使用Softmax激活函数
+
 ```
 def train_program():
     # feature vector of length 13
@@ -376,7 +382,8 @@ def train_program():
 ```
 
 # 9.问题：
- - 报错信息
++ 报错信息
+
 ```
 EnforceNotMet: Enforce failed. Expected lbl < class_num, but received lbl:6 >= class_num:6.
  at [/paddle/paddle/fluid/operators/math/cross_entropy.cc:52]
@@ -392,7 +399,8 @@ PaddlePaddle Call Stacks:
 8       0x7f399950ff5dp
 ```
 
- - 问题复现
++ 问题复现
+
 ```
 def getdata():
     def reader():
@@ -402,8 +410,9 @@ def getdata():
 ```
 
 
- - 问题解决
++ 问题解决
 PaddlePaddle的label要从0开始递增。
+
 ```
 def getdata():
     def reader():
