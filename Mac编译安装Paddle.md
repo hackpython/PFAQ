@@ -1,6 +1,6 @@
 # MacOS编译安装PaddlePaddle
 
-## 1.问题：基于Docker编译Paddle与MacOS本机编译Paddle的疑问
+## `已审阅` 1.问题：基于Docker编译Paddle与MacOS本机编译Paddle的疑问
 
 + 关键字：`Docker编译安装` `MacOS本机编译安装`
 
@@ -59,7 +59,7 @@
 
     更详细的内容，请参考[官方文档](http://www.paddlepaddle.org/documentation/docs/zh/1.0/beginners_guide/install/install_MacOS.html#docker)
 
-## 2.问题：Configuring incomplete, errors occured!
+## `已审阅` 2.问题：Configuring incomplete, errors occured!
 
 + 关键字：`Configuring incomplete`
 
@@ -108,7 +108,7 @@
 + 解决方法：
 需要使用brew install python作为python环境。Paddle发布的mac版本的包是基于brew python编译的。
 
-## 4.问题：/bin/sh: wget: command not found
+## `已审阅` 4.问题：/bin/sh: wget: command not found
 
 + 关键字：`wget`
 
@@ -124,7 +124,7 @@
 brew install wget
 ```
 
-## 5.问题：No rule to make target
+## `已审阅`  5.问题：No rule to make target
 
 + 关键字：`CMake`
 
@@ -140,7 +140,7 @@ brew install wget
 	cmake .. -DWITH_FLUID_ONLY=ON -DWITH_GPU=OFF -DWITH_TESTING=OFF
 	```
 
-## 6.问题：[paddle/fluid/platform/CMakeFiles/profiler_py_proto.dir/all] Error 2
+## `已审阅` 6.问题：[paddle/fluid/platform/CMakeFiles/profiler_py_proto.dir/all] Error 2
 
 + 关键字：`fluid` `CMakeFiles`
 
@@ -153,7 +153,7 @@ brew install wget
     使用cmake版本为3.4则可
 
 
-## 7.问题：No such file or directory
+## `已审阅` 7.问题：No such file or directory
 
 + 关键字：`develop分支`
 
@@ -182,7 +182,7 @@ MacOS本地编译PaddlePaddle github上develop分支的代码出现，出现上�
 
 
 
-## 8.问题：paddle源码编译（osx）报各种module找不到的问题
+## `已审阅` 8.问题：paddle源码编译（osx）报各种module找不到的问题
 
 + 关键字：`源码编译` `缺失module`
 
@@ -199,7 +199,7 @@ python module google.protobuf is not found`
 
 	通过cmake显式设置python包。只要确保python libs和python解释器是相同的python可以解决所有这些问题。当这个python包有一些原生扩展时，例如numpy，显式set python包可能会失败。
 
-## 9.问题：ld terminated with signal 9 [Killed] 
+## `已审阅` 9.问题：ld terminated with signal 9 [Killed] 
 
 + 关键字：`编译安装`
 
@@ -210,7 +210,7 @@ python module google.protobuf is not found`
 该问题是由磁盘空间不足造成的，你的硬盘要有30G+的空余空间，请尝试清理出足够的磁盘空间，重新安装。
 
 
-## 10.问题：在Mac上无法安装numpy等Python包，权限错误
+## `已审阅` 10.问题：在Mac上无法安装numpy等Python包，权限错误
 
 + 关键字：`权限错误`
 

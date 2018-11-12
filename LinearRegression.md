@@ -12,7 +12,7 @@ https://github.com/PaddlePaddle/book/blob/develop/01.fit_a_line/train.py
 
 PaddlePaddle文档中的内容目前依旧是PaddlePaddle-v2版本，建议使用Fluid版本来编写房价预测模型
 
-## 1.问题：module对象没有model属性
+## `已审阅` 1.问题：module对象没有model属性
 
 + 关键字：`module` `model属性`
 
@@ -58,10 +58,7 @@ PaddlePaddle通过uci_housing模块引入了数据集合UCI Housing Data Set，�
 这类问题算是经验型问题，只要遇到过，有印象，解决起来都类似的方式，因为某对象缺失某属性是硬性问题，如果是自己编写的对象，那么就编写上相应的属性，如果是第三库，那么通常就是该库的用法发生了变动，你使用的方式不是最新的方式，通过最新的方式使用则可，或者降级自己的第三库来配合自己的代码，至于这两种方法选择使用哪一种，主要看自己的“代价”，即该代码方便还是还旧的库使用方便，建议修改代码，使用新的第三方库，让代码更加优雅点。
 
 
-
-
-
-## 2.问题：“非法指令”或“illegal instruction”
+## `已审阅`  2.问题：“非法指令”或“illegal instruction”
 
 + 关键字：`非法指令` `illegal instruction` `avx指令集`
 
@@ -96,7 +93,7 @@ PaddlePaddle使用avx SIMD指令提高cpu执行效率，因此错误的使用二
 
 
 
-## 3.问题：下载housing.data失败
+## `已审阅` 3.问题：下载housing.data失败
 
 + 关键字：`数据` `housing`
 
@@ -138,7 +135,7 @@ RuntimeError: Cannot download https://archive.ics.uci.edu/ml/machine-learning-da
 数据是任何模型的根基，所谓深度学习，其实就是通过非常多的参数构建一个函数，用该函数来描述训练数据的分布，所以在测试模型时，通常要求使用同分布的数据来进行测试，波士顿房间预测模型也这样，每当遇到数据问题时，从两个方面考虑，一方面考虑代码使用错误，即使用的数据属性是数据集中不存在的，这种情况你就需要修改你使用的方式，另一方面考虑是否数据集下载时遇到了问题，比如网络不稳定，或磁盘满了等情况，这种情况就需要清理一下环境重新下载一下数据。
 
 
-## 4.问题：No modul named Ipython
+## `已审阅` 4.问题：No modul named Ipython
 
 + 关键词：`modul` `Ipython`
 
@@ -163,7 +160,7 @@ PaddlePaddle安装成功，运行了PaddlePaddle官网首页的程序是正常�
 环境依赖问题，根据系统给出的报错提示，进行相应的操作则可，展开来说，这类问题的解决方法就在报错信息中，更加报错信息，增加改动当前的开发环境则可。
 
 
-## 5.问题：The kernel appears to have died. It will restart automatically
+## `已审阅` 5.问题：The kernel appears to have died. It will restart automatically
 
 + 关键词：`jupyter notebook` `paddle.init` `kernel崩溃`
 
@@ -211,7 +208,7 @@ Jupyter Notebook内核崩溃的原因有很多种可能，这是个很泛化的�
 Jupyter Notebook内核崩溃很多时候是资源崩溃，几个常见原因，没有做任何处理的大量读入数据进内存、向系统索要不存在的资源，当然不排除Jupyter Notebook本身就存在问题，解决这里问题，保持清晰的思路，找到多种可能的原因，利用排除法的方式逐一将可能原因排除，找到真正的原因，知道了报错的这种原因，才好进一步修改。针对本问题而言，就是`paddle.init`报错，那很有可能就是向系统索取相应资源时，无法获得该资源，导致Jupyter Notebook内核崩溃。
 
 
-## 6.问题：Fatal Python error: PyThreadState_Get: no current thread
+## `已审阅` 6.问题：Fatal Python error: PyThreadState_Get: no current thread
 
 + 关键词：`brew` `anaconda` `no current thread`
 
@@ -290,7 +287,7 @@ PyThreadState_GET是python内核中的一个方法，其部分相关内核代码
     python内核级的代码通常是不会有什么报错的，但如果遇到了这个级别的错误，第一个要考虑的依旧是开发环境问题，针对`Fatal Python error: PyThreadState_Get: no current thread`而言，它通常出现在mac系统中，常见的原因就是mac中存在多个python环境，一个优雅的方式就是在mac上使用pyenv，这样就可以通过pyenv来隔绝系统原本代码的brew安装的python与其他自己后面安装的python相互隔离了。
 
 
-## 7.问题：报错张量类型不正确
+## `待审阅` 7.问题：报错张量类型不正确
 
 + 报错信息：
 
@@ -335,7 +332,7 @@ def train_program():
 paddle.fluid.layers.cross_entropy(input, label, soft_label=False, ignore_index=-100)
 ```
 
-## 8.问题：训练时，输出的损失值为nan
+## `待审阅` 8.问题：训练时，输出的损失值为nan
 
 + 报错信息：
 
@@ -381,7 +378,7 @@ def train_program():
     return avg_loss
 ```
 
-# 9.问题：
+# `待审阅` 9.问题：`EnforceNotMet: Enforce failed`
 + 报错信息
 
 ```

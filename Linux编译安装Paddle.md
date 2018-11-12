@@ -1,6 +1,6 @@
 # Linux编译安装PaddlePaddle
 
-## 1.问题：生成Docker镜像时，无法下载需要的golang，导致`tar: Error is not recoverable: exiting now`
+## `已审阅` 1.问题：生成Docker镜像时，无法下载需要的golang，导致`tar: Error is not recoverable: exiting now`
 
 + 关键字：`golang` `Docker镜像`
 
@@ -47,7 +47,7 @@ pip install build/python/dist/*.whl
 python python/paddle/fluid/tests/book/test_fit_a_line.py
 ```
 
-## 2.问题：GPU版本的PaddlePaddle运行结果报错
+## `已审阅`  2.问题：GPU版本的PaddlePaddle运行结果报错
 
 + 关键字：`GPU` `运行报错`
 
@@ -81,7 +81,7 @@ pip install build/python/dist/*.whl
 python python/paddle/fluid/tests/book/test_fit_a_line.py
 ```
 
-## 3.问题：CMake源码编译，Paddle版本号为0.0.0
+## `已审阅` 3.问题：CMake源码编译，Paddle版本号为0.0.0
 
 + 关键字：`CMake` `版本号0.0.0`
 
@@ -99,7 +99,7 @@ Cannot add paddle version from git tag
 + 解决方法：
 在dev分支下这个情况是正常的，在release分支下通过export PADDLE_VERSION=对应版本号 来解决
 
-## 4.问题：paddlepaddle\*.whl is not a supported wheel on this platform
+## `已审阅` 4.问题：paddlepaddle\*.whl is not a supported wheel on this platform
 
 + 关键字：`wheel` `platform`
 

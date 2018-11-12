@@ -1,6 +1,6 @@
 # PaddlePaddle安装
 
-## 1.问题：cuda9.0需要安装哪一个版本的paddle，安装包在哪
+## `已审阅` 1.问题：cuda9.0需要安装哪一个版本的paddle，安装包在哪
 
 + 关键字：`cuda 9.0`
 
@@ -14,7 +14,7 @@
 可以参考安装说明文档：
 http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/install/install_doc.html#linuxpaddlepaddle
 
-## 2.问题：pip install paddlepaddle-gpu==0.14.0.post87 安装 fluid 版本报错
+## `已审阅` 2.问题：pip install paddlepaddle-gpu==0.14.0.post87 安装 fluid 版本报错
 
 + 关键字：`GPU`
 
@@ -36,10 +36,7 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 这通常是GPU显存不足导致的，请检查一下机器的显存，确保显存足够后再尝试import paddle.fluid
 
 
-
-
-
-## 4.问题：CUDA driver version is insufficient
+## `已审阅` 3.问题：CUDA driver version is insufficient
 
 + 关键字：`CUDA` `insufficient`
 
@@ -53,7 +50,7 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 更多请参考：https://github.com/NVIDIA/nvidia-docker
 
 
-## 5.问题：安装CPU版本后训练主动abort，gdb显示Illegal instruction
+## `已审阅` 4.问题：安装CPU版本后训练主动abort，gdb显示Illegal instruction
 
 + 关键字：`CPU版本` `Illegal instruction`
 
@@ -137,7 +134,7 @@ cat /proc/cpuinfo | grep flags | uniq | grep avx --color
 http://www.paddlepaddle.org/documentation/docs/zh/1.0/beginners_guide/install/Start.html#paddlepaddle
 
 
-## 6.问题：nvidia-docker运行镜像latest-gpu-cuda8.0-cudnn7: SIGILL
+## `已审阅` 5.问题：nvidia-docker运行镜像latest-gpu-cuda8.0-cudnn7: SIGILL
 
 + 关键字：`nvidia-docker` `cuda8.0` `cudnn7`
 
@@ -154,7 +151,7 @@ PC: @ 0x0 (unknown)
 请先确定一下机器是否支持AVX2指令集，如果不支持，请按照相应的不支持AVX2指令集的PaddlePaddle，可以解决该问题。
 
 
-## 7.问题：安装paddlepaddle fluid版本后import paddle.fluid error
+## `已审阅` 6.问题：安装paddlepaddle fluid版本后import paddle.fluid error
 
 + 关键字：`import error`
 
@@ -233,7 +230,7 @@ PaddlePaddle Call Stacks:
 
 
 
-## 8.问题：在Fluid版本训练的时报以下错误，是不是显卡的问题？
+## `已审阅` 7.问题：在Fluid版本训练的时报以下错误，是不是显卡的问题？
 
 + 关键字：`GPU` `Fluid版本`
 
@@ -312,7 +309,7 @@ Tue Jul 24 08:24:22 2018
 ```
 
 
-## 9.问题：使用新版的pip安装了GPU版的PaddlePaddle0.14.0，跑一个简单的测试程序，出现Segmentation fault
+## `已审阅` 8.问题：使用新版的pip安装了GPU版的PaddlePaddle0.14.0，跑一个简单的测试程序，出现Segmentation fault
 
 + 关键字：`GPU` `Segmentation fault`
 
@@ -345,7 +342,7 @@ def testpaddle014():
 + 解决方法：
 安装版本为`paddlepaddle_gpu-0.14.0.post87-cp27-cp27mu-manylinux1_x86_64.whl`，其中post87是指在CUDA8.0、cudnn7.0编译的，请确定您机器上是否安装了对应版本的cudnn。造成问题描述中现象的情况通常可能是幻觉不匹配导致的
 
-## 10.问题：AI studio中， fluid GPU训练报错，CPU下可以运行, 报错显示resize_bilinear处错误 
+## `已审阅` 9.问题：AI studio中， fluid GPU训练报错，CPU下可以运行, 报错显示resize_bilinear处错误 
  
 + 关键字：`AI studio` `GPU` `resize_bilinear`
 
@@ -400,7 +397,7 @@ Segmentation fault (core dumped)
 问题的原因出现在resize_bilinear上，resize_bilinear的scale参数不能设置为1(这个在cpu下是可以的)，虽然设置为１的时候没什么意义，但是我的代码中有个地方就设置为了１，所以才会报错
 
 
-## 11.问题：安装完了PaddlePaddle后，发现python相关的单元测试都过不了
+## `已审阅` 10.问题：安装完了PaddlePaddle后，发现python相关的单元测试都过不了
 
 + 关键字：`单元测试`
 
