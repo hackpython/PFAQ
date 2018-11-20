@@ -17,7 +17,7 @@ https://github.com/PaddlePaddle/Paddle/issues/2770
 ## 词向量PaddlePaddle-fluid版代码：
 https://github.com/PaddlePaddle/book/tree/c66605770b1ea4d04f290c21d8b72ef4e4d6f7e6/04.word2vec
 
-## 1.问题：使用PTB数据集训练词向量模型出现张量类型错误
+## `待审阅` 1.问题：使用PTB数据集训练词向量模型出现张量类型错误
 
  + 关键字：`数据类型`，`dtype`
 
@@ -86,7 +86,7 @@ fourth_word = fluid.layers.data(name='fourthw', shape=[1], dtype='int64')
 
 
 
-## 2.问题：设置向量表征类型为整型时训练报错
+## `待审阅` 2.问题：设置向量表征类型为整型时训练报错
 
  + 关键字：`数据类型`，`词向量`
 
@@ -183,7 +183,7 @@ embed_fourth = fluid.layers.embedding(
 
 
 
-## 3.问题：在使用PTB数据集训练词向量模型出现输入(X)和输入(label)的形状不一致
+## `待审阅` 3.问题：在使用PTB数据集训练词向量模型出现输入(X)和输入(label)的形状不一致
 
  + 关键字：`数据维度`，`concat`
 
@@ -299,7 +299,7 @@ concat_embed = fluid.layers.concat(
 
 
 
-## 4.问题：在使用N-gram神经网络训练时出现ids[i]>row_number的错误
+## `待审阅` 4.问题：在使用N-gram神经网络训练时出现ids[i]>row_number的错误
 
  + 关键字：`词向量`，`N-gram神经网络`
 
@@ -411,7 +411,7 @@ embed_fourth = fluid.layers.embedding(
 
 
 
-## 5.问题：在创建预测数据时报错data and recursive_seq_lens do not match
+## `待审阅` 5.问题：在创建预测数据时报错data and recursive_seq_lens do not match
 
  + 关键字：`张量`，`数据维度`
 
@@ -472,7 +472,7 @@ fourth_word = fluid.create_lod_tensor(data4, lod, place)
 
 
 
-## 6.问题：在执行词向量预测的是出现预测数据不能完全转换为Python ndarray的错误
+## `待审阅` 6.问题：在执行词向量预测的是出现预测数据不能完全转换为Python ndarray的错误
 
  + 关键字：`预测`，`numpy`
 
@@ -567,7 +567,7 @@ result = inferencer.infer(
 
 
 
-## 7.问题：在使用词向量模型预测字符串数据时出现数据类型错误
+## `待审阅` 7.问题：在使用词向量模型预测字符串数据时出现数据类型错误
 
  + 关键字：`张量`，`预测数据`
 
@@ -628,7 +628,7 @@ fourth_word = fluid.create_lod_tensor(data4, lod, place)
 
 
 
-## 8.问题：在调用PaddlePaddle提供的词向量数据集接口用于训练时出现数据长度错误
+## `待审阅` 8.问题：在调用PaddlePaddle提供的词向量数据集接口用于训练时出现数据长度错误
 
  + 关键字：`PTB数据集`，`数据维度`
 
@@ -709,7 +709,7 @@ trainer.train(
 
 
 
-## 9.问题：在使用词向量模型预测是得不到预测的单词
+## `已审阅` 9.问题：在使用词向量模型预测是得不到预测的单词
 
  + 关键字：`预测结果`，`数据字典`
 
@@ -743,7 +743,7 @@ print("预测结果是：", [key for key, value in six.iteritems(word_dict) if v
  + 问题拓展：在图像分类任务上，预测得接时每个类别得概率，从这些结果中获取最概率的也是其数字标签。如果想得到类别的名称，还要根据数字标签对应的类别的名称才能获取预测结果的名称。
 
 
-## 10.问题：怎么加载预训练的embedding层？
+## `已审阅` 10.问题：怎么加载预训练的embedding层？
 
 + 关键字：`预加载` `embedding`
 
@@ -796,7 +796,7 @@ parameters.set('emb', load_parameter(conll05.get_embedding(), 44068, 32))
 + 问题研究：
 PaddlePaddle做词嵌套训练的方式是类似的，都是通过固定的几个方法接受相应的传入数据，所以使用其他语料数据进行训练其实没有什么特别要操作的，需要的注意就是喂养语料数据相应的格式。
 
-## 11.问题：PaddlePaddle中embedding的作用是什么？
+## `已审阅` 11.问题：PaddlePaddle中embedding的作用是什么？
 
 + 关键字： `embedding作用`
 
@@ -852,7 +852,7 @@ embedding，即词向量，这个概念并不是PaddlePaddle独有的，在自�
 
 
 
-## 12.问题：在PaddlePaddle中embedding层和fc层的区别在哪里？
+## `已审阅` 12.问题：在PaddlePaddle中embedding层和fc层的区别在哪里？
 
 + 关键字：`embedding` `全连接层` 
 
