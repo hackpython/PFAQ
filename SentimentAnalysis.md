@@ -1,8 +1,17 @@
 # 情感分析
 
-# 1.问题：
+## 背景介绍
+在自然语言处理中，情感分析一般是指判断一段文本所表达的情绪状态。其中，一段文本可以是一个句子，一个段落或一个文档。情绪状态可以是两类，如（正面，负面），（高兴，悲伤）；也可以是三类，如（积极，消极，中性）等等。情感分析的应用场景十分广泛，如把用户在购物网站（亚马逊、天猫、淘宝等）、旅游网站、电影评论网站上发表的评论分成正面评论和负面评论；或为了分析用户对于某一产品的整体使用感受，抓取产品的用户评论并进行情感分析等等。
 
- + 问题描述：
+## 情感分析PaddlePaddle-fluid版代码：
+https://github.com/PaddlePaddle/book/tree/develop/06.understand_sentiment
+
+## `待审阅`1.问题：使用训练好的情感分析模型预测句子结果都是一样的
+
+ + 关键字：`数据字典`，`字符编码`
+ 
+
+ + 问题描述：使用循环神经网络训练一个IMDB数据集得到一个模型，使用这个模型进行预测句子，无论句子是正面还是负面的，预测的结果都是一样。
 
 
  + 报错信息：
@@ -14,7 +23,7 @@ Predict probability of  0.54523355  to be positive and  0.45476642  to be negati
 Predict probability of  0.54504114  to be positive and  0.45495886  to be negative for review ' this is very bad '
 ```
 
- + 问题复现：
+ + 问题复现：在预测是，使用`Inferencer`接口创建一个预测器，然后把句子里的每个单词转换成列表形式，然后使用`word_dict.get(words, UNK)`根据数据集的字典把单词转换成标签，然后使用这些标签进行预测，最后预测的都是错误的。错误代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -33,7 +42,7 @@ tensor_words = fluid.create_lod_tensor(lod, base_shape, place)
 results = inferencer.infer({'words': tensor_words})
 ```
 
- + 解决问题：
+ + 解决问题：错误的原因是没使用正确的编码，所以在使用`word_dict.get(words, UNK)`转换编码时，程序理解里面都是`<unk>`，所以句子都是`<unk>`对应的编码。需要对里面的单词转换成UTF-8的字符编码，例子这样`word_dict.get(words.encode('utf-8')`。正确代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -54,9 +63,12 @@ results = inferencer.infer({'words': tensor_words})
 
 
 
-# 2.问题：
+## `待审阅`2.问题：使用句子做感情分析预测时出现结果不正确
 
- + 问题描述：
+ + 关键字：`数据字典`
+ 
+
+ + 问题描述：使用3个句子进行预测，预测该句子的正面和负面的概率，在执行预测时大多数的结果都不正确，而且每个句子的编码都很长。
 
 
  + 报错信息：
@@ -69,7 +81,7 @@ Predict probability of  0.73750913  to be positive and  0.26249087  to be negati
 Predict probability of  0.55495805  to be positive and  0.445042  to be negative for review ' this is very bad '
 ```
 
- + 问题复现：
+ + 问题复现：在预测时需要把句子转换成单词列表，在把单词转换成编码。把句子转换成列表时使用`reviews = [c for c in reviews_str]`进行转换，然后使用这个结果通过数据集字典转换成编码进行预测，预测结果几乎都是错误的。错误代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -89,7 +101,7 @@ tensor_words = fluid.create_lod_tensor(lod, base_shape, place)
 results = inferencer.infer({'words': tensor_words})
 ```
 
- + 解决问题：
+ + 解决问题：上面错误的原因是数据预处理时，没有正确把句子中的单词拆开，导致在使用数据字典把字符串转换成编码的时候，使用的是句子的字符，所以导致错误出现。在处理的时候应该是`reviews = [c.split() for c in reviews_str]`。正确代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -108,7 +120,7 @@ base_shape = [[len(c) for c in lod]]
 tensor_words = fluid.create_lod_tensor(lod, base_shape, place)
 results = inferencer.infer({'words': tensor_words})
 ```
-
+正确的输出情况：
 ```
 [['read', 'the', 'book', 'forget', 'the', 'movie'], ['this', 'is', 'a', 'great', 'movie'], ['this', 'is', 'very', 'bad']]
 [[325, 0, 276, 818, 0, 16], [9, 5, 2, 78, 16], [9, 5, 51, 81]]
@@ -119,9 +131,12 @@ Predict probability of  0.35688713  to be positive and  0.64311296  to be negati
 
 
 
-# 3.问题：
+## `待审阅`3.问题：在使用情感分析模型预测句子是出现数量类型错误
 
- + 问题描述：
+ + 关键字：`数据字典`，`自定义`
+ 
+
+ + 问题描述：通过自己写一个句子，使用训练好的模型进行预测。在使用`fluid.create_lod_tensor`接口准备把数据转换成张量数据进行预测时，出现数据类型错误。
 
 
  + 报错信息：
@@ -160,7 +175,7 @@ TypeError                                 Traceback (most recent call last)
 TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
 ```
 
- + 问题复现：
+ + 问题复现：通过自己定义一句话，然后使用`word_dict.get(words.encode('utf-8'))`转换成整数编码，使用这些编码创建一个张量数据的时候，就出现以上的错误。错误代码如下： 
 
 ```python
 inferencer = Inferencer(
@@ -179,7 +194,7 @@ tensor_words = fluid.create_lod_tensor(lod, base_shape, place)
 results = inferencer.infer({'words': tensor_words})
 ```
 
- + 解决问题：
+ + 解决问题：上面出现的错误是因为使用到了数据集字典中没有出现过的单词，在使用`word_dict.get(words.encode('utf-8'))`转换成整数编码时，就会出现结果为`None`的情况。如果需要使用`UNK = word_dict['<unk>']`和`word_dict.get(words.encode('utf-8'), UNK)`把未知的单词转换成同一个整数编码就不会出现上述问题。正确代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -202,9 +217,12 @@ results = inferencer.infer({'words': tensor_words})
 
 
 
-# 4.问题：
+## `待审阅`4.问题：在使用感情分析模型预测句子时出现转换成张量数据出错
 
- + 问题描述：
+ + 关键字：`数据类型`，`预测`
+ 
+
+ + 问题描述：使用一个训练好的模型进行预测，出现错误，错误提示您的一些提要数据保存LoD信息。它们不能完全从Python ndarray列表转换为lod张量。在输入数据之前，请直接将数据转换为lod张量。
 
 
  + 报错信息：
@@ -248,7 +266,7 @@ results = inferencer.infer({'words': tensor_words})
 RuntimeError: Some of your feed data hold LoD information.                 They can not be completely cast from a list of Python                 ndarray to LoDTensor. Please convert data to LoDTensor                 directly before feeding the data.               
 ```
 
- + 问题复现：
+ + 问题复现：使用训练好的模型和网络生成要给预测器，使用这个预测器进行预测句子，预测句子之前先把句子转换成一个列表，然后使用之前创建的预测器进行预测，就会出现以上的错误，错误代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -260,7 +278,7 @@ reviews = [c.split() for c in reviews_str]
 results = inferencer.infer({'words': reviews})
 ```
 
- + 解决问题：
+ + 解决问题：错误的原因是直接把句子作为一个列表进行预测，PaddlePaddle不支持这种字符串类型的数据输入，所以数据集提供了一个数据字典，把句子中的单词转换成整数列表。得到一个张量数据，使用这个张量数据再进行预测。正确代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -282,10 +300,12 @@ results = inferencer.infer({'words': tensor_words})
 
 
 
+## `待审阅`5.问题：在使用训练好的模型预测句子时出现数据类型的错误
 
-# 5.问题：
+ + 关键字：`数据类型`，`张量`
+ 
 
- + 问题描述：
+ + 问题描述：使用一个训练好的模型进行预测，在使用数据字典把单词转换成整数编码之后，使用这谢整数列表进行预测，出现错误数据类型错误。
 
 
  + 报错信息：
@@ -329,7 +349,7 @@ results = inferencer.infer({'words': tensor_words})
 RuntimeError: Some of your feed data hold LoD information.                 They can not be completely cast from a list of Python                 ndarray to LoDTensor. Please convert data to LoDTensor                 directly before feeding the data.             
 ```
 
- + 问题复现：
+ + 问题复现：使用时列表，通过`lod.append([word_dict.get(words.encode('utf-8'), UNK) for words in c])`把句子转换成整数列表，使用这个整数列表进行预测，在执行预测的时候就会报以上的错误。错误代码如下：
 
 ```python
 inferencer = Inferencer(
@@ -347,7 +367,7 @@ print(lod)
 results = inferencer.infer({'words': lod})
 ```
 
- + 解决问题：
+ + 解决问题：PaddlePaddle虽然是支持整型数据，但是在使用使用数据预测时，需要把数据转换成PaddlePaddle的张量，使用的接口是`fluid.create_lod_tensor`。
 
 ```python
 inferencer = Inferencer(
@@ -371,9 +391,12 @@ results = inferencer.infer({'words': tensor_words})
 
 
 
-# 6.问题：
+## `待审阅`6.问题：使用长短期记忆模型的时候出现维度错误
 
- + 问题描述：
+ + 关键字：`数据维度`，`词向量`
+ 
+
+ + 问题描述：在使用`fluid.layers.dynamic_lstm`建立一个长短期记忆网络时，出现数据维度或者权重不一致的错误。
 
 
  + 报错信息：
@@ -419,7 +442,7 @@ The first dimension of Input(Weight) should be 32. at [/paddle/paddle/fluid/oper
 PaddlePaddle Call Stacks: 
 ```
 
- + 问题复现：
+ + 问题复现：使用`fluid.layers.embedding`接口把输入的转换成词向量，然后使用这些词向量传入到`fluid.layers.dynamic_lstm`接口中，计划使用`fluid.layers.dynamic_lstm`接口创建一个长短期记忆网络。但是在执行训练时就报以上的错误，错误代码如下：
 
 ```python
 emb = fluid.layers.embedding(
@@ -427,7 +450,7 @@ emb = fluid.layers.embedding(
 lstm1, cell1 = fluid.layers.dynamic_lstm(input=emb, size=hid_dim)
 ```
 
- + 解决问题：
+ + 解决问题：上面的错误是因为使用`fluid.layers.embedding`创建的词向量和`fluid.layers.dynamic_lstm`所需的输入的维度不一致，为了解决这个问题，可以在中间加一个全连接层统一大小。正确代码如下：
 
 ```python
 emb = fluid.layers.embedding(
@@ -439,9 +462,12 @@ lstm1, cell1 = fluid.layers.dynamic_lstm(input=fc1, size=hid_dim)
 
 
 
-# 7.问题：
+## `待审阅`7.问题：在使用长短期记忆网络训练时出现出现输入形状错误
 
- + 问题描述：
+ + 关键字：`序列池化`，`长短期记忆网络`
+ 
+
+ + 问题描述：使用一个长短期记忆网络训练IMDB数据集时，出现输入形状错误，错误提示：输入(X)和输入(标签)应具有相同的形状。
 
 
  + 报错信息：
@@ -485,7 +511,7 @@ Input(X) and Input(Label) shall have the same shape except the last dimension. a
 PaddlePaddle Call Stacks: 
 ```
 
- + 问题复现：
+ + 问题复现：在构建一个长短期记忆网络时，首先使用`fluid.layers.fc`定义了一个全连接层，然后又使用`fluid.layers.dynamic_lstm`创建了一个长短期记忆单元，最后使用使用这个两个进行分类输出，结果就会出现上面的错误，错误代码如下：
 
 ```python
 emb = fluid.layers.embedding(input=data, size=[input_dim, emb_dim], is_sparse=True)
@@ -494,7 +520,7 @@ lstm1, cell1 = fluid.layers.dynamic_lstm(input=fc1, size=hid_dim)
 prediction = fluid.layers.fc(input=[fc1, lstm1], size=class_dim, act='softmax')
 ```
 
- + 解决问题：
+ + 解决问题：搭建一个长短期记忆网络时，在执行最好一层分类器前还要经过一个序列进行池化的接口，将上面的全连接层和长短期记忆单元的输出全部时间步的特征进行池化，最后才执行分类器输出。正确代码如下：
 
 ```python
 emb = fluid.layers.embedding(input=data, size=[input_dim, emb_dim], is_sparse=True)
@@ -507,10 +533,12 @@ prediction = fluid.layers.fc(input=[fc_last, lstm_last], size=class_dim, act='so
 
 
 
+## `待审阅`8.问题：使用PaddlePaddle搭建一个循环神经网络出现输入的宽度和高度不一致
 
-# 8.问题：
+ + 关键字：`记忆单元`，`循环神经网络`
+ 
 
- + 问题描述：
+ + 问题描述：使用`fluid.layers.DynamicRNN`创建一个循环神经网络时，在执行训练的时候出现错误，错误提示：第一个矩阵的宽度必须等于第二个矩阵的高度。
 
 
  + 报错信息：
@@ -554,7 +582,7 @@ First matrix's width must be equal with second matrix's height.  at [/paddle/pad
 PaddlePaddle Call Stacks: 
 ```
 
- + 问题复现：
+ + 问题复现：使用`rnn.block`定义一个循环神经网络块，使用`rnn.memory`定义一个记忆单元，大小设置为128，接着使用`fluid.layers.fc`创建要给全连接层，大小设置为64。然后在执行训练的时就会出现上述的错误。错误代码如下：
 
 ```python
 emb = fluid.layers.embedding(input=ipt, size=[input_dim, 128], is_sparse=True)
@@ -570,7 +598,7 @@ last = fluid.layers.sequence_last_step(rnn())
 out = fluid.layers.fc(input=last, size=2, act='softmax')
 ```
 
- + 解决问题：
+ + 解决问题：上面的错误是因为记忆单元的大小和全连接层的大小不一致，有些用户会错误理解上一层和下一层的大小是互补相干的，这是错误的，它们的大小必须是一样的。正确代码如下：
 
 ```python
 emb = fluid.layers.embedding(input=ipt, size=[input_dim, 128], is_sparse=True)
@@ -585,5 +613,6 @@ with rnn.block():
 last = fluid.layers.sequence_last_step(rnn())
 out = fluid.layers.fc(input=last, size=2, act='softmax')
 ```
+
 
 

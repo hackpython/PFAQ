@@ -9,7 +9,7 @@
 https://github.com/PaddlePaddle/book/tree/develop/02.recognize_digits
 
 PaddlePaddle文档中的内容目前依旧是PaddlePaddle-v2版本，建议使用Fluid版本来编写数字识别模型
-## `待审阅` 1.问题：使用MNIST数据训练时出现张量类型错误
+## `已审阅` 1.问题：使用MNIST数据训练时出现张量类型错误
 
  + 关键字：`张量`，`数据类型`
 
@@ -45,8 +45,10 @@ label = fluid.layers.data(name='label', shape=[1], dtype='int64')
 
  + 问题拓展：PaddlePaddle支持多种数据类型，比如上面使用的`float32`，这个是主要实数类型，`float64`是次要实数类型，支持大部分操作。我们使用的标签是int64，这个是主要标签类型，也有次要标签类型`int32`。也有一些控制流的数据类型`bool`。
 
+ + 问题分析：在使用PaddlePaddle构建神经网络时，一开始编写的只是整体的结构，此时就需要注意整体结构中不同节点的数据类型，如输入的数据类型是否与fluid.layers.data定义的数据类型一致，如果不一致就会出现错误，就像使用三口插头去插二口插座，是不可取的。
 
-## `待审阅` 2.问题：在优化方法处报错 EnforceNotMet: Enforce failed
+
+## `已审阅` 2.问题：在优化方法处报错 EnforceNotMet: Enforce failed
 
  + 关键字：`rank`，`优化方法`，`损失函数`
 
@@ -106,7 +108,7 @@ opts = optimizer.minimize(avg_cost)
 
 
 
-## `待审阅` 3.问题：在训练时报错 Expected label_dims[rank - 1] == 1UL
+## `已审阅` 3.问题：在训练时报错 Expected label_dims[rank - 1] == 1UL
 
  + 关键字：`标签维度`，`label`
  
@@ -169,7 +171,7 @@ label = fluid.layers.data(name='label', shape=[1], dtype='int64')
 
 
 
-## `待审阅` 4.问题：训练过程中损失值突然全部为0
+## `已审阅` 4.问题：训练过程中损失值突然全部为0
 
  + 关键字：`损失值`，`梯度消失`
  
@@ -247,7 +249,7 @@ def convolutional_neural_network(input):
 
 
 
-## `待审阅` 5.问题：在测试数据集进行测试时出错：Cannot find fetch variable in scope
+## `已审阅` 5.问题：在测试数据集进行测试时出错：Cannot find fetch variable in scope
 
  + 关键词：`测试程序`
  
@@ -292,7 +294,7 @@ test_program = fluid.default_main_program().clone(for_test=True)
  + 问题拓展：PaddlePaddle的`Program`是Fluid程序主要组成部分之一， Fluid程序中通常存在 2段`Program`。`fluid.default_startup_program`是定义了创建模型参数，输入输出，以及模型中可学习参数的初始化等各种操作。而`fluid.default_main_program`是定义了神经网络模型，前向反向计算，以及优化算法对网络中可学习参数的更新。
 
 
-## `待审阅` 6.问题：训练时出现错误 y_dims.size():1 <= y_num_col_dims:1
+## `已审阅` 6.问题：训练时出现错误 y_dims.size():1 <= y_num_col_dims:1
 
  + 关键字：`初试化`，`执行器`
  
@@ -342,7 +344,7 @@ for batch_id, data in enumerate(train_reader()):
 
 
 
-## `待审阅` 7.问题：训练时出现错误：ValueError: var image not in this block
+## `已审阅` 7.问题：训练时出现错误：ValueError: var image not in this block
 
  + 关键字：`初始化`，`主程序`，`program`
  
@@ -398,7 +400,7 @@ for batch_id, data in enumerate(train_reader()):
  + 问题分析：`fluid.default_main_program`是定义了神经网络模型，前向反向计算，以及优化算法对网络中可学习参数的更新，所以在训练的时候，使用的Program应该是`fluid.default_main_program`。而不是用于初始化的Program。
 
 
-## `待审阅` 8.问题：使用测试程序预测图片时出错：rank:2 != label_dims.size():1
+## `已审阅` 8.问题：使用测试程序预测图片时出错：rank:2 != label_dims.size():1
 
  + 关键字：`测试程序`，`feed`
 
@@ -440,7 +442,7 @@ results = exe.run(program=test_program,
  + 问题拓展：测试程序是从主程序`fluid.default_main_program`中克隆得到的，所以也继承了主程序的输入数据的格式，需要同时输入图像数据和label数据。但真实的预测是不会使用label作为输入的。在真实预测中，还要对模型进行修剪，去掉label的输入。
 
 
-## `待审阅` 9.问题：迭代数据时出现错误：TypeError: 'function' object is not iterable
+## `已审阅` 9.问题：迭代数据时出现错误：TypeError: 'function' object is not iterable
 
  + `reader`，`数据读取`
  
@@ -481,12 +483,11 @@ for batch_id, data in enumerate(train_reader()):
                                     fetch_list=[avg_cost, acc])
 ```
 
-
- + 在Python的变量中，不带括号时，调用的是这个函数本身，是一个函数对象，不须等该函数执行完成。带括号时，调用的是函数的执行结果，须等该函数执行完成的结果。
-
+  在Python的变量中，不带括号时，调用的是这个函数本身，是一个函数对象，不须等该函数执行完成。带括号时，调用的是函数的执行结果，须等该函数执行完成的结果。
 
 
-## `待审阅` 10.问题：在定义训练器是出现NameError: name 'Trainer' is not defined
+
+## `已审阅` 10.问题：在定义训练器是出现NameError: name 'Trainer' is not defined
 
  + 关键字：`训练器`，`contrib`，`Trainer`
  
@@ -530,7 +531,7 @@ trainer = Trainer(
  + 问题分析：在对于高层API，PaddlePaddle在版本1.0之后做了很大的改动，比如就修改了高层API所在的位置。同时也完善了高层API的很多功能。高层API虽然没有底层API灵活，但高层API使用更简单，非常适合初学者使用。
 
 
-## `待审阅` 11.问题：使用高级API训练时出现ValueError: var img not in this block
+## `已审阅` 11.问题：使用高级API训练时出现ValueError: var img not in this block
 
  + 关键字：`输入层name`
  
@@ -638,7 +639,7 @@ trainer.train(
  + 问题拓展：PaddlePaddle的读取数据的方式是使用reader的，通过`fluid.layers.data`接口构建网络的输入层，并通过 `executor.run(feed=...)`的方式读入数据。数据读取和模型训练/预测的过程是同步进行的。
 
 
-## `待审阅` 12.问题：在预测图像时出现错误EnforceNotMet: Conv intput should be 4-D or 5-D tensor
+## `已审阅` 12.问题：在预测图像时出现错误EnforceNotMet: Conv intput should be 4-D or 5-D tensor
 
  + 关键字：`数据预处理`，`预测图片`
  
@@ -728,7 +729,7 @@ print("Inference result of image/infer_3.png is: %d" % lab[0][0][-1])
  + 问题拓展：在预测时的数据预处理，有些用户使用训练好的模型，在预测的时候没能预测正确的结果，这通常时数据预处理的问题。预测时对数据预处理的方式必须要跟训练的时候对数据预处理一样，这样模型才能正确预测数据。
 
 
-## `待审阅` 13.问题：在训练时出现TypeError: simple_img_conv_pool() got an unexpected keyword argument 'stride'
+## `已审阅` 13.问题：在训练时出现TypeError: simple_img_conv_pool() got an unexpected keyword argument 'stride'
 
  + 关键字：`stride`，`步长`
  

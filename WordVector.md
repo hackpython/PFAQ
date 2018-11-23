@@ -83,6 +83,8 @@ fourth_word = fluid.layers.data(name='fourthw', shape=[1], dtype='int64')
 
  + 问题拓展：PaddlePaddle的输入层数据类型有`float`、`int`、`uint`、`bool`，但是就没有字符串类型，所以训练数据都会转换成相应数据类型，所以在PTB数据集数据中也是把字符串的单词转换成整型。
 
+ + 问题分析：编写神经网络时，获得编写任何程序时，细节都是重要的，细节不正确就会导致程序运行不起来，而深度学习的编程中，类型不正确是常出现的错误，要避免这类错误，你需要熟悉你使用的训练数据的数据类型，如果不熟悉，此时最好的方法就是在使用时打印一下数据的类型与shape，方便编写出正确的fluid.layers.data
+
 
 
 
@@ -180,7 +182,7 @@ embed_fourth = fluid.layers.embedding(
 
  + 问题拓展：词向量模型可将一个 one-hot vector映射到一个维度更低的实数向量（embedding vector），如`embedding(母亲节)=[0.3,4.2,−1.5,...]`，`embedding(康乃馨)=[0.2,5.6,−2.3,...]`。在这个映射到的实数向量表示中，希望两个语义（或用法）上相似的词对应的词向量“更像”。
 
-
+ + 问题分析：NLP中，词向量技术是比较底层的计算，是很多上层技术的支撑，如RNN、LSTM等，输入都是经过词向量嵌入后的向量，将词编码成相应要保持其语义信息是更好的，即将词编程稠密向量，one-hot独热向量虽然简单，但会编码维度灾难与语义鸿沟的问题。
 
 
 ## `待审阅` 3.问题：在使用PTB数据集训练词向量模型出现输入(X)和输入(label)的形状不一致
@@ -408,7 +410,8 @@ embed_fourth = fluid.layers.embedding(
     param_attr='shared_w')
 ```
 
-
+ + 问题分析：关于fluid.layers.embedding()方法的更多内容，可以参考API文档相关部分：
+ http://www.paddlepaddle.org/documentation/docs/zh/1.1/api/layers.html#embedding
 
 
 ## `待审阅` 5.问题：在创建预测数据时报错data and recursive_seq_lens do not match

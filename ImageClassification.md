@@ -37,7 +37,11 @@ from vgg import vgg_bn_drop
 
  + 解决问题：PaddlePaddle的Fluid版本没有直接提供VGG卷积神经网络的接口，所以使用VGG神经完了还需要自己去定义这个VGG网络。
 
- + 问题拓展：在PaddlePaddle的V2版本中，PaddlePaddle提供了`paddle.v2.networks.vgg_16_network`接口，这个就是可以直接使用的VGG16卷积神经网络接口。用过V2版本的用户会错误理解Fluid版本也有相同的接口，所以导致错误的出现。
+ + 问题分析：在PaddlePaddle的V2版本中，PaddlePaddle提供了`paddle.v2.networks.vgg_16_network`接口，这个就是可以直接使用的VGG16卷积神经网络接口。用过V2版本的用户会错误理解Fluid版本也有相同的接口，所以导致错误的出现。
+
+ + 问题拓展：VGGNet是牛津大学计算机视觉组（Visual Geometry Group）和Google DeepMind公司的研究员一起研发的深度卷积神经网络。其探索了神经网络深度与其性能之间的关系，目前主要有VGG-16与VGG-19两种结构，其中VGG-16网络猴子那个包含参数的层数有16个，总共包含1.38亿个参数，其优点是简化了卷积神经网络的结构，而缺点就是训练的特征数量非常大。其结构如下图：
+
+ ![](https://img-blog.csdn.net/20180117142931666?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMjU3MzcxNjk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 
 
@@ -108,8 +112,10 @@ def inference_network():
 
  + 问题拓展：图片有单通道的灰度图，还要三通道的彩色图，所以在定义输入层的形状的时候要根据图片是否是彩色图片来设置图片的通道数。彩色图的三个通道分别是RGB，分别表示红色、绿色、蓝色。
 
+ + 问题分析：神经网络在处理图像数据时，通常将图像数字看成相应的多维矩阵，此时不同维度的含义就很重要的了，维度弄错了，神经网络处理的数据就完成不一样了，此时训练出来的模型就完全与自身预期不相符。
 
-## `待修改` 3.问题：使用CIFAR-10彩色图片训练出现输出数据维度错误
+
+## `已审阅` 3.问题：使用CIFAR-10彩色图片训练出现输出数据维度错误
 
  + 问题描述：在使用CIFAR-10彩色图片训练，其中定义输入层的形状为`[3072]`的时候，出现卷积层输入的形状不为4维或者5维的错误。
 
@@ -178,6 +184,10 @@ def inference_network():
 ```
 
  + 问题拓展：在定义输出层的，其中参数`shape`的值应该是输出数据的形状，而不是大小。在V2版本的接口是设置大小，所以有些用户会误以为Fluid也是设置输入的大小，所以会导致错误。
+
+ + 问题分析：PaddlePaddle团队对PaddlePaddle框架的优化速度较快，很多接口也采用更加容易理解的方法进行了重新，此时就有可能会造成与此前版本不一致的情况，请移步阅读PaddlePaddle Fluid版本的文档：
+
+ http://www.paddlepaddle.org/documentation/docs/zh/1.1/beginners_guide/index.html
 
 
 ## `已审阅` 4.问题：图像预测部分预测的没有输出类别的名称

@@ -11,12 +11,12 @@
 
 * 入门案例
 
-  * [✘线性回归](LinearRegression.md)
-  * [✘识别数字](DigitRecognition.md)
-  * [✘图像分类](ImageClassification.md)
+  * [✔️线性回归](LinearRegression.md)
+  * [✔️识别数字](DigitRecognition.md)
+  * [✔️图像分类](ImageClassification.md)
   * [✘词向量](WordVector.md)
   * [✘个性化推荐](RecommendationSystem.md)
-  * [☐情感分析](SentimentAnalysis.md)
+  * [✘情感分析](SentimentAnalysis.md)
   * [☐语义角色标注](SemanticRoleLabelling.md)
   * [☐机器翻译](MachineTranslation.md)
 
