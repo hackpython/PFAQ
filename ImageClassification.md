@@ -10,7 +10,7 @@
 ## 图像分类PaddlePaddle-fluid版代码：
 https://github.com/PaddlePaddle/book/tree/develop/03.image_classification
 
-## `待修改` 1.问题：在使用VGG网络的时候提示vgg包不存在
+## `已审阅` 1.问题：在使用VGG网络的时候提示vgg包不存在
 
  + 问题描述：
 
