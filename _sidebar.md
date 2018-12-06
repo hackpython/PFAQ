@@ -4,8 +4,8 @@
   * [容器安装](zh-cn/more-pages.md)
   * [源码安装](zh-cn/custom-navbar.md)
   * [python版本](zh-cn/cover.md) -->
-  * [✔️Mac编译安装Paddle](Mac编译安装Paddle.md)
-  * [✔️PaddlePaddle安装](PaddlePaddle安装.md)
+  * [✔️Mac安装Paddle](Mac安装Paddle.md)
+  * [✔️Linux安装Paddle](Linux安装PaddlePaddle.md)
 
 
 * 入门案例

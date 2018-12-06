@@ -385,7 +385,7 @@ def encoder(is_sparse):
 ```
 
 + 问题分析：
-该问题很有可能是`paddle.fluid.layers.data`定义的输入类型不正确，Fluid中需要注意的是对于float而言，float32是主要实数类型，而对int而言，int64是主要标签类型。在使用时，最好对应上
+该问题很有可能是`paddle.fluid.layers.data`定义的输入类型不正确，Fluid中需要注意的是对于float而言，float32是主要实数类型，而对int而言，int64是主要标签类型。在使用时，最好对应上。
 
 
 + 问题解决：
@@ -408,35 +408,6 @@ def encoder(is_sparse):
     encoder_out = pd.sequence_last_step(input=lstm_hidden0)
     return encoder_out
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,4 +1,4 @@
-# MacOS编译安装PaddlePaddle
+# MacOS安装PaddlePaddle
 
 ## `已审阅` 1.问题：基于Docker编译Paddle与MacOS本机编译Paddle的疑问
 

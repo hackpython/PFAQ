@@ -1,4 +1,4 @@
-# PaddlePaddle安装
+# Linux安装PaddlePaddle
 
 ## `已审阅` 1.问题：cuda9.0需要安装哪一个版本的paddle，安装包在哪
 
