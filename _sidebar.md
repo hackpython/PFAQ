@@ -5,7 +5,6 @@
   * [源码安装](zh-cn/custom-navbar.md)
   * [python版本](zh-cn/cover.md) -->
   * [✔️Mac编译安装Paddle](Mac编译安装Paddle.md)
-  * [✔️Linux编译安装Paddle](Linux编译安装Paddle.md)
   * [✔️PaddlePaddle安装](PaddlePaddle安装.md)
 
 
