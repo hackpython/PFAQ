@@ -6,7 +6,7 @@
 近年来，深度学习技术的发展为解决上述挑战提供了新的思路。将深度学习应用于机器翻译任务的方法大致分为两类：1）仍以统计机器翻译系统为框架，只是利用神经网络来改进其中的关键模块，如语言模型、调序模型等（见图1的左半部分）；2）不再以统计机器翻译系统为框架，而是直接用神经网络将源语言映射到目标语言，即端到端的神经网络机器翻译（End-to-End Neural Machine Translation, End-to-End NMT）（见图1的右半部分），简称为NMT模型。
 
 
-## `待审核`1.问题：'map' object is not subscriptable
+## `已审核`1.问题：'map' object is not subscriptable
 
 + 问题描述：我按照PaddlePaddle官方文档编写机器翻译模型，出现这个错误，对照了文档中的代码，也没有编写错误。
 
@@ -73,7 +73,7 @@ for data in test_data():
 + 问题拓展：
 map()方法是python内置方法，python2与python3中map()方法是有不同的，python3中考虑到一切性将数据全部返回会比较消耗内存，就就修改成生成对象的形式，即取的时候才会获得，而且只生效一次。
 
-## `待审核`2.问题：按照文档编写，出现name 'result_ids_lod' is not defined
+## `已审核`2.问题：按照文档编写，出现name 'result_ids_lod' is not defined
 
 + 问题描述：我使用Fluid1.1按照文档编写相应的结果，出现name 'result_ids_lod' is not defined错误
 
@@ -139,7 +139,7 @@ for data in test_data():
 最新的代码请参考https://github.com/PaddlePaddle/book/blob/fa35415f2b3f5a5d3e045ff0564d5df0a5a2b0d5/08.machine_translation/infer.py
 
 
-## `待审核`3.问题：The number of fields in data (3) does not match len(feed_list)
+## `已审核`3.问题：The number of fields in data (3) does not match len(feed_list)
 
 + 问题描述：使用PaddlePaddle构建机器翻译模型，出现`The number of fields in data (3) does not match len(feed_list)`
 
@@ -237,7 +237,7 @@ def decode(context, is_sparse):
 ```
 
 
-## `待审核`4.问题：Tensor holds the wrong type
+## `已审核`4.问题：Tensor holds the wrong type
 
 + 问题描述：我根据文档编写机器翻译模型，出现了`Tensor holds the wrong type`
 
@@ -409,8 +409,53 @@ def encoder(is_sparse):
     return encoder_out
 ```
 
+## `已审核`5.为什么trainer.train中没有feeding参数也可以保持数据输入与模型中input的关系
 
++ 关键字：`机器翻译` `feeding参数`
 
++ 问题描述：
+根据paddle文档的介绍，“ Reader返回的数据可以包括多列，我们需要一个Python dict把列 序号映射到网络里的数据层。”
+参考：https://github.com/PaddlePaddle/book/blob/develop/01.fit_a_line/train.py
+
+但是我发现在机器翻译例子中，并没有使用feeding方式，没有指定数据与模型input的关系，
+参考：https://github.com/PaddlePaddle/book/blob/develop/08.machine_translation/train.py
+请问程序是如何保证数据与模型input对应一致的呢
+
++ 问题解答：
+Paddle会对网络配置进行解析，解析出来的 数据层 的顺序和定义顺序一致，而Paddle默认的input顺序和解析出的数据层的顺序一致。所以在不使用feeding方式时，input顺序须和数据层定义顺序保持一致。
+
+## `已审核`6.demo machine translate "beam_search() got multiple values for keyword argument 'end_id'"
+
++ 关键字：`机器翻译` `beam_search`
+
++ 问题描述：使用Fluid 0.14 CPU版的PaddlePaddle运行机器翻译的例子时，出现`beam_search() got multiple values for keyword argument 'end_id'`
+
++ 报错输出：
+
+```bash
+Traceback (most recent call last):
+  File "infer.py", line 196, in <module>
+    main(use_cuda)
+  File "infer.py", line 191, in main
+    decode_main(False)  # Beam Search does not support CUDA
+  File "infer.py", line 133, in decode_main
+    translation_ids, translation_scores = decode(context)
+  File "infer.py", line 98, in decode
+    beam_size, end_id=10, level=0)
+TypeError: beam_search() got multiple values for keyword argument 'end_id'
+```
+
++ 问题解答：
+这个问题很有可能是PaddlePaddle版本问题，因为`beamsearch`相关的内容在Fluid 0.14版后依旧有相应的修改，所以造成该问题的原因可能是你使用机器学习示例中的用法与Paddle版本中提供的api不匹配。
+
++ 解决方法：
+将PaddlePaddle更新成最新的版本，参考官方最新的机器翻译的实例，如下
+
+    http://www.paddlepaddle.org/documentation/docs/zh/1.0/beginners_guide/basics/machine_translation/index.html
+
+    或者直接参考PaddlePaddle提供的book中关于机器翻译的代码，如下
+
+    https://github.com/PaddlePaddle/book/tree/develop/08.machine_translation
 
 
 
