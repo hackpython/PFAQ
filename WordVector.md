@@ -17,7 +17,7 @@ https://github.com/PaddlePaddle/Paddle/issues/2770
 ## 词向量PaddlePaddle-fluid版代码：
 https://github.com/PaddlePaddle/book/tree/c66605770b1ea4d04f290c21d8b72ef4e4d6f7e6/04.word2vec
 
-## `待审阅` 1.问题：使用PTB数据集训练词向量模型出现张量类型错误
+## `已审阅` 1.问题：使用PTB数据集训练词向量模型出现张量类型错误
 
  + 关键字：`数据类型`，`dtype`
 
@@ -86,9 +86,7 @@ fourth_word = fluid.layers.data(name='fourthw', shape=[1], dtype='int64')
  + 问题分析：编写神经网络时，获得编写任何程序时，细节都是重要的，细节不正确就会导致程序运行不起来，而深度学习的编程中，类型不正确是常出现的错误，要避免这类错误，你需要熟悉你使用的训练数据的数据类型，如果不熟悉，此时最好的方法就是在使用时打印一下数据的类型与shape，方便编写出正确的fluid.layers.data
 
 
-
-
-## `待审阅` 2.问题：设置向量表征类型为整型时训练报错
+## `已审阅` 2.问题：设置向量表征类型为整型时训练报错
 
  + 关键字：`数据类型`，`词向量`
 
@@ -185,7 +183,7 @@ embed_fourth = fluid.layers.embedding(
  + 问题分析：NLP中，词向量技术是比较底层的计算，是很多上层技术的支撑，如RNN、LSTM等，输入都是经过词向量嵌入后的向量，将词编码成相应要保持其语义信息是更好的，即将词编程稠密向量，one-hot独热向量虽然简单，但会编码维度灾难与语义鸿沟的问题。
 
 
-## `待审阅` 3.问题：在使用PTB数据集训练词向量模型出现输入(X)和输入(label)的形状不一致
+## `已审阅` 3.问题：在使用PTB数据集训练词向量模型出现输入(X)和输入(label)的形状不一致
 
  + 关键字：`数据维度`，`concat`
 
@@ -300,8 +298,7 @@ concat_embed = fluid.layers.concat(
 
 
 
-
-## `待审阅` 4.问题：在使用N-gram神经网络训练时出现ids[i]>row_number的错误
+## `已审阅` 4.问题：在使用N-gram神经网络训练时出现ids[i]>row_number的错误
 
  + 关键字：`词向量`，`N-gram神经网络`
 
@@ -414,7 +411,7 @@ embed_fourth = fluid.layers.embedding(
  http://www.paddlepaddle.org/documentation/docs/zh/1.1/api/layers.html#embedding
 
 
-## `待审阅` 5.问题：在创建预测数据时报错data and recursive_seq_lens do not match
+## `已审阅` 5.问题：在创建预测数据时报错data and recursive_seq_lens do not match
 
  + 关键字：`张量`，`数据维度`
 
@@ -475,7 +472,7 @@ fourth_word = fluid.create_lod_tensor(data4, lod, place)
 
 
 
-## `待审阅` 6.问题：在执行词向量预测的是出现预测数据不能完全转换为Python ndarray的错误
+## `已审阅` 6.问题：在执行词向量预测的是出现预测数据不能完全转换为Python ndarray的错误
 
  + 关键字：`预测`，`numpy`
 
@@ -570,7 +567,7 @@ result = inferencer.infer(
 
 
 
-## `待审阅` 7.问题：在使用词向量模型预测字符串数据时出现数据类型错误
+## `已审阅` 7.问题：在使用词向量模型预测字符串数据时出现数据类型错误
 
  + 关键字：`张量`，`预测数据`
 
@@ -631,7 +628,7 @@ fourth_word = fluid.create_lod_tensor(data4, lod, place)
 
 
 
-## `待审阅` 8.问题：在调用PaddlePaddle提供的词向量数据集接口用于训练时出现数据长度错误
+## `已审阅` 8.问题：在调用PaddlePaddle提供的词向量数据集接口用于训练时出现数据长度错误
 
  + 关键字：`PTB数据集`，`数据维度`
 
