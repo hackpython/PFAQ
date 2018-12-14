@@ -4,7 +4,7 @@
 
 自然语言分析技术大致分为三个层面：词法分析、句法分析和语义分析。语义角色标注（Semantic Role Labeling，SRL）以句子的谓词为中心，不对句子所包含的语义信息进行深入分析，只分析句子中各成分与谓词之间的关系，即句子的谓词（Predicate）- 论元（Argument）结构，并用语义角色来描述这些结构关系，是许多自然语言理解任务（如信息抽取，篇章分析，深度问答等）的一个重要中间步骤。
 
-## `待审核`1.问题：加载PaddlePaddle保存的二进制模型报错
+## `已审核`1.问题：加载PaddlePaddle保存的二进制模型报错
 
 + 问题描述：使用PaddlePaddle构建深度双向LSTM模型时，读入PaddlePaddle中保存的二进制模型报错，模型结构如下：
 
@@ -164,7 +164,7 @@ def load_parameter(file_name, h, w):
 我们很难确保此前存入二进制文件的结构，所以为了确保可以正常读入并使用这些二进制文件的参数数据，使用同一版本的框架，训练同一类似的模型则可，当然在迁移训练等具体任务，要使用不同的策略。
 
 
-## `待审核`2.问题：Data Type mismatch
+## `已审核`2.问题：Data Type mismatch
 
 + 问题描述：使用PaddlePaddle训练语义模型时，出现Data Type mismatch: 5 to 6
 
@@ -267,7 +267,7 @@ bool: 控制流数据类型
 int16: 次要标签类型
 uint8: 输入数据类型，可用于图像像素
 
-## `待审核`3.问题：使用PaddlePaddle训练模型时，程序没有报错也没有任何输出
+## `已审核`3.问题：使用PaddlePaddle训练模型时，程序没有报错也没有任何输出
 
 + 问题藐视：使用PaddlePaddle训练模型时，程序没有报错也没有任何输出
 
@@ -291,7 +291,7 @@ main(use_cuda=False)
 
 CPU和GPU在训练模型速度方面有较大差距，本质原因就是CPU并不擅长高精度的浮点运算，而GPU却擅长，所有可以使用GPU的情况下尽量使用GPU来训练模型。要通过PaddlePaddle正常使用设备中的GPU，需要检查GPU是否安装正确的驱动以及是否安装GPU版本的PaddlePaddle，这部分的内容请参考文档安装部分：http://www.paddlepaddle.org/documentation/docs/zh/1.1/beginners_guide/index.html
 
-## `待审核`4.问题：使用PaddlePaddle训练模型时，运行到一半异常抛出
+## `已审核`4.问题：使用PaddlePaddle训练模型时，运行到一半异常抛出
 
 + 问题描述：使用PaddlePaddle构建双向循环神经网络做语义角色标注时，程序一开始正常运行，一会后就抛出`var verb_data not in this block`，程序一开始都正常运行了，为何还会抛出错误？
 
@@ -414,7 +414,7 @@ mark = fluid.layers.data(
 在参考他人代码，模仿着写时，很容易出现这样的问题，因为代码并不是自己重头写的，而PaddlePaddle的代码又不想传统的python代码那样可以断点调试，此时想要在运行前直接看出自己代码中的细节错误是比较困难的，此时先让程序运行，通过报错输出来定位代码中问题所在却是一个好方法。
 
 
-## `待审核`5.问题： grad_op_maker_ should not be null
+## `已审核`5.问题： grad_op_maker_ should not be null
 
 + 问题描述：使用PaddlePaddle构建语义角色标注模型时，出现`grad_op_maker_ should not be null`
 
@@ -591,7 +591,7 @@ with fluid.scope_guard(inference_scope):
 
 
 
-## `待审核`6.问题：运行报错，出现`'NoneType' object has no attribute 'get_tensor'`
+## `已审核`6.问题：运行报错，出现`'NoneType' object has no attribute 'get_tensor'`
 
 + 问题描述：通过PaddlePaddle构建LSTM模型，训练时报出`'NoneType' object has no attribute 'get_tensor'`，代码中是有get_tensor了，就算将get_tensor删除，也会出现相似的错误
 
@@ -659,7 +659,7 @@ def train_loop(main_program):
 ```
 
 
-## `待审核`7.问题:程序训练完后，执行预测逻辑报错
+## `已审核`7.问题:程序训练完后，执行预测逻辑报错
 
 + 问题描述：PaddlePaddle编写完程序后，执行预测逻辑报错
 
@@ -710,7 +710,7 @@ train(use_cuda, save_dirname, is_local)
 infer(False, 'label_semantic_roles.inference.model')
 ```
 
-## `待审核`8.问题：var ctx_p1_data not in this block
+## `已审核`8.问题：var ctx_p1_data not in this block
 
 + 问题描述：使用PaddlePaddle编写语义标注模型时出现`var ctx_p1_data not in this block`
 
