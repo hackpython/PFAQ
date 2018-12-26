@@ -29,6 +29,7 @@
   * [✘应用预测](应用预测.md)
   * [✘调整参数](调整参数.md)
   * [✘Paddle多机模式](Paddle多机模式.md)
+  * [✘v2迁移到Fluid](v2迁移到Fluid.md)
 
 * 深度学习API
   * [☐神经网络](zh-cn/quickstart.md)

@@ -68,11 +68,58 @@ elif role == "TRAINER":
 ```
 
 
+## `待审核`4.问题：Fluid如何实现分布式网络架构？
+
++ 问题描述：目前有多个物理主机，现在想通过Fluid来构建一个分布式的训练网络，如何实现？
+
++ 问题分析：可以使用`paddle.fluid.Distribut`类，该类可以把fluid program转变为分布式数据并行计算程序（distributed data-parallelism programs）,可以有Pserver和NCCL2两种模式。
+
+
++ 解决方法：
+
+`paddle.fluid.Distribut`类pserver模式的实例代码如下：
+
+```
+#pserver模式下
+pserver_endpoints = "192.168.0.1:6174,192.168.0.2:6174"
+trainer_endpoints = "192.168.0.1:6174,192.168.0.2:6174"
+current_endpoint = "192.168.0.1:6174"
+trainer_id = 0
+trainers = 4
+role = os.getenv("PADDLE_TRAINING_ROLE")
+
+t = fluid.DistributeTranspiler()
+t.transpile(
+     trainer_id, pservers=pserver_endpoints, trainers=trainers)
+if role == "PSERVER":
+     pserver_program = t.get_pserver_program(current_endpoint)
+     pserver_startup_program = t.get_startup_program(current_endpoint,
+                                             pserver_program)
+elif role == "TRAINER":
+     trainer_program = t.get_trainer_program()
+```
+
+关于该类更多的内容，可以参考：http://www.paddlepaddle.org/documentation/api/en/0.15.0/transpiler.html#distributetranspiler
+
++ 问题拓展：
+
+分布式训练深度学习模型在技术实现上是存在挑战的，其抽象整体结构如下图：
+
+![](https://raw.githubusercontent.com/ayuLiao/images/master/distributedeeplearning.png)
+
+其实设计了很多技术细节，可以参考下面文章：
+
+http://joerihermans.com/ramblings/distributed-deep-learning-part-1-an-introduction/
 
 
 
+## `待审核`5.问题：Fluid版Paddle多机训练时，batch_size大小实际是多少？
 
++ 问题描述：使用Fluid版的Paddle多机训练时，设置的batch_size与实际训练时使用batch_size是否不同？实际使用的batch_size是多少？
 
++ 问题回答：
+多机训练时，即Paddle的集群模式下，实际使用的batch_size = 配置中的batch_size * 结点数目，一个具体的例子：
+现在有10个节点使用Fluid进行训练，配置的batch_size为128，那么实际训练时使用的batch_size为128\*10=1280
 
 
 
