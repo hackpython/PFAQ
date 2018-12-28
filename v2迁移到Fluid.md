@@ -30,3 +30,4 @@ data_layout可以指定两种类型的数据格式，其含义如下：
 
 NHWC [batch，in_height，in_width，in_channels]
 NCHW [batch，in_channels，in_height，in_width]
+

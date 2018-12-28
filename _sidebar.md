@@ -26,10 +26,11 @@
   * [✘模型搭建](模型搭建.md)
   * [✘模型训练](模型训练.md)
   * [✘模型评估](模型评估.md)
-  * [✘应用预测](应用预测.md)
+  * [✔️应用预测](应用预测.md)
   * [✘调整参数](调整参数.md)
   * [✘Paddle多机模式](Paddle多机模式.md)
-  * [✘v2迁移到Fluid](v2迁移到Fluid.md)
+  * [✘Paddle GPU模式](Paddle_GPU模式.md)
+  * [✔️v2迁移到Fluid](v2迁移到Fluid.md)
 
 * 深度学习API
   * [☐神经网络](zh-cn/quickstart.md)

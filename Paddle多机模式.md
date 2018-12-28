@@ -117,15 +117,126 @@ http://joerihermans.com/ramblings/distributed-deep-learning-part-1-an-introducti
 
 + 问题描述：使用Fluid版的Paddle多机训练时，设置的batch_size与实际训练时使用batch_size是否不同？实际使用的batch_size是多少？
 
-+ 问题回答：
++ 问题分析：Fluid在进行多机训练时，会将数据根据相应的规则传递到不同的机器上，然后再进行训练。
+
++ 问题解答：
 多机训练时，即Paddle的集群模式下，实际使用的batch_size = 配置中的batch_size * 结点数目，一个具体的例子：
 现在有10个节点使用Fluid进行训练，配置的batch_size为128，那么实际训练时使用的batch_size为128\*10=1280
 
 
+## `待审核`6.问题：如何将参数分别传递给不同的机器设备进行训练？
 
++ 问题描述：Fluid版如果实现将数据指定给不同的设备，因为每个设备强弱不同，想将较多的数据分配给算力较强的设备进行模型的训练。
 
++ 问题分析：
 
+其实多机训练时数据的传递与单机时是类似的，在单机情况，数据传递到模型的形式如下：
 
+```python
+exe = fluid.Executor(cpu)
+
+exe.run(fluid.default_startup_program())
+
+outs = exe.run(
+        feed = {'x': train_data, 'y': y_true},
+        fetch_list=[y_predict.name, avg_cost.name]
+    )
+```
+
++ 解决方法：
+
+形式与单机时传参类似，只是不再使用Executor而是使用ParallelExecutor来进行训练，同样通过feed传递参数，形式如下：
+
+```python
+import paddle.fluid as fluid
+import numpy
+
+parallel_executor = fluid.ParallelExecutor()
+parallel_executor.run(
+  feed=[
+     {
+       "image": numpy.random.random(size=(32, 3, 224, 224)).astype('float32'),
+       "label": numpy.random.random(size=(32, 1)).astype('int64')
+     },
+     {
+       "image": numpy.random.random(size=(16, 3, 224, 224)).astype('float32'),
+       "label": numpy.random.random(size=(16, 1)).astype('int64')
+     },
+  ]
+)
+```
+
+在上面的代码中，会分别将数据传递到不同的GPU上，GPU 0会训练32为一batch的样本，而GPU 1只会训练16为一batch的样本。
+
+## `待审核`7.问题：fluid启动pserver时卡住了，无法进行执行后面的逻辑。
+
++ 问题描述：自建k8s, 使用paddle镜像：1.0.1-gpu-cuda8.0-cudnn7
+启动pserver相关代码：
+
+```python
+if training_role == "PSERVER":
+        place = fluid.CPUPlace()
+    exe = fluid.Executor(place)
+    if is_local:
+        train_loop(fluid.default_main_program())
+    else:
+        eplist = []
+        for ip in pserver_ips.split(","):
+            eplist.append(':'.join([ip, port]))
+        pserver_endpoints = ",".join(eplist)  # ip:port,ip:port...
+        print(pserver_endpoints)
+        print(trainers)
+        print(trainer_id)
+        t = fluid.DistributeTranspiler()
+        t.transpile(
+            trainer_id,
+            pservers=pserver_endpoints,
+            trainers=trainers)
+
+        if training_role == "PSERVER":
+            print("pserver")
+            print("current_endpoint: %s" % current_endpoint)
+            pserver_prog = t.get_pserver_program(current_endpoint)
+            pserver_startup = t.get_startup_program(current_endpoint,
+                                                    pserver_prog)
+            print("start pserver...")
+            exe.run(pserver_startup)
+            print("pserver start up ok: %s" % pserver_startup)
+            exe.run(pserver_prog)
+            print("pserver ended")
+        elif training_role == "TRAINER":
+            print("trainer")
+            train_loop(t.get_trainer_program())
+```
+
+输出日志中发现输出了start pserver...之后再无新日志输出，而trainer也一直在等待pserver启动成功, 不停的输出“pserver not ready, wait 3 sec to retry...”，一段时间后trainer也失败退出。
+
++ 问题分析：
+
+`pserver not ready, wait 3 sec to retry...`的报错输出说明是通信问题，即还没有进入Paddle Fluid的执行逻辑就已经报错了。
+
++ 解决方法：
+从相关代码中可以看出，使用了Executor，但在多机模式下，要使用pserver需要通过ParallelExecutor来使用，示例代码如下：
+
+```python
+ if args.update_method == "pserver":
+        # parameter server mode distributed training, merge
+        # gradients on local server, do not initialize
+        # ParallelExecutor with multi server all-reduce mode.
+        num_trainers = 1
+        trainer_id = 0
+
+    exe = fluid.ParallelExecutor(
+        True,
+        avg_loss.name,
+        main_program=train_prog,
+        exec_strategy=strategy,
+        build_strategy=build_strategy,
+        num_trainers=num_trainers,
+        trainer_id=trainer_id)
+```
+
+更多细节可以参考：https://github.com/PaddlePaddle/models/blob/develop/fluid/PaddleCV/image_classification/dist_train/dist_train.py#L326
 
 
 
