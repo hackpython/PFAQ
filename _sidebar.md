@@ -32,6 +32,9 @@
   * [✘Paddle GPU模式](Paddle_GPU模式.md)
   * [✔️v2迁移到Fluid](v2迁移到Fluid.md)
 
+* 深度学习
+  * [✘自然语言处理](自然语言处理.md)
+
 * 深度学习API
   * [☐神经网络](zh-cn/quickstart.md)
   * [☐优化器](zh-cn/more-pages.md)
