@@ -458,13 +458,303 @@ TypeError: beam_search() got multiple values for keyword argument 'end_id'
     https://github.com/PaddlePaddle/book/tree/develop/08.machine_translation
 
 
+## `待审核`6.问题：使用Fluid编写机器翻译模型，报错
+
++ 问题描述：使用Fluid编写机器翻译模型，报错
+
++ 报错输出：
+
+```
+Traceback (most recent call last):
+  File "train.py", line 173, in <module>
+    train()
+  File "train.py", line 63, in train
+    max_length=args.max_length)
+  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 81, in seq_to_seq_net
+    input_seq=src_embedding, gate_size=encoder_size)
+  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 59, in bi_lstm_encoder
+    size=gate_size * 4, use_peepholes=False)
+TypeError: dynamic_lstm() missing 1 required positional argument: 'input'
+```
+
++ 相关代码：
+
+```
+forward, _ = fluid.layers.dynamic_lstm(
+            size=gate_size * 4, use_peepholes=False)
+        input_reversed_proj = fluid.layers.fc(input=input_seq,
+                                              size=gate_size * 4,
+                                              act='tanh',
+                                              bias_attr=False)
+reversed, _ = fluid.layers.dynamic_lstm(
+    input=input_reversed_proj,
+    size=gate_size * 4,
+    is_reverse=True,
+    use_peepholes=False)
+```
+
++ 解决方法：
+
+```
+forward, _ = fluid.layers.dynamic_lstm(
+        input=input_forward_proj,size=gate_size * 4, use_peepholes=False)
+        input_reversed_proj = fluid.layers.fc(input=input_seq,
+                                              size=gate_size * 4,
+                                              act='tanh',
+                                              bias_attr=False)
+reversed, _ = fluid.layers.dynamic_lstm(
+    input=input_reversed_proj,
+    size=gate_size * 4,
+    is_reverse=True,
+    use_peepholes=False)
+```
 
 
+## `待审核`7.问题：使用Fluid运行官方models中的rnn_search的模型，报错
+
++ 问题描述：使用Fluid运行官方models中的rnn_search的模型，报错
+
++ 报错输出：
+
+```
+Traceback (most recent call last):
+  File "train.py", line 173, in <module>
+    train()
+  File "train.py", line 103, in train
+    exe.run(framework.default_startup_program())
+  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/executor.py", line 470, in run
+    self.executor.run(program.desc, scope, 0, True, True)
+paddle.fluid.core.EnforceNotMet: Cannot run operator on place CUDAPlace(0) at [/Users/paddle/minqiyang/Paddle/paddle/fluid/framework/operator.cc:146]
+PaddlePaddle Call Stacks:
+0          0x10d0eaa68p paddle::platform::EnforceNotMet::EnforceNotMet(std::exception_ptr, char const*, int) + 760
+1          0x10df0f1f9p paddle::framework::OperatorBase::Run(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) + 761
+2          0x10d1b83a6p paddle::framework::Executor::RunPreparedContext(paddle::framework::ExecutorPrepareContext*, paddle::framework::Scope*, bool, bool, bool) + 390
+3          0x10d1b7dd3p paddle::framework::Executor::Run(paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool) + 163
+4          0x10d11e837p void pybind11::cpp_function::initialize<paddle::pybind::pybind11_init()::$_64, void, paddle::framework::Executor&, paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool, pybind11::name, pybind11::is_method, pybind11::sibling>(paddle::pybind::pybind11_init()::$_64&&, void (*)(paddle::framework::Executor&, paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&)::'lambda'(pybind11::detail::function_call&)::__invoke(pybind11::detail::function_call&) + 135
+5          0x10d0f53aap pybind11::cpp_function::dispatcher(_object*, _object*, _object*) + 5786
+6          0x10038859fp PyCFunction_Call + 127
+7          0x1004537e7p PyEval_EvalFrameEx + 33207
+8          0x100449fafp _PyEval_EvalCodeWithName + 335
+9          0x1004502a7p PyEval_EvalFrameEx + 19575
+10         0x100449fafp _PyEval_EvalCodeWithName + 335
+11         0x1004502a7p PyEval_EvalFrameEx + 19575
+12         0x100449fafp _PyEval_EvalCodeWithName + 335
+13         0x10049c758p PyRun_FileExFlags + 248
+14         0x10049beeep PyRun_SimpleFileExFlags + 382
+15         0x1004c0d86p Py_Main + 3622
+16         0x100302861p main + 497
+17      0x7fff5f4da015p start + 1
+18                 0x2p
+```
+
++ 问题分析：
+
+报错输出中有`Cannot run operator on place CUDAPlace(0)`，通常是运行设备中没有GPU，使用CPU运作则可。
+
++ 解决方法：
+
+```
+place  = core.CPUPlace()
+```
 
 
+## `待审核`8.问题：通过Fluid实现机器翻译模型报错
+
++ 问题描述：通过Fluid实现机器翻译模型报错
+
++ 报错输出：
+
+```
+TTraceback (most recent call last):
+  File "train.py", line 173, in <module>
+    train()
+  File "train.py", line 108, in train
+    feeder = fluid.DataFeeder()
+TypeError: __init__() missing 2 required positional arguments: 'feed_list' and 'place'
+```
+
++ 解决方法：
+
+DataFeeder()方法需要相关的参数，将相关参数传入则可。
+
+```
+place  = core.CPUPlace()
+exe = Executor(place)
+exe.run(framework.default_startup_program())
+
+feed_list = [
+    main_program.global_block().var(var_name) for var_name in feed_order
+]
+feeder = fluid.DataFeeder(feed_list, place)
+
+```
 
 
+##  `待审核`9.问题：Enforce failed. Expected w_dims[0] == frame_size
 
++ + 问题描述：运行Fluid编写的模型时，输出Enforce failed. Expected w_dims[0] == frame_size
+
++ 报错输出：
+
+```
+Traceback (most recent call last):
+  File "train.py", line 173, in <module>
+    train()
+  File "train.py", line 63, in train
+    max_length=args.max_length)
+  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 81, in seq_to_seq_net
+    input_seq=src_embedding, gate_size=encoder_size)
+  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 59, in bi_lstm_encoder
+    size=gate_size, use_peepholes=False)
+  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/layers/nn.py", line 452, in dynamic_lstm
+    'candidate_activation': candidate_activation
+  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/layer_helper.py", line 50, in append_op
+    return self.main_program.current_block().append_op(*args, **kwargs)
+  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/framework.py", line 1207, in append_op
+    op = Operator(block=self, desc=op_desc, *args, **kwargs)
+  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/framework.py", line 656, in __init__
+    self.desc.infer_shape(self.block.desc)
+paddle.fluid.core.EnforceNotMet: Enforce failed. Expected w_dims[0] == frame_size, but received w_dims[0]:128 != frame_size:512.
+The first dimension of Input(Weight) should be 512. at [/Users/paddle/minqiyang/Paddle/paddle/fluid/operators/lstm_op.cc:63]
+PaddlePaddle Call Stacks:
+0          0x10cf18a68p paddle::platform::EnforceNotMet::EnforceNotMet(std::exception_ptr, char const*, int) + 760
+1          0x10da71c6cp paddle::operators::LSTMOp::InferShape(paddle::framework::InferShapeContext*) const + 6892
+2          0x10cfd5e68p paddle::framework::OpDesc::InferShape(paddle::framework::BlockDesc const&) const + 1496
+3          0x10cf9f479p _ZZN8pybind1112cpp_function10initializeIZNS0_C1IvN6paddle9framework6OpDescEJRKNS4_9BlockDescEEJNS_4nameENS_9is_methodENS_7siblingEEEEMT0_KFT_DpT1_EDpRKT2_EUlPKS5_S8_E_vJSN_S8_EJS9_SA_SB_EEEvOSD_PFSC_SF_ESL_ENKUlRNS_6detail13function_callEE_clESU_ + 185
+4          0x10cf233aap pybind11::cpp_function::dispatcher(_object*, _object*, _object*) + 5786
+5          0x1001a959fp PyCFunction_Call + 127
+6          0x1002747e7p PyEval_EvalFrameEx + 33207
+7          0x10026afafp _PyEval_EvalCodeWithName + 335
+8          0x1001766aap function_call + 106
+9          0x100132b35p PyObject_Call + 69
+10         0x100155694p method_call + 148
+11         0x100132b35p PyObject_Call + 69
+12         0x1001cf415p slot_tp_init + 117
+13         0x1001d3ac1p type_call + 209
+14         0x100132b35p PyObject_Call + 69
+15         0x100271c9bp PyEval_EvalFrameEx + 22123
+16         0x10026afafp _PyEval_EvalCodeWithName + 335
+17         0x1001766aap function_call + 106
+18         0x100132b35p PyObject_Call + 69
+19         0x100271c9bp PyEval_EvalFrameEx + 22123
+20         0x10026afafp _PyEval_EvalCodeWithName + 335
+21         0x1002712a7p PyEval_EvalFrameEx + 19575
+22         0x10026afafp _PyEval_EvalCodeWithName + 335
+23         0x1002712a7p PyEval_EvalFrameEx + 19575
+24         0x10026afafp _PyEval_EvalCodeWithName + 335
+25         0x1002712a7p PyEval_EvalFrameEx + 19575
+26         0x10026afafp _PyEval_EvalCodeWithName + 335
+27         0x1002712a7p PyEval_EvalFrameEx + 19575
+28         0x10026afafp _PyEval_EvalCodeWithName + 335
+29         0x1002712a7p PyEval_EvalFrameEx + 19575
+30         0x10026afafp _PyEval_EvalCodeWithName + 335
+31         0x1002bd758p PyRun_FileExFlags + 248
+32         0x1002bceeep PyRun_SimpleFileExFlags + 382
+33         0x1002e1d86p Py_Main + 3622
+34         0x100123861p main + 497
+35      0x7fff5f4da015p start + 1
+36                 0x2p
+```
+
++ 相关代码：
+
+```
+forward, _ = fluid.layers.dynamic_lstm(
+    input=input_forward_proj,
+    size=gate_size * 4, use_peepholes=False)
+input_reversed_proj = fluid.layers.fc(input=input_seq,
+                                      size=gate_size * 4,
+                                      act='tanh',
+                                      bias_attr=False)
+reversed, _ = fluid.layers.dynamic_lstm(
+    input=input_reversed_proj,
+    size=gate_size,
+    is_reverse=True,
+    use_peepholes=False)
+return forward, reversed
+```
+
++ 解决方法：
+
+```
+forward, _ = fluid.layers.dynamic_lstm(
+            input=input_forward_proj,
+            size=gate_size * 4, use_peepholes=False)
+input_reversed_proj = fluid.layers.fc(input=input_seq,
+                                      size=gate_size * 4,
+                                      act='tanh',
+                                      bias_attr=False)
+reversed, _ = fluid.layers.dynamic_lstm(
+    input=input_reversed_proj,
+    size=gate_size * 4,
+    is_reverse=True,
+    use_peepholes=False)
+return forward, reversed
+```
+
+
+##  `待审核`10.问题：op uniform_random does not have kernel for data_type
+
++ 问题描述：使用Fluid实现机器翻译模型时，报op uniform_random does not have kernel for data_type
+
++ 报错输出：
+
+```
+Traceback (most recent call last):
+  File "train.py", line 173, in <module>
+    train()
+  File "train.py", line 103, in train
+    exe.run(framework.default_startup_program())
+  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/executor.py", line 470, in run
+    self.executor.run(program.desc, scope, 0, True, True)
+paddle.fluid.core.EnforceNotMet: op uniform_random does not have kernel for data_type[int64_t]:data_layout[ANY_LAYOUT]:place[CPUPlace]:library_type[PLAIN] at [/Users/paddle/minqiyang/Paddle/paddle/fluid/framework/operator.cc:726]
+PaddlePaddle Call Stacks:
+0          0x1197e4a68p paddle::platform::EnforceNotMet::EnforceNotMet(std::exception_ptr, char const*, int) + 760
+1          0x11a60d558p paddle::framework::OperatorWithKernel::RunImpl(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) const + 1480
+2          0x11a609141p paddle::framework::OperatorBase::Run(paddle::framework::Scope const&, boost::variant<paddle::platform::CUDAPlace, paddle::platform::CPUPlace, paddle::platform::CUDAPinnedPlace, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_, boost::detail::variant::void_> const&) + 577
+3          0x1198b23a6p paddle::framework::Executor::RunPreparedContext(paddle::framework::ExecutorPrepareContext*, paddle::framework::Scope*, bool, bool, bool) + 390
+4          0x1198b1dd3p paddle::framework::Executor::Run(paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool) + 163
+5          0x119818837p void pybind11::cpp_function::initialize<paddle::pybind::pybind11_init()::$_64, void, paddle::framework::Executor&, paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool, pybind11::name, pybind11::is_method, pybind11::sibling>(paddle::pybind::pybind11_init()::$_64&&, void (*)(paddle::framework::Executor&, paddle::framework::ProgramDesc const&, paddle::framework::Scope*, int, bool, bool), pybind11::name const&, pybind11::is_method const&, pybind11::sibling const&)::'lambda'(pybind11::detail::function_call&)::__invoke(pybind11::detail::function_call&) + 135
+6          0x1197ef3aap pybind11::cpp_function::dispatcher(_object*, _object*, _object*) + 5786
+7          0x10ca8859fp PyCFunction_Call + 127
+8          0x10cb537e7p PyEval_EvalFrameEx + 33207
+9          0x10cb49fafp _PyEval_EvalCodeWithName + 335
+10         0x10cb502a7p PyEval_EvalFrameEx + 19575
+11         0x10cb49fafp _PyEval_EvalCodeWithName + 335
+12         0x10cb502a7p PyEval_EvalFrameEx + 19575
+13         0x10cb49fafp _PyEval_EvalCodeWithName + 335
+14         0x10cb9c758p PyRun_FileExFlags + 248
+15         0x10cb9beeep PyRun_SimpleFileExFlags + 382
+16         0x10cbc0d86p Py_Main + 3622
+17         0x10ca02861p main + 497
+18      0x7fff5f4da015p start + 1
+19                 0x2p
+```
+
+
++ 相关代码：
+
+```
+src_word_idx = fluid.layers.data(
+        name='source_sequence', shape=[1], dtype='int64', lod_level=1)
+        
+src_embedding = fluid.layers.embedding(
+input=src_word_idx,
+size=[source_dict_dim, embedding_dim],
+dtype='int64')
+```
+
++ 解决方法：
+
+```
+src_word_idx = fluid.layers.data(
+        name='source_sequence', shape=[1], dtype='int64', lod_level=1)
+
+src_embedding = fluid.layers.embedding(
+    input=src_word_idx,
+    size=[source_dict_dim, embedding_dim],
+    dtype='float32')
+```
 
 
 
