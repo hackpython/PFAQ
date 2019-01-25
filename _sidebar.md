@@ -18,6 +18,7 @@
   * [✔️情感分析](SentimentAnalysis.md)
   * [✔️语义角色标注](SemanticRoleLabelling.md)
   * [✔️机器翻译](MachineTranslation.md)
+  * [✘生成对抗网络](生成对抗网络.md)
 
 * 模型库
 
