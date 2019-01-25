@@ -78,7 +78,7 @@ elif role == "TRAINER":
 
 分布式训练深度学习模型在技术实现上是存在挑战的，其抽象整体结构如下图：
 
-![](https://raw.githubusercontent.com/ayuLiao/images/master/distributedeeplearning.png)
+![](https://raw.githubusercontent.com/jizhi/images/master/distributedeeplearning.png)
 
 其实设计了很多技术细节，可以参考下面文章：
 

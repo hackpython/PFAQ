@@ -30,7 +30,7 @@ paddle.infer(
 
 + 报错截图：
 
-    ![](https://raw.githubusercontent.com/ayuLiao/images/master/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%921.png)
+    ![](https://raw.githubusercontent.com/jizhi/images/master/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%921.png)
 
 + 报错输出：
 

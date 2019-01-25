@@ -470,9 +470,9 @@ Traceback (most recent call last):
     train()
   File "train.py", line 63, in train
     max_length=args.max_length)
-  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 81, in seq_to_seq_net
+  File "/Users/jizhi/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 81, in seq_to_seq_net
     input_seq=src_embedding, gate_size=encoder_size)
-  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 59, in bi_lstm_encoder
+  File "/Users/jizhi/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 59, in bi_lstm_encoder
     size=gate_size * 4, use_peepholes=False)
 TypeError: dynamic_lstm() missing 1 required positional argument: 'input'
 ```
@@ -522,7 +522,7 @@ Traceback (most recent call last):
     train()
   File "train.py", line 103, in train
     exe.run(framework.default_startup_program())
-  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/executor.py", line 470, in run
+  File "/Users/jizhi/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/executor.py", line 470, in run
     self.executor.run(program.desc, scope, 0, True, True)
 paddle.fluid.core.EnforceNotMet: Cannot run operator on place CUDAPlace(0) at [/Users/paddle/minqiyang/Paddle/paddle/fluid/framework/operator.cc:146]
 PaddlePaddle Call Stacks:
@@ -602,17 +602,17 @@ Traceback (most recent call last):
     train()
   File "train.py", line 63, in train
     max_length=args.max_length)
-  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 81, in seq_to_seq_net
+  File "/Users/jizhi/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 81, in seq_to_seq_net
     input_seq=src_embedding, gate_size=encoder_size)
-  File "/Users/ayuliao/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 59, in bi_lstm_encoder
+  File "/Users/jizhi/Desktop/Paddle/models/fluid/PaddleNLP/neural_machine_translation/rnn_search/attention_model.py", line 59, in bi_lstm_encoder
     size=gate_size, use_peepholes=False)
-  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/layers/nn.py", line 452, in dynamic_lstm
+  File "/Users/jizhi/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/layers/nn.py", line 452, in dynamic_lstm
     'candidate_activation': candidate_activation
-  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/layer_helper.py", line 50, in append_op
+  File "/Users/jizhi/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/layer_helper.py", line 50, in append_op
     return self.main_program.current_block().append_op(*args, **kwargs)
-  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/framework.py", line 1207, in append_op
+  File "/Users/jizhi/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/framework.py", line 1207, in append_op
     op = Operator(block=self, desc=op_desc, *args, **kwargs)
-  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/framework.py", line 656, in __init__
+  File "/Users/jizhi/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/framework.py", line 656, in __init__
     self.desc.infer_shape(self.block.desc)
 paddle.fluid.core.EnforceNotMet: Enforce failed. Expected w_dims[0] == frame_size, but received w_dims[0]:128 != frame_size:512.
 The first dimension of Input(Weight) should be 512. at [/Users/paddle/minqiyang/Paddle/paddle/fluid/operators/lstm_op.cc:63]
@@ -705,7 +705,7 @@ Traceback (most recent call last):
     train()
   File "train.py", line 103, in train
     exe.run(framework.default_startup_program())
-  File "/Users/ayuliao/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/executor.py", line 470, in run
+  File "/Users/jizhi/anaconda3/envs/paddle/lib/python3.5/site-packages/paddle/fluid/executor.py", line 470, in run
     self.executor.run(program.desc, scope, 0, True, True)
 paddle.fluid.core.EnforceNotMet: op uniform_random does not have kernel for data_type[int64_t]:data_layout[ANY_LAYOUT]:place[CPUPlace]:library_type[PLAIN] at [/Users/paddle/minqiyang/Paddle/paddle/fluid/framework/operator.cc:726]
 PaddlePaddle Call Stacks:
