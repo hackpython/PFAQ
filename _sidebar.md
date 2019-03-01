@@ -1,9 +1,6 @@
 * 安装部署
-<!-- 
-  * [原生安装](zh-cn/quickstart.md)
-  * [容器安装](zh-cn/more-pages.md)
-  * [源码安装](zh-cn/custom-navbar.md)
-  * [python版本](zh-cn/cover.md) -->
+
+  * [✘Paddle安装](Paddle安装.md)
   * [✔️Mac安装Paddle](Mac安装Paddle.md)
   * [✔️Linux安装Paddle](Linux安装PaddlePaddle.md)
 
@@ -30,11 +27,14 @@
   * [✔️应用预测](应用预测.md)
   * [✘调整参数](调整参数.md)
   * [✘Paddle多机模式](Paddle多机模式.md)
-  * [✘Paddle GPU模式](Paddle_GPU模式.md)
+  * [✔️Paddle GPU模式](Paddle_GPU模式.md)
+  * [✘Fluid版本问题](Fluid版本问题.md)
   * [✔️v2迁移到Fluid](v2迁移到Fluid.md)
 
 * 深度学习
   * [✘语言模型](语言模型.md)
+
+
 
 * 深度学习API
   * [☐神经网络](zh-cn/quickstart.md)

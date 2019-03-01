@@ -1,4 +1,4 @@
-![](http://p6un02lk4.bkt.clouddn.com/timedebris.svg)
+![](paddleghost.png)
 
 # PaddleFAQ <small>2.0</small>
 
