@@ -2,6 +2,10 @@
 
 ## `待审核`1.问题：Fluid模型run startup报错 
 
++ 版本号：`1.0.1`
+
++ 标签：`run startup`
+
 + 问题描述：Fluid模型run startup报错 
 
 + 报错输出：

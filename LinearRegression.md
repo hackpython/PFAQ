@@ -14,7 +14,9 @@ PaddlePaddle文档中的内容目前依旧是PaddlePaddle-v2版本，建议使�
 
 ## `已审阅` 1.问题：module对象没有model属性
 
-+ 关键字：`module` `model属性`
++ 版本号：`1.0.1`
+
++ 标签：`module` `model属性`
 
 + 问题描述：利用波士顿房价数据集进行模型的训练和预测时，使用了uci_housing.model()，uci_housing模块封装了该数据集的相关操作，但却报出`'module' object has no attribute 'model'`错误，module对象没有model属性。
 
@@ -60,7 +62,9 @@ PaddlePaddle通过uci_housing模块引入了数据集合UCI Housing Data Set，�
 
 ## `已审阅`  2.问题：“非法指令”或“illegal instruction”
 
-+ 关键字：`非法指令` `illegal instruction` `avx指令集`
++ 版本号：`1.0.1`
+
++ 标签：`非法指令` `illegal instruction` `avx指令集`
 
 + 问题描述：通过源码编译安装的方式成功安装了PaddlePaddle当前最新版本，执行波士顿房价预测代码时，出现illegalinstruction错误。
 
@@ -95,7 +99,9 @@ PaddlePaddle使用avx SIMD指令提高cpu执行效率，因此错误的使用二
 
 ## `已审阅` 3.问题：下载housing.data失败
 
-+ 关键字：`数据` `housing`
++ 版本号：`1.0.1`
+
++ 标签：`数据` `housing`
 
 + 问题描述：PaddlePaddle环境安装好了，尝试运行波士顿房价预测的实验， 但是遇到问题下载housing.data 失败，尝试用VPN也没成功，`RuntimeError: Cannot download https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data within retry limit 3`，尝试从浏览器直接访问housing.data文件，报403Forbidden 错误。
 
@@ -289,6 +295,10 @@ PyThreadState_GET是python内核中的一个方法，其部分相关内核代码
 
 ## `已审阅` 7.问题：报错张量类型不正确
 
++ 版本号：`1.0.1`
+
++ 标签：`张量类型`
+
 + 问题描述：使用PaddlePaddle编写好网络运行时，报张量类型不正确的错误，我反复检查了自己的网络结构中张量类型相关的定义，并打印了传入数据的类型，类型都相匹配，但运行时就是报张量类似错误，逐步排查后，发现是训练代码段会抛出该错误，不知道如果修改？
 
 + 报错信息：
@@ -340,6 +350,10 @@ paddle.fluid.layers.cross_entropy(input, label, soft_label=False, ignore_index=-
 损失函数（loss function）是用来估量你模型的预测值f(x)与真实值Y的不一致程度，它是一个非负实值函数,通常使用L(Y, f(x))来表示，损失函数越小，模型的鲁棒性就越好。损失函数是经验风险函数的核心部分，也是结构风险函数重要组成部分。损失函数有多种，选择适合的损失函数对模型的训练有很大的帮助。
 
 ## `已审阅` 8.问题：训练时，输出的损失值为nan
+
++ 版本号：`1.0.1`
+
++ 标签：`损失值` `nan`
 
 + 问题描述：使用PaddlePaddle训练神经网络时，没有报错，但输出结果一直为nan
 

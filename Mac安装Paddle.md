@@ -2,7 +2,9 @@
 
 ## `已审阅` 1.问题：基于Docker编译Paddle与MacOS本机编译Paddle的疑问
 
-+ 关键字：`Docker编译安装` `MacOS本机编译安装`
++ 版本号：`1.0.1`
+
++ 标签：`Docker编译安装` `MacOS本机编译安装`
 
 + 问题描述：PaddlePaddle官方文档中，关于MacOS下安装PaddlePaddle只提及了MacOS中使用Docker环境安装PaddlePaddle的内容，没有Mac本机安装的内容
 
@@ -61,7 +63,9 @@
 
 ## `已审阅` 2.问题：Configuring incomplete, errors occured!
 
-+ 关键字：`Configuring incomplete`
++ 版本号：`1.0.1`
+
++ 标签：`Configuring incomplete`
 
 + 问题描述：以源码方式在MacOS上安装时，出现`Configuring incomplete, errors occured!`
 
@@ -94,7 +98,9 @@
 
 ## `已审阅`3.问题：python import fluid error
 
-+ 关键字：
++ 版本号：`1.0.1`
+
++ 标签：
 
 + 问题描述：mac pip安装paddle，import paddle.v2 没有问题，调用init也没有问题，
 	但是import paddle.v2.fluid 就会出现下面的错误：
@@ -110,7 +116,9 @@
 
 ## `已审阅` 4.问题：/bin/sh: wget: command not found
 
-+ 关键字：`wget`
++ 版本号：`1.0.1`
+
++ 标签：`wget`
 
 + 问题描述：MacOS 10.12下编译PaddlePaddle出现`/bin/sh: wget: command not found`
 
@@ -126,7 +134,9 @@ brew install wget
 
 ## `已审阅`  5.问题：No rule to make target
 
-+ 关键字：`CMake`
++ 版本号：`1.0.1`
+
++ 标签：`CMake`
 
 + 问题描述：官网中只介绍了Mac下使用Docker安装编译PaddlePaddle的方式，因为我对Docker不怎么熟悉，想直接安装到本地的Mac系统中，MacOS版本为10.13，是符合要求的，但尝试了多次后，已经出现`No rule to make target`错误
 
@@ -142,7 +152,9 @@ brew install wget
 
 ## `已审阅` 6.问题：[paddle/fluid/platform/CMakeFiles/profiler_py_proto.dir/all] Error 2
 
-+ 关键字：`fluid` `CMakeFiles`
++ 版本号：`1.0.1`
+
++ 标签：`fluid` `CMakeFiles`
 
 + 问题描述：MacOS本机直接通过源码编译的方式安装PaddlePaddle出现`[paddle/fluid/platform/CMakeFiles/profiler_py_proto.dir/all] Error 2`
 
@@ -155,7 +167,9 @@ brew install wget
 
 ## `已审阅` 7.问题：No such file or directory
 
-+ 关键字：`develop分支`
++ 版本号：`1.0.1`
+
++ 标签：`develop分支`
 
 + 问题描述：
 MacOS本地编译PaddlePaddle github上develop分支的代码出现，出现上面的错误
@@ -184,7 +198,9 @@ MacOS本地编译PaddlePaddle github上develop分支的代码出现，出现上�
 
 ## `已审阅` 8.问题：paddle源码编译（osx）报各种module找不到的问题
 
-+ 关键字：`源码编译` `缺失module`
++ 版本号：`1.0.1`
+
++ 标签：`源码编译` `缺失module`
 
 + 问题描述：
 从源码编译，最后`cmake ..`时
@@ -201,7 +217,9 @@ python module google.protobuf is not found`
 
 ## `已审阅` 9.问题：ld terminated with signal 9 [Killed] 
 
-+ 关键字：`编译安装`
++ 版本号：`1.0.1`
+
++ 标签：`编译安装`
 
 + 问题描述：
 在MacOS下，本地直接编译安装PaddlePaddle遇到`collect2: ld terminated with signal 9 [Killed] `
@@ -212,7 +230,9 @@ python module google.protobuf is not found`
 
 ## `已审阅` 10.问题：在Mac上无法安装numpy等Python包，权限错误
 
-+ 关键字：`权限错误`
++ 版本号：`1.0.1`
+
++ 标签：`权限错误`
 
 + 问题描述：
 因为需要安装numpy等包，但在Mac自带的Python上无法安装，导致难以将PaddlePaddle正常安装到Mac本地

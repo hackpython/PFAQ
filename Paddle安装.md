@@ -2,6 +2,10 @@
 
 ## `待审核`1.问题：paddlepaddle是否支持使用conda安装和支持MKL？
 
++ 版本号：`1.0.1`
+
++ 标签：`conda安装` `MKL`
+
 + 问题描述：以前在安装tensorflow的时候，发现tensorflow支持使用conda安装，超级方便。无论是windows还是Linux，只需要一个命令：
 conda install tensorflow-gpu
 

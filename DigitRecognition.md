@@ -9,9 +9,12 @@
 https://github.com/PaddlePaddle/book/tree/develop/02.recognize_digits
 
 PaddlePaddle文档中的内容目前依旧是PaddlePaddle-v2版本，建议使用Fluid版本来编写数字识别模型
+
 ## `已审阅` 1.问题：使用MNIST数据训练时出现张量类型错误
 
- + 关键字：`张量`，`数据类型`
++ 版本号：`1.0.1`
+
+ + 标签：`张量`，`数据类型`
 
  + 问题描述：使用卷积神经网络训练MNIST数据集，由于输入数据的数据类型设置为float32，在训练时直接报错，报错信息提示张量类型错误。
 
@@ -50,7 +53,9 @@ label = fluid.layers.data(name='label', shape=[1], dtype='int64')
 
 ## `已审阅` 2.问题：在优化方法处报错 EnforceNotMet: Enforce failed
 
- + 关键字：`rank`，`优化方法`，`损失函数`
++ 版本号：`1.0.1`
+
+ + 标签：`rank`，`优化方法`，`损失函数`
 
  + 问题描述：执行定义损失函数代码后，再执行优化方法就报错，提示执行失败，dy_dims.size():1 != rank:2。
 
@@ -110,7 +115,9 @@ opts = optimizer.minimize(avg_cost)
 
 ## `已审阅` 3.问题：在训练时报错 Expected label_dims[rank - 1] == 1UL
 
- + 关键字：`标签维度`，`label`
++ 版本号：`1.0.1`
+
+ + 标签：`标签维度`，`label`
  
  + 问题描述：使用MNIST数据集训练分类模型报错，提示label的维度不正确。
 
@@ -173,8 +180,11 @@ label = fluid.layers.data(name='label', shape=[1], dtype='int64')
 
 ## `已审阅` 4.问题：训练过程中损失值突然全部为0
 
- + 关键字：`损失值`，`梯度消失`
++ 版本号：`1.0.1`
+
+ + 标签：`损失值`，`梯度消失`
  
+
  + 问题描述：使用卷积神经网络在训练MNIST数据集时，在训练过程中损失值突然为0，并且识别准确率开始下降。
 
  + 报错信息：
@@ -251,6 +261,8 @@ def convolutional_neural_network(input):
 
 ## `已审阅` 5.问题：在测试数据集进行测试时出错：Cannot find fetch variable in scope
 
++ 版本号：`1.0.1`
+
  + 关键词：`测试程序`
  
  + 问题描述：从主程序中克隆一个程序作为测试程序，使用这个测试程序在训练之后使用测试数据集进行测试，在执行测试程序时报错，错误提示找不到fetch变量。
@@ -296,7 +308,9 @@ test_program = fluid.default_main_program().clone(for_test=True)
 
 ## `已审阅` 6.问题：训练时出现错误 y_dims.size():1 <= y_num_col_dims:1
 
- + 关键字：`初试化`，`执行器`
++ 版本号：`1.0.1`
+
+ + 标签：`初试化`，`执行器`
  
  + 问题描述：在定义执行器之后，就直接使用执行器进行训练，就出现错误，提示错误 y_dims.size():1 <= y_num_col_dims:1。
 
@@ -346,7 +360,9 @@ for batch_id, data in enumerate(train_reader()):
 
 ## `已审阅` 7.问题：训练时出现错误：ValueError: var image not in this block
 
- + 关键字：`初始化`，`主程序`，`program`
++ 版本号：`1.0.1`
+
+ + 标签：`初始化`，`主程序`，`program`
  
  + 问题描述：使用卷积神经网络训练MNIST数据集，再执行训练程序时出现错误，错误提示var image not in this block。
 
@@ -402,7 +418,9 @@ for batch_id, data in enumerate(train_reader()):
 
 ## `已审阅` 8.问题：使用测试程序预测图片时出错：rank:2 != label_dims.size():1
 
- + 关键字：`测试程序`，`feed`
++ 版本号：`1.0.1`
+
+ + 标签：`测试程序`，`feed`
 
  + 问题描述：在使用测试程序预测自己的图片的时候，在执行`run`函数的时候出错，错误提示rank:2 != label_dims.size():1。
 
@@ -443,6 +461,8 @@ results = exe.run(program=test_program,
 
 
 ## `已审阅` 9.问题：迭代数据时出现错误：TypeError: 'function' object is not iterable
+
++ 版本号：`1.0.1`
 
  + `reader`，`数据读取`
  
@@ -489,7 +509,9 @@ for batch_id, data in enumerate(train_reader()):
 
 ## `已审阅` 10.问题：在定义训练器是出现NameError: name 'Trainer' is not defined
 
- + 关键字：`训练器`，`contrib`，`Trainer`
++ 版本号：`1.0.1`
+
+ + 标签：`训练器`，`contrib`，`Trainer`
  
  + 问题描述：在使用Trainer函数创建训练器的时候，出现错误，错误提示NameError: name 'Trainer' is not defined。
 
@@ -533,7 +555,9 @@ trainer = Trainer(
 
 ## `已审阅` 11.问题：使用高级API训练时出现ValueError: var img not in this block
 
- + 关键字：`输入层name`
++ 版本号：`1.0.1`
+
+ + 标签：`输入层name`
  
  + 问题描述：在使用PaddlePaddle 1.0以上的版本，通过使用高级API进行训练，在执行训练的时候出现错误，错误提示ValueError: var img not in this block。
 
@@ -641,7 +665,9 @@ trainer.train(
 
 ## `已审阅` 12.问题：在预测图像时出现错误EnforceNotMet: Conv intput should be 4-D or 5-D tensor
 
- + 关键字：`数据预处理`，`预测图片`
++ 版本号：`1.0.1`
+
+ + 标签：`数据预处理`，`预测图片`
  
  + 问题描述：使用训练好的模型，预测图片。图片经过预处理之后，再调用预测接口`infer()`对图片进行预测，出现输入数据维度不正确。错误提示：EnforceNotMet: Conv intput should be 4-D or 5-D tensor
 
@@ -731,7 +757,9 @@ print("Inference result of image/infer_3.png is: %d" % lab[0][0][-1])
 
 ## `已审阅` 13.问题：在训练时出现TypeError: simple_img_conv_pool() got an unexpected keyword argument 'stride'
 
- + 关键字：`stride`，`步长`
++ 版本号：`1.0.1`
+
+ + 标签：`stride`，`步长`
  
  + 问题描述：在使用`fluid.nets.simple_img_conv_pool()`接口建立一个卷积神经网络时，当通过参数`stride`设置卷积操作的滑动步长，在训练的时候报错，提示`stride`参数不存在。
 
@@ -830,6 +858,8 @@ def convolutional_neural_network():
 
 ## `已审阅` 14.问题：docker镜像无法联网下载数据文件
 
++ 版本号：`1.0.1`
+
 + 问题描述：win10安装PaddlePaddle的docker镜像之后，运行手写数字识别的模型，无法联网下载数据文件该如何解决？
 
 + 报错输出：
@@ -888,7 +918,9 @@ docker内的网络问题除了可能是本地网络有问题外，还有可能�
 
 ## `已审阅` 15.问题：ImportError: No module named XXX
 
-+ 关键字：`ImportError` `module`
++ 版本号：`1.0.1`
+
++ 标签：`ImportError` `module`
 
 + 问题描述：在使用PaddlePaddle进行手写字母识别时，出现`ImportError: No module named XXX`，缺失某些文件
 

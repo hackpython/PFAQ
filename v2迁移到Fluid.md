@@ -2,6 +2,10 @@
 
 ## `已审核` 1.问题：如何移植v2模型到fluid?
 
++ 版本号：`1.0.1`
+
++ 标签：`v2` `迁移`
+
 + 问题描述：deep fm从paddlepaddle v2 版模型`https://github.com/PaddlePaddle/models/tree/develop/legacy/deep_fm`移植到fluid。但是我找不到移植指导文档。特别是v2中的数据类型如何对应到fluid中：`paddle.data_type.dense_vector`，`paddle.data_type.sparse_binary_vector`，`paddle.data_type.integer_value`
 
 + 问题解答：
@@ -11,6 +15,10 @@
 	具体的代码细节可以参考：https://github.com/PaddlePaddle/models/tree/develop/fluid/PaddleRec/ctr
 
 ## `已审核`2.问题：Fluid版本中中数据格式与v2版本接口有区别？
+
++ 版本号：`1.0.1`
+
++ 标签：`数据格式`
 
 + 问题描述：v2中数据格式是 N C H W kernel参数格式是 Cout Cin H W
 tensorflow中数据格式是 N H W C kernel参数格式是 H W Cin Cout

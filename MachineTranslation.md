@@ -8,6 +8,10 @@
 
 ## `已审核`1.问题：'map' object is not subscriptable
 
++ 版本号：`1.0.1`
+
++ 标签：`not subscriptable`
+
 + 问题描述：我按照PaddlePaddle官方文档编写机器翻译模型，出现这个错误，对照了文档中的代码，也没有编写错误。
 
 + 报错信息：
@@ -75,6 +79,10 @@ map()方法是python内置方法，python2与python3中map()方法是有不同�
 
 ## `已审核`2.问题：按照文档编写，出现name 'result_ids_lod' is not defined
 
++ 版本号：`1.0.1`
+
++ 标签：`not defined`
+
 + 问题描述：我使用Fluid1.1按照文档编写相应的结果，出现name 'result_ids_lod' is not defined错误
 
 + 报错信息：
@@ -140,6 +148,10 @@ for data in test_data():
 
 
 ## `已审核`3.问题：The number of fields in data (3) does not match len(feed_list)
+
++ 版本号：`1.0.1`
+
++ 标签：`not match len`
 
 + 问题描述：使用PaddlePaddle构建机器翻译模型，出现`The number of fields in data (3) does not match len(feed_list)`
 
@@ -238,6 +250,10 @@ def decode(context, is_sparse):
 
 
 ## `已审核`4.问题：Tensor holds the wrong type
+
++ 版本号：`1.0.1`
+
++ 标签：`张量类型`
 
 + 问题描述：我根据文档编写机器翻译模型，出现了`Tensor holds the wrong type`
 
@@ -411,7 +427,9 @@ def encoder(is_sparse):
 
 ## `已审核`5.为什么trainer.train中没有feeding参数也可以保持数据输入与模型中input的关系
 
-+ 关键字：`机器翻译` `feeding参数`
++ 版本号：`1.0.1`
+
++ 标签：`机器翻译` `feeding参数`
 
 + 问题描述：
 根据paddle文档的介绍，“ Reader返回的数据可以包括多列，我们需要一个Python dict把列 序号映射到网络里的数据层。”
@@ -426,7 +444,9 @@ Paddle会对网络配置进行解析，解析出来的 数据层 的顺序和定
 
 ## `已审核`6.demo machine translate "beam_search() got multiple values for keyword argument 'end_id'"
 
-+ 关键字：`机器翻译` `beam_search`
++ 版本号：`1.0.1`
+
++ 标签：`机器翻译` `beam_search`
 
 + 问题描述：使用Fluid 0.14 CPU版的PaddlePaddle运行机器翻译的例子时，出现`beam_search() got multiple values for keyword argument 'end_id'`
 
@@ -459,6 +479,10 @@ TypeError: beam_search() got multiple values for keyword argument 'end_id'
 
 
 ## `待审核`6.问题：使用Fluid编写机器翻译模型，报错
+
++ 版本号：`1.0.1`
+
++ 标签：`机器翻译`
 
 + 问题描述：使用Fluid编写机器翻译模型，报错
 
@@ -512,6 +536,11 @@ reversed, _ = fluid.layers.dynamic_lstm(
 
 ## `待审核`7.问题：使用Fluid运行官方models中的rnn_search的模型，报错
 
++ 版本号：`1.0.1`
+
++ 标签：`rnn_search
+`
+
 + 问题描述：使用Fluid运行官方models中的rnn_search的模型，报错
 
 + 报错输出：
@@ -560,6 +589,10 @@ place  = core.CPUPlace()
 
 ## `待审核`8.问题：通过Fluid实现机器翻译模型报错
 
++ 版本号：`1.0.1`
+
++ 标签：`机器翻译`
+
 + 问题描述：通过Fluid实现机器翻译模型报错
 
 + 报错输出：
@@ -592,7 +625,11 @@ feeder = fluid.DataFeeder(feed_list, place)
 
 ##  `待审核`9.问题：Enforce failed. Expected w_dims[0] == frame_size
 
-+ + 问题描述：运行Fluid编写的模型时，输出Enforce failed. Expected w_dims[0] == frame_size
++ 版本号：`1.0.1`
+
++ 标签：`Enforce failed`
+
++ 问题描述：运行Fluid编写的模型时，输出Enforce failed. Expected w_dims[0] == frame_size
 
 + 报错输出：
 
@@ -694,6 +731,10 @@ return forward, reversed
 
 
 ##  `待审核`10.问题：op uniform_random does not have kernel for data_type
+
++ 版本号：`1.0.1`
+
++ 标签：`not have kernel`
 
 + 问题描述：使用Fluid实现机器翻译模型时，报op uniform_random does not have kernel for data_type
 

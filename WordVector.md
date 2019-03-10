@@ -19,7 +19,9 @@ https://github.com/PaddlePaddle/book/tree/c66605770b1ea4d04f290c21d8b72ef4e4d6f7
 
 ## `已审阅` 1.问题：使用PTB数据集训练词向量模型出现张量类型错误
 
- + 关键字：`数据类型`，`dtype`
+ + 版本号：`1.0.1`
+
++ 标签：`数据类型`，`dtype`
 
  + 问题描述：使用PTB数据集训练词向量模型，设置输入层的`dtype`参数值为`float32`，在启动训练的时候出现张量类型错误。
 
@@ -88,7 +90,9 @@ fourth_word = fluid.layers.data(name='fourthw', shape=[1], dtype='int64')
 
 ## `已审阅` 2.问题：设置向量表征类型为整型时训练报错
 
- + 关键字：`数据类型`，`词向量`
+ + 版本号：`1.0.1`
+
++ 标签：`数据类型`，`词向量`
 
  + 问题描述：定义N-gram神经网络训练PTB数据集时，使用PaddlePaddle内置的`fluid.layers.embedding`接口计算词向量，当设置该数据类型为`int64`时报错。
 
@@ -185,7 +189,9 @@ embed_fourth = fluid.layers.embedding(
 
 ## `已审阅` 3.问题：在使用PTB数据集训练词向量模型出现输入(X)和输入(label)的形状不一致
 
- + 关键字：`数据维度`，`concat`
+ + 版本号：`1.0.1`
+
++ 标签：`数据维度`，`concat`
 
  + 问题描述：在使用N-gram神经网络训练PTB数据集时，使用接口`fluid.layers.concat`把四个词向量连接起来，最后经过全连接层输出。但是把`fluid.layers.concat`的`axis`参数设置为0时就报错。
 
@@ -300,7 +306,9 @@ concat_embed = fluid.layers.concat(
 
 ## `已审阅` 4.问题：在使用N-gram神经网络训练时出现ids[i]>row_number的错误
 
- + 关键字：`词向量`，`N-gram神经网络`
+ + 版本号：`1.0.1`
+
++ 标签：`词向量`，`N-gram神经网络`
 
  + 问题描述：在使用N-gram神经网络训练PTB数据集时，手动设置了字典大小，最后在启动训练的时候出现错误，错误提示ids[i]>row_number。
 
@@ -413,7 +421,9 @@ embed_fourth = fluid.layers.embedding(
 
 ## `已审阅` 5.问题：在创建预测数据时报错data and recursive_seq_lens do not match
 
- + 关键字：`张量`，`数据维度`
+ + 版本号：`1.0.1`
+
++ 标签：`张量`，`数据维度`
 
  + 问题描述：在使用`fluid.create_lod_tensor`创建一个词向量预测输出，在执行创建的时候报错，数据维度和参数recursive_seq_lens不匹配。
 
@@ -474,7 +484,9 @@ fourth_word = fluid.create_lod_tensor(data4, lod, place)
 
 ## `已审阅` 6.问题：在执行词向量预测的是出现预测数据不能完全转换为Python ndarray的错误
 
- + 关键字：`预测`，`numpy`
+ + 版本号：`1.0.1`
+
++ 标签：`预测`，`numpy`
 
  + 问题描述：通过使用`fluid.create_lod_tensor`创建一个预测数据，然后使用预测器对数据进行预测，在执行预测的时候，报预测的张量数据中有一些包含LoD信息，它们不能完全转换为Python ndarray的错误。
 
@@ -569,7 +581,9 @@ result = inferencer.infer(
 
 ## `已审阅` 7.问题：在使用词向量模型预测字符串数据时出现数据类型错误
 
- + 关键字：`张量`，`预测数据`
+ + 版本号：`1.0.1`
+
++ 标签：`张量`，`预测数据`
 
  + 问题描述：在使用`fluid.create_lod_tensor`接口定义词向量预测数据的时候，预测数据时一个二维的字符串列表数据，出现数据类型的错误。
 
@@ -630,7 +644,9 @@ fourth_word = fluid.create_lod_tensor(data4, lod, place)
 
 ## `已审阅` 8.问题：在调用PaddlePaddle提供的词向量数据集接口用于训练时出现数据长度错误
 
- + 关键字：`PTB数据集`，`数据维度`
+ + 版本号：`1.0.1`
+
++ 标签：`PTB数据集`，`数据维度`
 
  + 问题描述：使用PaddlePaddle提供的词向量PTB数据集接口`paddle.dataset.imikolov.train`创建训练数据，然后使用这个数据进行训练时，出现错误，错误提示数据的长度不正确。
 
@@ -711,7 +727,9 @@ trainer.train(
 
 ## `已审阅` 9.问题：在使用词向量模型预测是得不到预测的单词
 
- + 关键字：`预测结果`，`数据字典`
+ + 版本号：`1.0.1`
+
++ 标签：`预测结果`，`数据字典`
 
  + 问题描述：使用训练好的模型参数和定义的网络创建一个预测器，使用这样预测器预测数据，得到一个预测结果，但是这个预测结果不是一个单词，而是一个数字。
 
@@ -745,7 +763,9 @@ print("预测结果是：", [key for key, value in six.iteritems(word_dict) if v
 
 ## `已审阅` 10.问题：怎么加载预训练的embedding层？
 
-+ 关键字：`预加载` `embedding`
++ 版本号：`1.0.1`
+
++ 标签：`预加载` `embedding`
 
 + 问题描述：现在需要将paddlepaddle框架里面的embedding层替换成我在网络上找到的word2vec字典，然后用这个字典来embedding, 这个embedding层怎么外接？
 
@@ -798,7 +818,9 @@ PaddlePaddle做词嵌套训练的方式是类似的，都是通过固定的几�
 
 ## `已审阅` 11.问题：PaddlePaddle中embedding的作用是什么？
 
-+ 关键字： `embedding作用`
++ 版本号：`1.0.1`
+
++ 标签： `embedding作用`
 
 + 问题描述：看了PaddlePaddle词向量相关的代码，大量使用了embedding_layer+fc_layer的结构，请问这里常用的paddle.layer.embedding()方法的具有有什么作用？在PaddlePaddle中是如何实现的？
 
@@ -854,7 +876,9 @@ embedding，即词向量，这个概念并不是PaddlePaddle独有的，在自�
 
 ## `已审阅` 12.问题：在PaddlePaddle中embedding层和fc层的区别在哪里？
 
-+ 关键字：`embedding` `全连接层` 
++ 版本号：`1.0.1`
+
++ 标签：`embedding` `全连接层` 
 
 
 + 问题描述：在使用PaddlePaddle实现词向量相关任务时，参考了官方词向量相关的代码，里面使用了很多embedding层与fc层链接使用的结构，请问embedding层与fc层具有有什么区别？

@@ -3,6 +3,10 @@
 
 ## `待审核`1.问题：Fluid版的Paddle进行多机训练时，每个机器上的参数是否相同？
 
++ 版本号：`1.0.1`
+
++ 标签：`多机训练`
+
 + 问题描述：在使用Fluid版的Paddle进行多机训练时，存在一个疑惑，即每个机器上的参数是相同的吗？
 
 + 问题分析：
@@ -15,6 +19,10 @@ Pserver模式在同步模式下，每个trainer的参数是完全一致的，异
 更多细节，参考：http://www.paddlepaddle.org/documentation/docs/zh/1.2/user_guides/howto/training/cluster_howto.html
 
 ## `已审核`2.问题：分布时训练时，PaddlePaddle是否支持多机开启内存优化？
+
++ 版本号：`1.0.1`
+
++ 标签：`多机训练` `内存优化`
 
 + 问题描述：在多机上使用PaddlePaddle进行训练时，如何开启多机开启内存优化？Paddle是否支持该功能？
 
@@ -42,6 +50,10 @@ elif role == "TRAINER":
 
 
 ## `待审核`3.问题：Fluid如何实现分布式网络架构？
+
++ 版本号：`1.0.1`
+
++ 标签：`分布式网络`
 
 + 问题描述：目前有多个物理主机，现在想通过Fluid来构建一个分布式的训练网络，如何实现？
 
@@ -88,6 +100,10 @@ http://joerihermans.com/ramblings/distributed-deep-learning-part-1-an-introducti
 
 ## `待审核`4.问题：Fluid版Paddle多机训练时，batch_size大小实际是多少？
 
++ 版本号：`1.0.1`
+
++ 标签：`多机训练` `batch_size`
+
 + 问题描述：使用Fluid版的Paddle多机训练时，设置的batch_size与实际训练时使用batch_size是否不同？实际使用的batch_size是多少？
 
 + 问题分析：Fluid在进行多机训练时，会将数据根据相应的规则传递到不同的机器上，然后再进行训练。
@@ -98,6 +114,10 @@ http://joerihermans.com/ramblings/distributed-deep-learning-part-1-an-introducti
 
 
 ## `待审核`5.问题：如何将参数分别传递给不同的机器设备进行训练？
+
++ 版本号：`1.0.1`
+
++ 标签：`多机训练` `参数训练`
 
 + 问题描述：Fluid版如果实现将数据指定给不同的设备，因为每个设备强弱不同，想将较多的数据分配给算力较强的设备进行模型的训练。
 
@@ -142,6 +162,10 @@ parallel_executor.run(
 在上面的代码中，会分别将数据传递到不同的GPU上，GPU 0会训练32为一batch的样本，而GPU 1只会训练16为一batch的样本。
 
 ## `待审核`6.问题：fluid启动pserver时卡住了，无法进行执行后面的逻辑。
+
++ 版本号：`1.0.1`
+
++ 标签：`pserver`
 
 + 问题描述：自建k8s, 使用paddle镜像：1.0.1-gpu-cuda8.0-cudnn7
 启动pserver相关代码：

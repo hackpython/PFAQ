@@ -12,6 +12,12 @@ https://github.com/PaddlePaddle/book/tree/develop/03.image_classification
 
 ## `已审阅` 1.问题：在使用VGG网络的时候提示vgg包不存在
 
++ 版本号：`1.0.1`
+
++ 版本号：`1.0.1`
+
++ 标签：`VGG`
+
  + 问题描述：
 
 在使用VGG卷积神经网络训练CIFAR-10数据集的时候，在导入VGG网络包的时候出错，错误提示没有vgg库。
@@ -46,6 +52,10 @@ from vgg import vgg_bn_drop
 
 
 ## `已审阅` 2.问题：使用彩色图训练的是出现尺寸不一致的错误
+
++ 版本号：`1.0.1`
+
++ 标签：`训练数据` `尺寸不同`
 
  + 问题描述：使用CIFAR-10彩色图像数据集进行训练，按照定义图片输入数据的方式来定义输入层。根据图片的大小，输入层的形状设置成[1, 32, 32]，结果在训练的时候报错。
 
@@ -116,6 +126,10 @@ def inference_network():
 
 
 ## `已审阅` 3.问题：使用CIFAR-10彩色图片训练出现输出数据维度错误
+
++ 版本号：`1.0.1`
+
++ 标签：`CIFAR` `数据维度`
 
  + 问题描述：在使用CIFAR-10彩色图片训练，其中定义输入层的形状为`[3072]`的时候，出现卷积层输入的形状不为4维或者5维的错误。
 
@@ -192,6 +206,10 @@ def inference_network():
 
 ## `已审阅` 4.问题：图像预测部分预测的没有输出类别的名称
 
++ 版本号：`1.0.1`
+
++ 标签：`图像预测`
+
  + 问题描述：在使用预测模型预测图片的时候，输出的是一个整数，而不是图片的类别名称。
 
 
@@ -225,6 +243,10 @@ print("infer results: ", label_list[np.argmax(results[0])])
 
 
 ## `已审阅` 5.问题：在使用预测模型预测图片的时候出现in_dims[1]:32 != filter_dims[1] * groups:3错误
+
++ 版本号：`1.0.1`
+
++ 标签：`预测模型` `图像预测`
 
  + 问题描述：在使用预测模型预测图片的时候，图片也经过预处理，但是在执行预测的时候就保存，错误提示in_dims[1]:32 != filter_dims[1] * groups:3。
 
@@ -290,6 +312,10 @@ def load_image(file):
 
 ## `已审阅` 6.问题：使用预测模型预测图片时出现输出数据维度错误
 
++ 版本号：`1.0.1`
+
++ 标签：`预测模型` `预测图片` `数据维度` 
+
  + 问题描述：在使用预测模型进行预测图片的时候，图片也经过预处理，但是在执行预测的时出现卷积层输入的形状不为4维或者5维的错误。
 
 
@@ -344,7 +370,9 @@ def load_image(file):
 
 ## `已审阅` 7.问题：Fluid版的PaddlePaddle加载图像数据报错
 
-+ 关键字：`加载图像数据` `Fluid版`
++ 版本号：`1.0.1`
+
++ 标签：`加载图像数据` `Fluid版`
 
 + 问题描述：使用Fluid版的PaddlePaddle搭建图像分类模型，运行时报错，错误为`Aborted at 1520823806 (unix time) try "date -d @1520823806" if you are using GNU date ***
 PC: @ 0x0 (unknown)`，自己观察报错代码段是图像数据处理那块，所以感觉应该是PaddlePaddle在加载图像时出现了错误。
@@ -474,7 +502,9 @@ lena = mpimg.imread('lena.png')
 
 ## `已审阅` 8.问题：'NoneType' object has no attribute 'imread'
 
-+ 关键字： `NoneType` `no attribute`
++ 版本号：`1.0.1`
+
++ 标签： `NoneType` `no attribute`
 
 + 问题描述：通过PaddlePaddle构建了训练模型，使用了自定义的数据集对模型进行训练，出现`'NoneType' object has no attribute 'imread'`报错
 
@@ -534,7 +564,9 @@ OpenCV经过多年的发展在图像处理方面已经非常成熟，PaddlePaddl
 
 ## `已审阅` 9.问题：Fluid版本的PaddlePaddle如何在训练前加载此前训练好的模型？
 
-+ 关键字：`Fluid版本` `预训练`
++ 版本号：`1.0.1`
+
++ 标签：`Fluid版本` `预训练`
 
 + 问题描述：Fluid版本的PaddlePaddle在模型保存上与旧版的PaddlePaddle差异较大，文档中也没有对这方面的详细描述，所以存有疑惑，可以简单解释一下？
 
@@ -609,7 +641,9 @@ https://github.com/PaddlePaddle/Paddle/issues/10248
 
 ## `已审阅` 10.问题：ValueError: var img not in this block
 
-+ 关键字：`ValueError` `var`
++ 版本号：`1.0.1`
+
++ 标签：`ValueError` `var`
 
 + 问题描述：
 1、将caffe VGG16模型转化为fluid要求的类型，其中模型的加载和存储使用的用法来自：https://github.com/PaddlePaddle/Paddle/issues/8973 <br>

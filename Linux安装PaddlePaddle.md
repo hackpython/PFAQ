@@ -2,7 +2,9 @@
 
 ## `已审阅` 1.问题：cuda9.0需要安装哪一个版本的paddle，安装包在哪
 
-+ 关键字：`cuda 9.0`
++ 版本号：`1.0.1`
+
++ 标签：`cuda 9.0`
 
 + 问题描述：cuda9.0需要安装哪一个版本的paddle，安装包在哪，希望安装Fluid版本的Paddle，而不是旧版的Paddle
 
@@ -16,7 +18,9 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 
 ## `已审阅` 2.问题：pip install paddlepaddle-gpu==0.14.0.post87 安装 fluid 版本报错
 
-+ 关键字：`GPU`
++ 版本号：`1.0.1`
+
++ 标签：`GPU`
 
 + 问题描述：
 使用  `pip install paddlepaddle-gpu==0.14.0.post87`命令在公司内部开发GPU机器上安装PaddlePaddle，安装信息如下：
@@ -38,7 +42,9 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 
 ## `已审阅` 3.问题：CUDA driver version is insufficient
 
-+ 关键字：`CUDA` `insufficient`
++ 版本号：`1.0.1`
+
++ 标签：`CUDA` `insufficient`
 
 + 问题描述：在使用PaddlePaddle GPU的Docker镜像的时候，出现 `Cuda Error: CUDA driver version is insufficient for CUDA runtime version`
 
@@ -52,7 +58,9 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 
 ## `已审阅` 4.问题：安装CPU版本后训练主动abort，gdb显示Illegal instruction
 
-+ 关键字：`CPU版本` `Illegal instruction`
++ 版本号：`1.0.1`
+
++ 标签：`CPU版本` `Illegal instruction`
 
 + 问题描述：成功安装了PaddlePaddle CPU版本后，使用Paddle训练模型，训练过程中，Paddle会自动退出，gdb显示Illegal instruction
 
@@ -136,7 +144,9 @@ http://www.paddlepaddle.org/documentation/docs/zh/1.0/beginners_guide/install/St
 
 ## `已审阅` 5.问题：nvidia-docker运行镜像latest-gpu-cuda8.0-cudnn7: SIGILL
 
-+ 关键字：`nvidia-docker` `cuda8.0` `cudnn7`
++ 版本号：`1.0.1`
+
++ 标签：`nvidia-docker` `cuda8.0` `cudnn7`
 
 + 问题描述：使用`sudo nvidia-docker run --name Paddle -it -v $PWD:/work hub.baidubce.com/paddlepaddle/paddle:latest-gpu-cuda8.0-cudnn7 /bin/bash`，安装成功后，出现如下问题
 
@@ -153,7 +163,9 @@ PC: @ 0x0 (unknown)
 
 ## `已审阅` 6.问题：安装paddlepaddle fluid版本后import paddle.fluid error
 
-+ 关键字：`import error`
++ 版本号：`1.0.1`
+
++ 标签：`import error`
 
 + 问题描述：使用的系统是Ubuntu 16.04，GPU相关环境：cuda8.0, cudnn 6.0, 安装最新版的paddlepaddle fluid 后，import paddle时问题如下：
 
@@ -232,7 +244,9 @@ PaddlePaddle Call Stacks:
 
 ## `已审阅` 7.问题：在Fluid版本训练的时报以下错误，是不是显卡的问题？
 
-+ 关键字：`GPU` `Fluid版本`
++ 版本号：`1.0.1`
+
++ 标签：`GPU` `Fluid版本`
 
 + 问题描述：
 我安装的是cuda9.0和cudnn7.0，我看文档以为默认安装的是0.14.0.post97的，谁知道是post87的，那么以下的错误是这个问题吗？我在使用V2版本训练一个手写数据那个例子的时候meiyou错，GPU能够正常使用，Fluid版本就不行了。
@@ -311,7 +325,9 @@ Tue Jul 24 08:24:22 2018
 
 ## `已审阅` 8.问题：使用新版的pip安装了GPU版的PaddlePaddle0.14.0，跑一个简单的测试程序，出现Segmentation fault
 
-+ 关键字：`GPU` `Segmentation fault`
++ 版本号：`1.0.1`
+
++ 标签：`GPU` `Segmentation fault`
 
 + 问题描述：版本为paddlepaddle_gpu-0.14.0.post87-cp27-cp27mu-manylinux1_x86_64.whl
 测试程序如下
@@ -344,7 +360,9 @@ def testpaddle014():
 
 ## `已审阅` 9.问题：AI studio中， fluid GPU训练报错，CPU下可以运行, 报错显示resize_bilinear处错误 
  
-+ 关键字：`AI studio` `GPU` `resize_bilinear`
++ 版本号：`1.0.1`
+
++ 标签：`AI studio` `GPU` `resize_bilinear`
 
 + 问题描述：最近用baidu ai studio 平台训练模型，在cpu模式下可以正常运行，但是换到gpu下就直接报如下错误：
 
@@ -399,7 +417,9 @@ Segmentation fault (core dumped)
 
 ## `已审阅` 10.问题：安装完了PaddlePaddle后，发现python相关的单元测试都过不了
 
-+ 关键字：`单元测试`
++ 版本号：`1.0.1`
+
++ 标签：`单元测试`
 
 + 问题描述：
 
@@ -438,7 +458,9 @@ Segmentation fault (core dumped)
 
 ## `已审阅` 11.问题：生成Docker镜像时，无法下载需要的golang，导致`tar: Error is not recoverable: exiting now`
 
-+ 关键字：`golang` `Docker镜像`
++ 版本号：`1.0.1`
+
++ 标签：`golang` `Docker镜像`
 
 + 问题描述：
 根据官方文档中提供的步骤安装Docker，出现上述问题
@@ -485,7 +507,9 @@ python python/paddle/fluid/tests/book/test_fit_a_line.py
 
 ## `已审阅`  12.问题：GPU版本的PaddlePaddle运行结果报错
 
-+ 关键字：`GPU` `运行报错`
++ 版本号：`1.0.1`
+
++ 标签：`GPU` `运行报错`
 
 + 问题描述：
 在Docker镜像上，成功安装PaddlePaddle，但一运行就报错
@@ -519,7 +543,9 @@ python python/paddle/fluid/tests/book/test_fit_a_line.py
 
 ## `已审阅` 13.问题：CMake源码编译，Paddle版本号为0.0.0
 
-+ 关键字：`CMake` `版本号0.0.0`
++ 版本号：`1.0.1`
+
++ 标签：`CMake` `版本号0.0.0`
 
 + 问题描述：在Liunx环境上，通过编译源码的方式安装PaddlePaddle，当安装成功后，运行 `paddle version`, 出现 `PaddlePaddle 0.0.0`
 
@@ -537,7 +563,9 @@ Cannot add paddle version from git tag
 
 ## `已审阅` 14.问题：paddlepaddle\*.whl is not a supported wheel on this platform
 
-+ 关键字：`wheel` `platform`
++ 版本号：`1.0.1`
+
++ 标签：`wheel` `platform`
 
 + 问题描述：安装PaddlePaddle过程中，出现`paddlepaddle\*.whl is not a supported wheel on this platform`
 
