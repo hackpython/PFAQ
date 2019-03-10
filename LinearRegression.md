@@ -14,7 +14,7 @@ PaddlePaddle文档中的内容目前依旧是PaddlePaddle-v2版本，建议使�
 
 ## `已审阅` 1.问题：module对象没有model属性
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`module` `model属性`
 
@@ -62,7 +62,7 @@ PaddlePaddle通过uci_housing模块引入了数据集合UCI Housing Data Set，�
 
 ## `已审阅`  2.问题：“非法指令”或“illegal instruction”
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`非法指令` `illegal instruction` `avx指令集`
 
@@ -99,7 +99,7 @@ PaddlePaddle使用avx SIMD指令提高cpu执行效率，因此错误的使用二
 
 ## `已审阅` 3.问题：下载housing.data失败
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`数据` `housing`
 
@@ -295,7 +295,7 @@ PyThreadState_GET是python内核中的一个方法，其部分相关内核代码
 
 ## `已审阅` 7.问题：报错张量类型不正确
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`张量类型`
 
@@ -351,7 +351,7 @@ paddle.fluid.layers.cross_entropy(input, label, soft_label=False, ignore_index=-
 
 ## `已审阅` 8.问题：训练时，输出的损失值为nan
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`损失值` `nan`
 

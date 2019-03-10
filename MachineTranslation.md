@@ -8,7 +8,7 @@
 
 ## `已审核`1.问题：'map' object is not subscriptable
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`not subscriptable`
 
@@ -79,7 +79,7 @@ map()方法是python内置方法，python2与python3中map()方法是有不同�
 
 ## `已审核`2.问题：按照文档编写，出现name 'result_ids_lod' is not defined
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`not defined`
 
@@ -149,7 +149,7 @@ for data in test_data():
 
 ## `已审核`3.问题：The number of fields in data (3) does not match len(feed_list)
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`not match len`
 
@@ -251,7 +251,7 @@ def decode(context, is_sparse):
 
 ## `已审核`4.问题：Tensor holds the wrong type
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`张量类型`
 
@@ -427,7 +427,7 @@ def encoder(is_sparse):
 
 ## `已审核`5.为什么trainer.train中没有feeding参数也可以保持数据输入与模型中input的关系
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`机器翻译` `feeding参数`
 
@@ -444,7 +444,7 @@ Paddle会对网络配置进行解析，解析出来的 数据层 的顺序和定
 
 ## `已审核`6.demo machine translate "beam_search() got multiple values for keyword argument 'end_id'"
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`机器翻译` `beam_search`
 
@@ -480,7 +480,7 @@ TypeError: beam_search() got multiple values for keyword argument 'end_id'
 
 ## `待审核`6.问题：使用Fluid编写机器翻译模型，报错
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`机器翻译`
 
@@ -536,7 +536,7 @@ reversed, _ = fluid.layers.dynamic_lstm(
 
 ## `待审核`7.问题：使用Fluid运行官方models中的rnn_search的模型，报错
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`rnn_search
 `
@@ -589,7 +589,7 @@ place  = core.CPUPlace()
 
 ## `待审核`8.问题：通过Fluid实现机器翻译模型报错
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`机器翻译`
 
@@ -625,7 +625,7 @@ feeder = fluid.DataFeeder(feed_list, place)
 
 ##  `待审核`9.问题：Enforce failed. Expected w_dims[0] == frame_size
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`Enforce failed`
 
@@ -732,7 +732,7 @@ return forward, reversed
 
 ##  `待审核`10.问题：op uniform_random does not have kernel for data_type
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`not have kernel`
 

@@ -8,7 +8,7 @@ https://github.com/PaddlePaddle/book/tree/develop/06.understand_sentiment
 
 ## `已审核`1.问题：使用训练好的情感分析模型预测句子结果都是一样的
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`数据字典`，`字符编码`
  
@@ -67,7 +67,7 @@ results = inferencer.infer({'words': tensor_words})
 
 ## `已审核`2.问题：使用句子做感情分析预测时出现结果不正确
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`数据字典`
  
@@ -137,7 +137,7 @@ Predict probability of  0.35688713  to be positive and  0.64311296  to be negati
 
 ## `已审核`3.问题：在使用情感分析模型预测句子是出现数量类型错误
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`数据字典`，`自定义`
  
@@ -225,7 +225,7 @@ results = inferencer.infer({'words': tensor_words})
 
 ## `已审核`4.问题：在使用感情分析模型预测句子时出现转换成张量数据出错
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`数据类型`，`预测`
  
@@ -310,7 +310,7 @@ results = inferencer.infer({'words': tensor_words})
 
 ## `已审核`5.问题：在使用训练好的模型预测句子时出现数据类型的错误
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`数据类型`，`张量`
  
@@ -403,7 +403,7 @@ results = inferencer.infer({'words': tensor_words})
 
 ## `已审核`6.问题：使用长短期记忆模型的时候出现维度错误
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`数据维度`，`词向量`
  
@@ -476,7 +476,7 @@ lstm1, cell1 = fluid.layers.dynamic_lstm(input=fc1, size=hid_dim)
 
 ## `已审核`7.问题：在使用长短期记忆网络训练时出现出现输入形状错误
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`序列池化`，`长短期记忆网络`
  
@@ -549,7 +549,7 @@ prediction = fluid.layers.fc(input=[fc_last, lstm_last], size=class_dim, act='so
 
 ## `已审核`8.问题：使用PaddlePaddle搭建一个循环神经网络出现输入的宽度和高度不一致
 
- + 版本号：`1.0.1`
+ + 版本号：`1.1.0`
 
 + 标签：`记忆单元`，`循环神经网络`
  
@@ -633,7 +633,7 @@ out = fluid.layers.fc(input=last, size=2, act='softmax')
 
 ## `已审核`9.问题：情感分析的dome，怎么用自定义的训练集和测试集？
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`自定义训练集` `自定义测试集`
 

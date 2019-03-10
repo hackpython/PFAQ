@@ -3,7 +3,7 @@
 
 ## `待审核`1.问题：Fluid版的Paddle进行多机训练时，每个机器上的参数是否相同？
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`多机训练`
 
@@ -20,7 +20,7 @@ Pserver模式在同步模式下，每个trainer的参数是完全一致的，异
 
 ## `已审核`2.问题：分布时训练时，PaddlePaddle是否支持多机开启内存优化？
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`多机训练` `内存优化`
 
@@ -51,7 +51,7 @@ elif role == "TRAINER":
 
 ## `待审核`3.问题：Fluid如何实现分布式网络架构？
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`分布式网络`
 
@@ -100,7 +100,7 @@ http://joerihermans.com/ramblings/distributed-deep-learning-part-1-an-introducti
 
 ## `待审核`4.问题：Fluid版Paddle多机训练时，batch_size大小实际是多少？
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`多机训练` `batch_size`
 
@@ -115,7 +115,7 @@ http://joerihermans.com/ramblings/distributed-deep-learning-part-1-an-introducti
 
 ## `待审核`5.问题：如何将参数分别传递给不同的机器设备进行训练？
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`多机训练` `参数训练`
 
@@ -163,7 +163,7 @@ parallel_executor.run(
 
 ## `待审核`6.问题：fluid启动pserver时卡住了，无法进行执行后面的逻辑。
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`pserver`
 

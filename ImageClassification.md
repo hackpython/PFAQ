@@ -12,9 +12,9 @@ https://github.com/PaddlePaddle/book/tree/develop/03.image_classification
 
 ## `已审阅` 1.问题：在使用VGG网络的时候提示vgg包不存在
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`VGG`
 
@@ -53,7 +53,7 @@ from vgg import vgg_bn_drop
 
 ## `已审阅` 2.问题：使用彩色图训练的是出现尺寸不一致的错误
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`训练数据` `尺寸不同`
 
@@ -127,7 +127,7 @@ def inference_network():
 
 ## `已审阅` 3.问题：使用CIFAR-10彩色图片训练出现输出数据维度错误
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`CIFAR` `数据维度`
 
@@ -206,7 +206,7 @@ def inference_network():
 
 ## `已审阅` 4.问题：图像预测部分预测的没有输出类别的名称
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`图像预测`
 
@@ -244,7 +244,7 @@ print("infer results: ", label_list[np.argmax(results[0])])
 
 ## `已审阅` 5.问题：在使用预测模型预测图片的时候出现in_dims[1]:32 != filter_dims[1] * groups:3错误
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`预测模型` `图像预测`
 
@@ -312,7 +312,7 @@ def load_image(file):
 
 ## `已审阅` 6.问题：使用预测模型预测图片时出现输出数据维度错误
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`预测模型` `预测图片` `数据维度` 
 
@@ -370,7 +370,7 @@ def load_image(file):
 
 ## `已审阅` 7.问题：Fluid版的PaddlePaddle加载图像数据报错
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`加载图像数据` `Fluid版`
 
@@ -502,7 +502,7 @@ lena = mpimg.imread('lena.png')
 
 ## `已审阅` 8.问题：'NoneType' object has no attribute 'imread'
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签： `NoneType` `no attribute`
 
@@ -564,7 +564,7 @@ OpenCV经过多年的发展在图像处理方面已经非常成熟，PaddlePaddl
 
 ## `已审阅` 9.问题：Fluid版本的PaddlePaddle如何在训练前加载此前训练好的模型？
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`Fluid版本` `预训练`
 
@@ -641,7 +641,7 @@ https://github.com/PaddlePaddle/Paddle/issues/10248
 
 ## `已审阅` 10.问题：ValueError: var img not in this block
 
-+ 版本号：`1.0.1`
++ 版本号：`1.1.0`
 
 + 标签：`ValueError` `var`
 
