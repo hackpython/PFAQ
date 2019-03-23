@@ -14,7 +14,7 @@ PaddlePaddle文档中的内容目前依旧是PaddlePaddle-v2版本，建议使�
 
 ## `已审阅` 1.问题：module对象没有model属性
 
-+ 版本号：`1.1.0`
++ 版本号：`v2`
 
 + 标签：`module` `model属性`
 
@@ -32,7 +32,7 @@ paddle.infer(
 
 + 报错截图：
 
-    ![](https://raw.githubusercontent.com/jizhi/images/master/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%921.png)
+    ![](https://raw.githubusercontent.com/ayuliao/images/master/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%921.png)
 
 + 报错输出：
 
@@ -62,7 +62,7 @@ PaddlePaddle通过uci_housing模块引入了数据集合UCI Housing Data Set，�
 
 ## `已审阅`  2.问题：“非法指令”或“illegal instruction”
 
-+ 版本号：`1.1.0`
++ 版本号：`v2`
 
 + 标签：`非法指令` `illegal instruction` `avx指令集`
 
@@ -99,7 +99,7 @@ PaddlePaddle使用avx SIMD指令提高cpu执行效率，因此错误的使用二
 
 ## `已审阅` 3.问题：下载housing.data失败
 
-+ 版本号：`1.1.0`
++ 版本号：`0.15.0`
 
 + 标签：`数据` `housing`
 
@@ -117,33 +117,16 @@ RuntimeError: Cannot download https://archive.ics.uci.edu/ml/machine-learning-da
 使用PaddlePaddle构建波士顿房价预测模型时是需要相应的训练数据的，将这些数据喂养给你构建的神经网络，通过多轮训练才能获得一个合理的房价预测模型，这一切的前提都是要有数据，PaddlePaddle为了方便波士顿房价预测模型的构建，将波士顿房价数据的获取封装在框架内了，不需要用户自己下载，但封装的越好，越方便，对用户而言就越不透明，因为波士顿房价数据在国外服务器上，所以有时下载会出现相应的问题，导致在使用时，数据格式与使用的代码不匹配出现错误，或者没有下载完全导致代码无法解压缩等。对于类似这样的问题，你都可以自己手动从去下载，或者将此前下载失败的数据删除，再次运行一遍代码，让PaddlePaddle重新下载，注意要删错误数据，因为PaddlePaddle下载前会检查相应的文件夹中是否存在该数据。
 
 + 问题拓展：
-波士顿房价数据美国人口普查局收集的美国马萨诸塞州波士顿住房价格的有关信息, 数据集很小，只有506个案例，有14个属性，如下：
-    CRIM--城镇人均犯罪率
-    ZN - 占地面积超过25,000平方英尺的住宅用地比例。
-    INDUS - 每个城镇非零售业务的比例。
-    CHAS - Charles River虚拟变量（如果是河道，则为1;否则为0）
-    NOX - 一氧化氮浓度（每千万份）
-    RM - 每间住宅的平均房间数
-    AGE - 1940年以前建造的自住单位比例
-    DIS加权距离波士顿的五个就业中心
-    RAD - 径向高速公路的可达性指数
-    TAX - 每10,000美元的全额物业税率
-    PTRATIO - 城镇的学生与教师比例
-    B - 1000（Bk - 0.63）^ 2其中Bk是城镇黑人的比例
-    LSTAT - 人口状况下降％
-    MEDV - 自有住房的中位数报价, 单位1000美元
+PaddlePaddle为了方便用户使用，将一些常用的小型数据集的下载逻辑都封装在了PaddlePaddle中，对用户透明，如果遇到类似的问题，即模型要使用的数据集报错，如果确认自己的使用逻辑没有问题，就尝试重新下载该数据。
 
-    熟悉了数据集的属性结构后，你就可以利用这份数据做其他的事情，不一定只按照PaddlePaddle提供的代码来使用这份数据。
 
-    PaddlePaddle为了方便用户使用，将一些常用的小型数据集的下载逻辑都封装在了PaddlePaddle中，对用户透明，如果遇到类似的问题，即模型要使用的数据集报错，如果确认自己的使用逻辑没有问题，就尝试重新下载该数据。
-
-+ 问题研究：
-数据是任何模型的根基，所谓深度学习，其实就是通过非常多的参数构建一个函数，用该函数来描述训练数据的分布，所以在测试模型时，通常要求使用同分布的数据来进行测试，波士顿房间预测模型也这样，每当遇到数据问题时，从两个方面考虑，一方面考虑代码使用错误，即使用的数据属性是数据集中不存在的，这种情况你就需要修改你使用的方式，另一方面考虑是否数据集下载时遇到了问题，比如网络不稳定，或磁盘满了等情况，这种情况就需要清理一下环境重新下载一下数据。
 
 
 ## `已审阅` 4.问题：No modul named Ipython
 
-+ 关键词：`modul` `Ipython`
++ 版本号：`v2`
+
++ 标签:`modul` `Ipython`
 
 + 问题描述:
 PaddlePaddle安装成功，运行了PaddlePaddle官网首页的程序是正常的，但运行其他程序报错，错误为`No modul named Ipython`
@@ -168,7 +151,9 @@ PaddlePaddle安装成功，运行了PaddlePaddle官网首页的程序是正常�
 
 ## `已审阅` 5.问题：The kernel appears to have died. It will restart automatically
 
-+ 关键词：`jupyter notebook` `paddle.init` `kernel崩溃`
++ 版本号：`v2`
+
++ 标签:`jupyter notebook` `paddle.init` `kernel崩溃`
 
 + 问题描述：在window 10上新建了一个python2.7的paddlepadddle环境。
 按照教程入门教程，在jupyter notebook上面执行第二步paddle.init时，`jupyter提示kernel崩溃`
@@ -216,7 +201,10 @@ Jupyter Notebook内核崩溃很多时候是资源崩溃，几个常见原因，�
 
 ## `已审阅` 6.问题：Fatal Python error: PyThreadState_Get: no current thread
 
-+ 关键词：`brew` `anaconda` `no current thread`
++ 版本号：`1.0.0`
+
++ 标签:`brew` `anaconda` `no current thread`
+
 
 + 问题描述：
 成功安装PaddlePaddle后，运行波士顿房价预测的代码，报错`Fatal Python error: PyThreadState_Get: no current `
@@ -408,6 +396,11 @@ def train_program():
 ![](https://pic1.zhimg.com/80/v2-87b232ab0e292a536e94b73952caadd0_hd.jpg)
 
 # `已审阅` 9.问题：`EnforceNotMet: Enforce failed`
+
++ 版本号：`1.1.0`
+
++ 标签： `Enforce failed`
+
 + 报错信息
 
 ```

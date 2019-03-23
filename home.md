@@ -29,7 +29,7 @@ PaddleFAQ随着后期问题不断的挖掘，内容会越来越丰富。结构�
 
 这些结构以大多与PaddlePaddle官方文档中的结构一致，使其保持与官方文档之间的一种联系，从而让阅读过PaddlePaddle的用户也可以快速查阅PaddleFAQ，减少需要的熟悉时间。
 
-![](https://raw.githubusercontent.com/jizhi/images/master/FaddleFAQ2.png)
+![](https://raw.githubusercontent.com/ayuliao/images/master/FaddleFAQ2.png)
 
 ## 核心环节
 

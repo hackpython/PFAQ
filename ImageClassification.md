@@ -14,8 +14,6 @@ https://github.com/PaddlePaddle/book/tree/develop/03.image_classification
 
 + 版本号：`1.1.0`
 
-+ 版本号：`1.1.0`
-
 + 标签：`VGG`
 
  + 问题描述：
@@ -463,37 +461,6 @@ Segmentation fault (core dumped)
 + 问题分析：
 图像数据读入后其实就是一个三维矩阵，不同的读入方式会造成该矩阵的不同维度表示不同含义，此时如果没有理解矩阵中不同维度所代表的含义而直接将这些数据交由PaddlePaddle进行训练建模，就难以获得好的模型或者直接因使用错误而导致报错，这里的报错时因为使用了PIL的Image模块来读入图像，却没有注意PIL读入图像后不同维度所代表的含义，所以导致报错，使用numpy的transpose()方法对矩阵进行转置变换后，获得预期的矩阵则可。
 
-+ 问题拓展：
-在深度学习建立图像模型的过程中，通常都不可避免的要处理图像数据，为了避免类似问题，这里简单讨论一下常见的读入图像数据的方法以.
-
-PIL读入图像数据，代码如下：
-
-```python
-from PIL import Image
-img  = Image.open(imgpath) #读入
-img.show() #展示
-```
-
-读入后，图像矩阵对应维度的意义为H(高度)、W(宽度)、C(通道)，且PIL.Image 数据是 uinit8 型的，范围是0-255
-
-OpenCV读入图像数据，代码如下：
-
-```python
-import cv2
-img = cv2.imread(imgpath)
-```
-
-通过OpenCV读入RGB图像后，其颜色通道顺序是B,G,R。
-
-采用 matplotlib.image 读入图片数据，代码如下：
-
-```python
-import matplotlib.image as mpimg
-lena = mpimg.imread('lena.png')
-```
-
-通过matplotlib的`mpimg`方法读入图像数据，其中的数据是 float32 型的，范围是0-1。
-
 
 + 问题研究：
 对自己要训练的数据进行相应的预处理操作是建立深度学习模型常见的步骤，如果对自己要处理的数据结构不是特别熟悉，可以先尝试将数据预处理的代码单独写出来，然后用少量数据来验证这部分代码，除此之外，还可以使用numpy、cPickle等工具，单独的写数据处理的代码，将处理后的数据通过numpy、cPickle等工具持久化，即保存为二进制的文件，在使用PaddlePaddle训练模型时，直接以相应的方式读入这些二进制文件，此时读入的数据就是要处理数据相应的矩阵了，不必再关心数据预处理的方面的逻辑，而且也方便他人再次使用该数据进行模型的复现。
@@ -549,11 +516,6 @@ sudo pip install -U opencv-python #安装opencv的python库
 PaddlePaddle的load_image方法用于加载图像，读入图像数据时使用了opencv，即该方法依赖opencv，而报错`'NoneType' object has no attribute 'imread'`则表明opencv缺少imread方法，尝试安装最新的opencv即可解决该问题。
 
 + 问题拓展：
-OpenCV的全称是Open Source Computer Vision Library，是一个跨平台的计算机视觉库。OpenCV是由英特尔公司发起并参与开发，以BSD许可证授权发行，可以在商业和研究领域中免费使用。OpenCV可用于开发实时的图像处理、计算机视觉以及模式识别程序。该程序库也可以使用英特尔公司的IPP进行加速处理。
-
-OpenCV主要分为2版与3版，3版的OpenCV相对2版有较大的修改，且不向后兼容，所以在使用时要注意区分。
-
-OpenCV经过多年的发展在图像处理方面已经非常成熟，PaddlePaddle部分图像处理相关的方法抽象于OpenCV，在保证易用的同时保证了稳定。
 
 目前PaddlePaddle的docker镜像中并没有安装OpenCV，在使用PaddlePaddle的Docker镜像进行图像方面的处理时需要先安装OpenCV。
 

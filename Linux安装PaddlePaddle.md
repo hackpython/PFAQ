@@ -2,7 +2,7 @@
 
 ## `已审阅` 1.问题：cuda9.0需要安装哪一个版本的paddle，安装包在哪
 
-+ 版本号：`1.1.0`
++ 版本号：`0.14.0`
 
 + 标签：`cuda 9.0`
 
@@ -18,7 +18,7 @@ http://paddlepaddle.org/documentation/docs/zh/0.14.0/new_docs/beginners_guide/in
 
 ## `已审阅` 2.问题：pip install paddlepaddle-gpu==0.14.0.post87 安装 fluid 版本报错
 
-+ 版本号：`1.1.0`
++ 版本号：`0.14.0`
 
 + 标签：`GPU`
 
@@ -232,9 +232,10 @@ PaddlePaddle Call Stacks:
 然后尝试如下命令看看是否报错
 
 ```
->>> import paddle.v2
->>> paddle.v2.init(use_gpu=True)
+>>> import paddle.fluid
 ```
+
+
 
 如果报错，则可能是GPU 和CUDA环境没有正确配置
 
@@ -244,7 +245,7 @@ PaddlePaddle Call Stacks:
 
 ## `已审阅` 7.问题：在Fluid版本训练的时报以下错误，是不是显卡的问题？
 
-+ 版本号：`1.1.0`
++ 版本号：`0.14.0`
 
 + 标签：`GPU` `Fluid版本`
 
@@ -325,7 +326,7 @@ Tue Jul 24 08:24:22 2018
 
 ## `已审阅` 8.问题：使用新版的pip安装了GPU版的PaddlePaddle0.14.0，跑一个简单的测试程序，出现Segmentation fault
 
-+ 版本号：`1.1.0`
++ 版本号：`0.14.0`
 
 + 标签：`GPU` `Segmentation fault`
 
@@ -360,7 +361,7 @@ def testpaddle014():
 
 ## `已审阅` 9.问题：AI studio中， fluid GPU训练报错，CPU下可以运行, 报错显示resize_bilinear处错误 
  
-+ 版本号：`1.1.0`
++ 版本号：`0.14.0`
 
 + 标签：`AI studio` `GPU` `resize_bilinear`
 
@@ -458,7 +459,7 @@ Segmentation fault (core dumped)
 
 ## `已审阅` 11.问题：生成Docker镜像时，无法下载需要的golang，导致`tar: Error is not recoverable: exiting now`
 
-+ 版本号：`1.1.0`
++ 版本号：`0.14.0`
 
 + 标签：`golang` `Docker镜像`
 

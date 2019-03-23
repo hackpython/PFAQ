@@ -60,7 +60,7 @@ NCCL是Nvidia Collective multi-GPU Communication Library的简称，它是一个
 
 ## `已审核`3.问题：Fluid1.2支持使用cuDNN6吗？
 
-+ 版本号：`1.1.0`
++ 版本号：`1.2.0`
 
 + 标签：`cuDNN6`
 

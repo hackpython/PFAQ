@@ -1,6 +1,6 @@
 # Fuild版本问题
 
-## `待审核`1.问题：Fluid模型run startup报错 
+## `已审核`1.问题：Fluid模型run startup报错 
 
 + 版本号：`1.1.0`
 

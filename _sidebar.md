@@ -1,6 +1,6 @@
 * 安装部署
 
-  * [✘Paddle安装](Paddle安装.md)
+  * [✘Windows安装Paddle](windows安装Paddle.md)
   * [✔️Mac安装Paddle](Mac安装Paddle.md)
   * [✔️Linux安装Paddle](Linux安装PaddlePaddle.md)
 
