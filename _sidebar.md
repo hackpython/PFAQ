@@ -5,8 +5,7 @@
   * [✔️Linux安装Paddle](Linux安装PaddlePaddle.md)
 
 
-* 入门案例
-
+* 深度学习
   * [✔️线性回归](LinearRegression.md)
   * [✔️识别数字](DigitRecognition.md)
   * [✔️图像分类](ImageClassification.md)
@@ -16,8 +15,9 @@
   * [✔️语义角色标注](SemanticRoleLabelling.md)
   * [✔️机器翻译](MachineTranslation.md)
   * [✘生成对抗网络](生成对抗网络.md)
+  * [✘语言模型](语言模型.md)
+  * [✘图像模型](图像模型.md)
 
-* 模型库
 
 * 最佳实践
   * [✔️数据处理](数据处理.md)
@@ -28,22 +28,13 @@
   * [✘调整参数](调整参数.md)
   * [✘Paddle多机模式](Paddle多机模式.md)
   * [✔️Paddle GPU模式](Paddle_GPU模式.md)
+  * [✔️Paddle多卡模式](Paddle多卡模式.md)
   * [✘Fluid版本问题](Fluid版本问题.md)
   * [✔️v2迁移到Fluid](v2迁移到Fluid.md)
 
-* 深度学习
-  * [✘语言模型](语言模型.md)
-
-
 
 * 深度学习API
-  * [☐神经网络](zh-cn/quickstart.md)
-  * [☐优化器](zh-cn/more-pages.md)
-  * [☐目标检测](zh-cn/custom-navbar.md)
-  * [☐数值计算](zh-cn/cover.md)
-
-* 附录
-  * [☐常见错误提示](zh-cn/quickstart.md)
-  * [☐关键词](zh-cn/more-pages.md)
-  * [☐在线资源](zh-cn/cover.md)
+  * [✘数据API](数据API.md)
+  * [✘训练API](训练API.md)
+  * [✘预测API](预测API.md)
   

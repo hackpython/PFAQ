@@ -74,6 +74,32 @@ paddle目前发布的版本对cuda、cudnn的支持情况如下：cuda8.0+cudnn5
 要实现Fluid1.2对cuDNN6的支持，需要从源码编译安装Paddle，具体的步骤请参考官方文档：
 http://paddlepaddle.org/documentation/docs/zh/1.2/beginners_guide/install/compile/compile_Ubuntu.html
 
+## 4.GPU多卡情况下加载模型评估结果有误
+
++ 版本号：`1.2.0`
+
++ 标签：`GPU`
+
++ 问题描述：我在GPU多卡下的模型预测结果有问题。训练的时候训2个batch我就把模型保存下来，但是重新加载这个模型来评估的时候模型的预测结果跟我当时保存它的时候不一致。
+因为我保存模型参数的时候和我重新加载模型参数进行评估的时候，我都用同一份测试数据进行预测，按道理模型参数一致，测试数据一致，预测结果也应该一致。
+
++ 问题详情：
+
+![](https://raw.githubusercontent.com/ayuLiao/images/master/paddlegpu1.png)
+
+这是我测一个batch的数据，预测结果有两维，左边的是加载模型之后的预测结果，右边的是保存模型时的预测结果，如图所示前17个分数是一致的，从第18个结果开始就不一致了。
+用的是Python预测的，用fluid.io.load_params加载模型，用fluid.io.save_params保存模型。
+
++ 问题分析：
+使用的Paddle接口可能存在问题，对于预测任务，建议使用Paddle中的预测接口
+
++ 解决方法：
+
+python预测接口是load_inference_model和save_inference_model. 需要把program desc即model保存下来，建议使用预测接口报错，具体参考：
+http://paddlepaddle.org/documentation/docs/zh/1.3/api_guides/low_level/inference.html
+
+
+
 
 
 
