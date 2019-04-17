@@ -1,4 +1,4 @@
-# 数据API
+# 训练API
 
 ## `未审核`训练时sum op上报错Expected in_dim == x_dim, but received in_dim:10, 512 != x_dim:548, 512 
 

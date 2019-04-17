@@ -29,7 +29,7 @@
   * [✘Paddle多机模式](Paddle多机模式.md)
   * [✔️Paddle GPU模式](Paddle_GPU模式.md)
   * [✔️Paddle多卡模式](Paddle多卡模式.md)
-  * [✘Fluid版本问题](Fluid版本问题.md)
+  * [✔️Fluid版本问题](Fluid版本问题.md)
   * [✔️v2迁移到Fluid](v2迁移到Fluid.md)
 
 
@@ -37,4 +37,4 @@
   * [✘数据API](数据API.md)
   * [✘训练API](训练API.md)
   * [✘预测API](预测API.md)
-  
+  * [统计](all.md)

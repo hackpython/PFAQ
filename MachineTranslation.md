@@ -478,7 +478,7 @@ TypeError: beam_search() got multiple values for keyword argument 'end_id'
     https://github.com/PaddlePaddle/book/tree/develop/08.machine_translation
 
 
-## `待审核`6.问题：使用Fluid编写机器翻译模型，报错
+## `待审核`7.问题：使用Fluid编写机器翻译模型，报错
 
 + 版本号：`1.1.0`
 
@@ -534,7 +534,7 @@ reversed, _ = fluid.layers.dynamic_lstm(
 ```
 
 
-## `待审核`7.问题：使用Fluid运行官方models中的rnn_search的模型，报错
+## `待审核`8.问题：使用Fluid运行官方models中的rnn_search的模型，报错
 
 + 版本号：`1.1.0`
 
@@ -587,7 +587,7 @@ place  = core.CPUPlace()
 ```
 
 
-## `待审核`8.问题：通过Fluid实现机器翻译模型报错
+## `待审核`9.问题：通过Fluid实现机器翻译模型报错
 
 + 版本号：`1.1.0`
 
@@ -623,7 +623,7 @@ feeder = fluid.DataFeeder(feed_list, place)
 ```
 
 
-##  `待审核`9.问题：Enforce failed. Expected w_dims[0] == frame_size
+##  `待审核`10.问题：Enforce failed. Expected w_dims[0] == frame_size
 
 + 版本号：`1.1.0`
 
@@ -730,7 +730,7 @@ return forward, reversed
 ```
 
 
-##  `待审核`10.问题：op uniform_random does not have kernel for data_type
+##  `待审核`11.问题：op uniform_random does not have kernel for data_type
 
 + 版本号：`1.1.0`
 

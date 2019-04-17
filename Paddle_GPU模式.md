@@ -74,7 +74,7 @@ paddle目前发布的版本对cuda、cudnn的支持情况如下：cuda8.0+cudnn5
 要实现Fluid1.2对cuDNN6的支持，需要从源码编译安装Paddle，具体的步骤请参考官方文档：
 http://paddlepaddle.org/documentation/docs/zh/1.2/beginners_guide/install/compile/compile_Ubuntu.html
 
-## 4.GPU多卡情况下加载模型评估结果有误
+## `已审核`4.GPU多卡情况下加载模型评估结果有误
 
 + 版本号：`1.2.0`
 
